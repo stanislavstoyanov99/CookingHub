@@ -1,10 +1,10 @@
-# ASP.NET Core Cooking Point
+# ASP.NET Core Cooking Hub
 
-[![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CookingPointcolor=brightgreen)](https://github.com/stanislavstoyanov99/CookingPoint/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CookingHubcolor=brightgreen)](https://github.com/stanislavstoyanov99/CookingHub/blob/master/LICENSE)
 
 ## :point_right: Project Introduction :point_left:
 
-**Cooking Point** is a team project for Software Technologies course of Technical University of Sofia as individual assignment. It is a ready-to-use ASP.NET Core application.
+**Cooking Hub** is a team project for Software Technologies course of Technical University of Sofia as individual assignment. It is a ready-to-use ASP.NET Core application.
 
 ## :pencil: Project Description EN
 In progress
