@@ -1,6 +1,6 @@
 # ASP.NET Core Cooking Hub
 
-[![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CookingHubcolor=brightgreen)](https://github.com/stanislavstoyanov99/CookingHub/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CookingHub?color=brightgreen)](https://github.com/stanislavstoyanov99/CookingHub/blob/master/LICENSE)
 
 ## :point_right: Project Introduction :point_left:
 
