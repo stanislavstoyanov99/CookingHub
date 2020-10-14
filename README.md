@@ -25,7 +25,7 @@ In progress
 
 - [Stanislav Stoyanov](https://github.com/stanislavstoyanov99)
 - [Dimitar Pashov](https://github.com/dimitarpashov99)
-- [Atanas Paraskov]()
+- [Atanas Paraskov](https://github.com/AParaskov)
 
 ## Template authors
 
