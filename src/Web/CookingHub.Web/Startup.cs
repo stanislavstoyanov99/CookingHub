@@ -3,7 +3,6 @@
     using System.Reflection;
 
     using CookingHub.Data;
-    using CookingHub.Data.Common;
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
     using CookingHub.Data.Repositories;
@@ -58,7 +57,6 @@
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

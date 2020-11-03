@@ -33,7 +33,5 @@
     <ProjectReference Include="..\..\Services\CookingHub.Services.Data\CookingHub.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CookingHub.Services.Mapping\CookingHub.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CookingHub.Services.Messaging\CookingHub.Services.Messaging.csproj" />
-    <ProjectReference Include="..\CookingHub.Web.Infrastructure\CookingHub.Web.Infrastructure.csproj" />
-    <ProjectReference Include="..\CookingHub.Web.ViewModels\CookingHub.Web.ViewModels.csproj" />
   </ItemGroup>
 </Project>

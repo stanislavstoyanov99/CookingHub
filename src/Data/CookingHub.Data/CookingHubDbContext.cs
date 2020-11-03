@@ -78,7 +78,7 @@
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
         }
 
-        // Applies configurations
+        // Applies Configurations using Reflection
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
              => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 

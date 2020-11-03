@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace CookingHub.Data.Models
+﻿namespace CookingHub.Data.Models
 {
     using System;
     using System.Collections.Generic;
