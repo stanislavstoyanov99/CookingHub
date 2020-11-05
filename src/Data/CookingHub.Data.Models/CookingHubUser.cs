@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
+    using CookingHub.Data.Common;
     using CookingHub.Data.Common.Models;
+    using CookingHub.Data.Models.Enumerations;
 
     using Microsoft.AspNetCore.Identity;
 
@@ -16,6 +19,13 @@
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Required]
+        [MaxLength(DataValidation.FullNameMaxLength)]
+        public string FullName { get; set; }
+
+        [Required]
+        public Gender Gender { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
