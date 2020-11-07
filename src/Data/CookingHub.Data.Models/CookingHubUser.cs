@@ -20,6 +20,7 @@
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.Articles = new HashSet<Article>();
+            this.ArticleComments = new HashSet<ArticleComment>();
         }
 
         [Required]
@@ -46,5 +47,7 @@
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Article> Articles { get; set; }
+
+        public virtual ICollection<ArticleComment> ArticleComments { get; set; }
     }
 }

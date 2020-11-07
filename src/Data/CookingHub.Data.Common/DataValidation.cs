@@ -33,5 +33,10 @@
             public const int TitleMaxLength = 50;
             public const int DescriptionMaxLength = 10000;
         }
+
+        public static class ArticleCommentValidation
+        {
+            public const int ContentMaxLength = 300;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CookingHub.Data.Common.Models;
@@ -8,6 +9,11 @@
 
     public class Article : BaseDeletableModel<int>
     {
+        public Article()
+        {
+            this.ArticleComments = new HashSet<ArticleComment>();
+        }
+
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
@@ -23,5 +29,7 @@
         public string UserId { get; set; }
 
         public virtual CookingHubUser User { get; set; }
+
+        public virtual ICollection<ArticleComment> ArticleComments { get; set; }
     }
 }
