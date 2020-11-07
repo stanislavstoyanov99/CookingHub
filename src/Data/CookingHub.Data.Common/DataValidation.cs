@@ -27,5 +27,11 @@
             public const int NameMaxLength = 30;
             public const int DescriptionMaxLength = 500;
         }
+
+        public static class ArticleValidation
+        {
+            public const int TitleMaxLength = 50;
+            public const int DescriptionMaxLength = 10000;
+        }
     }
 }

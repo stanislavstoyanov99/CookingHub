@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CookingHub.Data.Common.Models;
@@ -8,6 +9,11 @@
 
     public class Category : BaseDeletableModel<int>
     {
+        public Category()
+        {
+            this.Articles = new HashSet<Article>();
+        }
+
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
@@ -15,5 +21,7 @@
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
+
+        public virtual ICollection<Article> Articles { get; set; }
     }
 }
