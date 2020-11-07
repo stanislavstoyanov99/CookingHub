@@ -31,11 +31,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{7FC750
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingHub.Models.Common", "Models\CookingHub.Models.Common\CookingHub.Models.Common.csproj", "{1932C647-08B4-4DB3-84CC-0433D71278C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingHub.Models.InputModels", "Models\CinemaWorld.Models.InputModels\CookingHub.Models.InputModels.csproj", "{801B627A-7109-407B-953E-96BCCB9A9879}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingHub.Models.ViewModels", "Models\CookingHub.Models.ViewModels\CookingHub.Models.ViewModels.csproj", "{8647DA8B-4273-499A-8F83-8E5D5F9BE8CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingHub.Common", "CookingHub.Common\CookingHub.Common.csproj", "{845F12E8-D494-42A8-900B-AB6C9289C885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingHub.Models.InputModels", "Models\CookingHub.Models.InputModels\CookingHub.Models.InputModels.csproj", "{6D75DCCE-84D9-49ED-9306-F07E73C84B08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,10 +79,6 @@ Global
 		{1932C647-08B4-4DB3-84CC-0433D71278C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1932C647-08B4-4DB3-84CC-0433D71278C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1932C647-08B4-4DB3-84CC-0433D71278C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{801B627A-7109-407B-953E-96BCCB9A9879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{801B627A-7109-407B-953E-96BCCB9A9879}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{801B627A-7109-407B-953E-96BCCB9A9879}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{801B627A-7109-407B-953E-96BCCB9A9879}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8647DA8B-4273-499A-8F83-8E5D5F9BE8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8647DA8B-4273-499A-8F83-8E5D5F9BE8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8647DA8B-4273-499A-8F83-8E5D5F9BE8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,6 +87,10 @@ Global
 		{845F12E8-D494-42A8-900B-AB6C9289C885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{845F12E8-D494-42A8-900B-AB6C9289C885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{845F12E8-D494-42A8-900B-AB6C9289C885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D75DCCE-84D9-49ED-9306-F07E73C84B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D75DCCE-84D9-49ED-9306-F07E73C84B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D75DCCE-84D9-49ED-9306-F07E73C84B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D75DCCE-84D9-49ED-9306-F07E73C84B08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,8 +105,8 @@ Global
 		{415FD7FA-0453-4FE1-9A29-C6E1D8B45C3D} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
 		{901AB2DA-6E52-4FB2-91F0-58EB0115F2F7} = {7A731632-6714-44E2-A9E4-069EBA9E666C}
 		{1932C647-08B4-4DB3-84CC-0433D71278C5} = {7FC7508A-08E6-4B76-9B03-470216F0A3B4}
-		{801B627A-7109-407B-953E-96BCCB9A9879} = {7FC7508A-08E6-4B76-9B03-470216F0A3B4}
 		{8647DA8B-4273-499A-8F83-8E5D5F9BE8CD} = {7FC7508A-08E6-4B76-9B03-470216F0A3B4}
+		{6D75DCCE-84D9-49ED-9306-F07E73C84B08} = {7FC7508A-08E6-4B76-9B03-470216F0A3B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384484BE-4680-4529-9CC2-AD37BA4D12D1}

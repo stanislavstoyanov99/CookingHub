@@ -24,6 +24,14 @@
         {
         }
 
+        public DbSet<Privacy> Privacies { get; set; }
+
+        public DbSet<FaqEntry> FaqEntries { get; set; }
+
+        public DbSet<ContactFormEntry> ContactFormEntries { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
