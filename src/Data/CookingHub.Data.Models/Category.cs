@@ -12,6 +12,7 @@
         public Category()
         {
             this.Articles = new HashSet<Article>();
+            this.Recipes = new HashSet<Recipe>();
         }
 
         [Required]
@@ -23,5 +24,7 @@
         public string Description { get; set; }
 
         public virtual ICollection<Article> Articles { get; set; }
+
+        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

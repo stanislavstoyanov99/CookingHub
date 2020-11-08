@@ -38,5 +38,13 @@
         {
             public const int ContentMaxLength = 300;
         }
+
+        public static class RecipeValidation
+        {
+            public const int NameMaxLength = 30;
+            public const int DescriptionMaxLength = 20000;
+            public const int IngredientsMaxLength = 20000;
+            public const int ImagePathMaxLength = 1000;
+        }
     }
 }

@@ -36,6 +36,8 @@
 
         public DbSet<ArticleComment> ArticleComments { get; set; }
 
+        public DbSet<Recipe> Recipes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

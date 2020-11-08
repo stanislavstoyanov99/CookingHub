@@ -26,6 +26,7 @@
 
         public int CategoryId { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public virtual CookingHubUser User { get; set; }

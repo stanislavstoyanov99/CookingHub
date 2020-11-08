@@ -20,6 +20,7 @@
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public virtual CookingHubUser User { get; set; }
