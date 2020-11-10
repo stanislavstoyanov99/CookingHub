@@ -22,6 +22,7 @@
             this.Articles = new HashSet<Article>();
             this.ArticleComments = new HashSet<ArticleComment>();
             this.Recipes = new HashSet<Recipe>();
+            this.Reviews = new HashSet<Review>();
         }
 
         [Required]
@@ -52,5 +53,7 @@
         public virtual ICollection<ArticleComment> ArticleComments { get; set; }
 
         public virtual ICollection<Recipe> Recipes { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

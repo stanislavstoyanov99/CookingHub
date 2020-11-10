@@ -22,16 +22,18 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
-
         public int Rate { get; set; }
 
-        public int RecepieID { get; set; }
+        public int RecipeId { get; set; }
+
+        public virtual Recipe Recipe { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
 
         public virtual CookingHubUser User { get; set; }
 
-        public virtual DateTime PostDate { get; set; }
+        public DateTime NextVoteDate { get; set; }
 
         //public virtual ICollection<ReviewComment> ReviewComments { get; set; }
     }
