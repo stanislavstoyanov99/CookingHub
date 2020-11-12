@@ -8,11 +8,6 @@
 
     public class ReviewComment : BaseDeletableModel<int>
     {
-        public ReviewComment()
-        {
-            
-        }
-
         public int ReviewId { get; set; }
 
         public virtual Review Review { get; set; }

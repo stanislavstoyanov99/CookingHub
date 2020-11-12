@@ -46,11 +46,11 @@
             public const int IngredientsMaxLength = 20000;
             public const int ImagePathMaxLength = 1000;
         }
+
         public static class ReviewValidation
         {
             public const int TitleMaxLength = 30;
             public const int DescriptionMaxLength = 1500;
-
         }
 
         public static class ReviewCommentValidation

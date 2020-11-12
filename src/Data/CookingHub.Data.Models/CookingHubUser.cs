@@ -23,6 +23,7 @@
             this.ArticleComments = new HashSet<ArticleComment>();
             this.Recipes = new HashSet<Recipe>();
             this.Reviews = new HashSet<Review>();
+            this.ReviewComments = new HashSet<ReviewComment>();
         }
 
         [Required]
