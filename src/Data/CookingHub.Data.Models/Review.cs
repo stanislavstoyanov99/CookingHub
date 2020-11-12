@@ -11,7 +11,7 @@
     {
         public Review()
         {
-            //this.ReviewComments = new HashSet<ReviewComment>();
+            this.ReviewComments = new HashSet<ReviewComment>();
         }
 
         [Required]
@@ -35,6 +35,6 @@
 
         public DateTime NextVoteDate { get; set; }
 
-        //public virtual ICollection<ReviewComment> ReviewComments { get; set; }
+        public virtual ICollection<ReviewComment> ReviewComments { get; set; }
     }
 }

@@ -55,5 +55,7 @@
         public virtual ICollection<Recipe> Recipes { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<ReviewComment> ReviewComments { get; set; }
     }
 }

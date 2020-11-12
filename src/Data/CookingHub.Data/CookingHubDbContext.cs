@@ -40,6 +40,8 @@
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<ReviewComment> ReviewComments { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

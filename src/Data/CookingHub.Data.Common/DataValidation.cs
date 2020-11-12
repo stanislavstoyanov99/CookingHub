@@ -52,5 +52,10 @@
             public const int DescriptionMaxLength = 1500;
 
         }
+
+        public static class ReviewCommentValidation
+        {
+            public const int ContentMaxLength = 300;
+        }
     }
 }
