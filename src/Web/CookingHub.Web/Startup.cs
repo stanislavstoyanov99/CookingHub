@@ -8,6 +8,8 @@
     using CookingHub.Data.Repositories;
     using CookingHub.Data.Seeding;
     using CookingHub.Models.ViewModels;
+    using CookingHub.Services.Data;
+    using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
     using CookingHub.Services.Messaging;
 
@@ -60,6 +62,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IPrivacyService, PrivacyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
