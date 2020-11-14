@@ -12,5 +12,17 @@
             public const string PageContentLengthError = "Page content must be between {2} and {1} symbols";
             public const string PageContentDisplayName = "Page Content";
         }
+
+        public static class FaqEntryValidation
+        {
+            public const int QuestionMinLength = 10;
+            public const int QuestionMaxLength = 100;
+
+            public const int AnswerMinLength = 10;
+            public const int AnswerMaxLength = 1000;
+
+            public const string QuestionLengthError = "Question must be between {2} and {1} symbols";
+            public const string AnswerLengthError = "Answer must be between {2} and {1} symbols";
+        }
     }
 }

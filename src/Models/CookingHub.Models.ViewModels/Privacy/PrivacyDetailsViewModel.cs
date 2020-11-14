@@ -1,12 +1,12 @@
 ﻿namespace CookingHub.Models.ViewModels.Privacy
 {
     using System.ComponentModel.DataAnnotations;
+    using Ganss.XSS;
 
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
 
     using static CookingHub.Models.Common.ModelValidation.PrivacyValidation;
-    using Ganss.XSS;
 
     public class PrivacyDetailsViewModel : IMapFrom<Privacy>
     {
