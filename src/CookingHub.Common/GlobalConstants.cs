@@ -6,6 +6,14 @@
 
         public const string SystemEmail = "slavkata_99@abv.bg";
 
+        public const string AdministratorUsername = "Admin";
+
+        public const string AdministratorEmail = "slavkata_99@abv.bg";
+
+        public const string AdministratorPassword = "123456";
+
+        public const string AdministratorFullName = "Stanislav";
+
         public const string AdministratorRoleName = "Administrator";
 
         public const string UserRoleName = "User";

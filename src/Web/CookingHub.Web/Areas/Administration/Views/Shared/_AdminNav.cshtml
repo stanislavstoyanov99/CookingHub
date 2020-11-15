@@ -1,0 +1,22 @@
+﻿<h5>Model's administration</h5>
+<ul class="nav nav-pills flex-column">
+    <li class="">
+        <a asp-area="Administration" asp-controller="Recipe" asp-action="#">Recipes</a>
+    </li>
+    <li class="">
+        <a asp-area="Administration" asp-controller="Review" asp-action="#">Reviews</a>
+    </li>
+    <li class="">
+        <a asp-area="Administration" asp-controller="Article" asp-action="#">Articles</a>
+    </li>
+</ul>
+<hr />
+<h5>App's administration</h5>
+<ul class="nav nav-pills nav-stacked flex-column">
+    <li class="@AdminNavPages.AboutNavClass(ViewContext)">
+        <a asp-area="Administration" asp-controller="About" asp-action="Index">FAQ page</a>
+    </li>
+    <li class="@AdminNavPages.PrivacyNavClass(ViewContext)">
+        <a asp-area="Administration" asp-controller="Privacy" asp-action="Index">Privacy</a>
+    </li>
+</ul>
