@@ -12,6 +12,7 @@
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
     using CookingHub.Services.Messaging;
+    using CookingHub.Web.Middlewares;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -98,6 +99,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAdminMiddleware();
 
             app.UseEndpoints(
                 endpoints =>
