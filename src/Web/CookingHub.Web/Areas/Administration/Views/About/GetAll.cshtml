@@ -1,0 +1,49 @@
+﻿@using CookingHub.Models.ViewModels.About
+@model IEnumerable<FaqDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All faqs";
+    this.ViewData["ActivePage"] = FaqNavPages.About;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Faqs List</h4>
+            <hr />
+            @if (Model.Any())
+            {
+                <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Question</th>
+                            <th>Answer</th>
+                            <th>Functions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var faq in Model)
+                        {
+                            <tr>
+                                <td>@faq.Id</td>
+                                <td>@faq.Question</td>
+                                <td>@Html.Raw(faq.SanitizedAnswer)</td>
+                                <td>
+                                    <a class="badge badge-success" asp-action="Edit" asp-route-id="@faq.Id">Edit</a>
+                                    <a class="badge badge-danger" asp-action="Remove" asp-route-id="@faq.Id">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    There is not any data available!
+                </div>
+            }
+        </div>
+    </div>
+</div>
