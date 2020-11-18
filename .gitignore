@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 src/Data/CookingHub.Data/appsettings.json
+src/Web/CookingHub.Web/appsettings.json
