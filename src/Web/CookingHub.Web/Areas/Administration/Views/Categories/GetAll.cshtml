@@ -1,0 +1,50 @@
+﻿@using CookingHub.Models.ViewModels.Categories
+@model IEnumerable<CategoryDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All categories";
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Categories List</h4>
+            <hr />
+            <h5>Total Count : <span>@Model.Count()</span></h5>
+            @if (Model.Count() != 0)
+            {
+                <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Functions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+                                <th scope="row">@category.Id</th>
+                                <td>@category.Name</td>
+                                <td>@Html.Raw(category.SanitizedShortDescription)</td>
+                                <td>
+                                    <a class="badge badge-success" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                                    <a class="badge badge-danger" asp-action="Remove" asp-route-id="@category.Id">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    There is not any data available.
+                </div>
+            }
+        </div>
+    </div>
+</div>

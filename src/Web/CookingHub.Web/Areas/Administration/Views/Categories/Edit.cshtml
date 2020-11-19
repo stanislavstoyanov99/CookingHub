@@ -1,0 +1,39 @@
+﻿@model CookingHub.Models.ViewModels.Categories.CategoryEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Category";
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <form asp-area="Administration" asp-controller="Categories" asp-action="Edit" method="post">
+            <h5>Edit <b>@Model.Name</b> category with id: @Model.Id</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+            <button asp-area="Administration" asp-controller="Categories" asp-action="GetAll" class="btn btn-primary">Back to all categories</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

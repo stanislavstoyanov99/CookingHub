@@ -11,9 +11,13 @@
 
         public static string About => "About";
 
+        public static string Categories => "Categories";
+
         public static string PrivacyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Privacy);
 
         public static string AboutNavClass(ViewContext viewContext) => PageNavClass(viewContext, About);
+
+        public static string CategoriesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Categories);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {

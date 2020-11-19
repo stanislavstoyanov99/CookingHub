@@ -11,5 +11,9 @@
         public const string FaqAlreadyExists = "Faq with question {0} and answer {1} already exists";
 
         public const string FaqNotFound = "Faq with id {0} is not found.";
+
+        public const string CategoryAlreadyExists = "Category with name {0} already exists.";
+
+        public const string CategoryNotFound = "Category with id {0} is not found.";
     }
 }

@@ -6,8 +6,8 @@
     <li class="">
         <a asp-area="Administration" asp-controller="Article" asp-action="#">Articles</a>
     </li>
-    <li class="">
-        <a asp-area="Administration" asp-controller="Category" asp-action="#">Categories</a>
+    <li class="@AdminNavPages.CategoriesNavClass(ViewContext)">
+        <a asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a>
     </li>
 </ul>
 <hr />

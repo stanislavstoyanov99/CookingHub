@@ -1,0 +1,19 @@
+﻿@{
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+    this.ViewData["Title"] = "Categories";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@CategoryNavPages.CreateCategoryNavClass(ViewContext)">
+                    <a asp-controller="Categories" asp-action="Create">Create category</a>
+                </li>
+                <li class="@CategoryNavPages.GetAllNavClass(ViewContext)">
+                    <a asp-controller="Categories" asp-action="GetAll">List categories</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model CookingHub.Models.ViewModels.Categories.CategoryDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Category";
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <form asp-area="Administration" asp-controller="Categories" asp-action="Remove" method="post">
+            <h5 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> category?</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="SanitizedDescription" class="form-control" disabled=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete category</button>
+            <button asp-area="Administration" asp-controller="Categories" asp-action="GetAll" class="btn btn-primary">Back to all categories</button>
+        </form>
+    </div>
+</div>
