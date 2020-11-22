@@ -36,5 +36,16 @@
             public const string DescriptionError = "Description must be between {2} and {1} symbols";
             public const string CategoryIdError = "Please select category name.";
         }
+        public static class RecipeValidation
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 30;
+            public const int DescriptionMinLength = 50;
+            public const int DescriptionMaxLength = 20000;
+            public const string DescriptionError = "Description must be between {2} and {1} symbols";
+            public const string RecepieIdError = "Please select category name.";
+            public const int IngredientsMaxLength = 20000;
+            public const int ImagePathMaxLength = 1000;
+        }
     }
 }
