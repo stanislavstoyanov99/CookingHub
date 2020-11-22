@@ -3,18 +3,21 @@
     using System.Threading.Tasks;
 
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
+    using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
+
     using Microsoft.AspNetCore.Mvc;
 
-    public class RecipeController : AdministrationController
+    public class RecipesController : AdministrationController
     {
         private readonly IRecipesService recipesService;
+        private readonly ICategoriesService categoriesService;
 
-        public RecipeController(IRecipesService recipesService)
+        public RecipesController(IRecipesService recipesService, ICategoriesService categoriesService)
         {
             this.recipesService = recipesService;
-
+            this.categoriesService = categoriesService;
         }
 
         public IActionResult Index()
@@ -22,9 +25,17 @@
             return this.View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return this.View();
+            var categories = await this.categoriesService
+                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
+            var model = new RecipesCreateInputModel
+            {
+                Categories = categories,
+            };
+
+            return this.View(model);
         }
 
         [HttpPost]

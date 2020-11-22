@@ -13,11 +13,15 @@
 
         public static string Categories => "Categories";
 
+        public static string Recipes => "Recipes";
+
         public static string PrivacyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Privacy);
 
         public static string AboutNavClass(ViewContext viewContext) => PageNavClass(viewContext, About);
 
         public static string CategoriesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Categories);
+
+        public static string RecipesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Recipes);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {

@@ -12,8 +12,8 @@
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
-
     using Microsoft.EntityFrameworkCore;
+
     public class RecipeService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
@@ -22,6 +22,7 @@
         {
             this.recipeRepository = recipeRepository;
         }
+
         public async Task<RecipesDetailsViewModel> CreateAsync(RecipesCreateInputModel recipesCreateInputModel)
         {
             var recipe = new Recipe
@@ -29,9 +30,11 @@
                 Name = recipesCreateInputModel.Name,
                 Description = recipesCreateInputModel.Description,
             };
+
             bool doesRecipeExist = await this.recipeRepository
                .All()
                .AnyAsync(c => c.Name == recipe.Name);
+
             if (doesRecipeExist)
             {
                 throw new ArgumentException(

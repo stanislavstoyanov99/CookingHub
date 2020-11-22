@@ -1,0 +1,19 @@
+﻿@{
+    this.ViewData["ActivePage"] = RecipesNavPages.Recipes;
+    this.ViewData["Title"] = "Recipes";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@RecipesNavPages.CreateRecipeNavClass(ViewContext)">
+                    <a asp-controller="Recipes" asp-action="Create">Create recipe</a>
+                </li>
+                <li class="@RecipesNavPages.GetAllNavClass(ViewContext)">
+                    <a asp-controller="Recipes" asp-action="GetAll">List recipes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
