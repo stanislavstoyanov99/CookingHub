@@ -1,7 +1,8 @@
-﻿@model CookingHub.Models.ViewModels.Articles.ArticlesEditViewModel
+﻿@model CookingHub.Models.ViewModels.Articles.ArticleEditViewModel
 @{
     this.ViewData["Title"] = "Edit Article";
     this.ViewData["ActivePage"] = ArticleNavPages.Categories;
+    var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
 <div class="row">
@@ -18,6 +19,17 @@
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <div class="container">
+                    <select asp-for="CategoryId" asp-items="categories">
+                        <option selected="" disabled="">
+                            Select Category
+                        </option>
+                    </select>
+                </div>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Save changes</button>
             <button asp-area="Administration" asp-controller="Articles" asp-action="GetAll" class="btn btn-primary">Back to all articles</button>

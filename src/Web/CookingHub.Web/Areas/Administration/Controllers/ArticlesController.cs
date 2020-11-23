@@ -1,22 +1,28 @@
 ﻿namespace CookingHub.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
-
+    using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Articles;
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Services.Data.Contracts;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class ArticlesController : AdministrationController
     {
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
+        private readonly UserManager<CookingHubUser> userManager;
 
-        public ArticlesController(IArticlesService articlesService, ICategoriesService categoriesService)
+        public ArticlesController(
+            IArticlesService articlesService,
+            ICategoriesService categoriesService,
+            UserManager<CookingHubUser> userManager)
         {
             this.articlesService = articlesService;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -40,32 +46,45 @@
         [HttpPost]
         public async Task<IActionResult> Create(ArticleCreateInputModel articleCreateInputModel)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
+                var categories = await this.categoriesService
+                   .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                articleCreateInputModel.Categories = categories;
                 return this.View(articleCreateInputModel);
             }
 
-            await this.articlesService.CreateAsync(articleCreateInputModel);
+            await this.articlesService.CreateAsync(articleCreateInputModel, user.Id);
             return this.RedirectToAction("GetAll", "Articles", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Edit(int id)
         {
+            var categories = await this.categoriesService
+                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
             var articleToEdit = await this.articlesService
-                .GetViewModelByIdAsync<ArticlesEditViewModel>(id);
+                .GetViewModelByIdAsync<ArticleEditViewModel>(id);
+
+            articleToEdit.Categories = categories;
 
             return this.View(articleToEdit);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ArticlesEditViewModel articleEditViewModel)
+        public async Task<IActionResult> Edit(ArticleEditViewModel articleEditViewModel)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
+                var categories = await this.categoriesService
+                   .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                articleEditViewModel.Categories = categories;
                 return this.View(articleEditViewModel);
             }
 
-            await this.articlesService.EditAsync(articleEditViewModel);
+            await this.articlesService.EditAsync(articleEditViewModel, user.Id);
             return this.RedirectToAction("GetAll", "Articles", new { area = "Administration" });
         }
 

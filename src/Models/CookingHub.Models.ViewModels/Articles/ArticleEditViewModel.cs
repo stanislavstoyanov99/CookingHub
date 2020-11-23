@@ -9,8 +9,10 @@ namespace CookingHub.Models.ViewModels.Articles
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.ArticleValidation;
     using CookingHub.Data.Models;
-    
-    public class ArticlesEditViewModel : IMapFrom<Article>
+    using CookingHub.Models.ViewModels.Categories;
+    using System.Collections.Generic;
+
+    public class ArticleEditViewModel : IMapFrom<Article>
     {
         public int Id { get; set; }
 
@@ -23,8 +25,8 @@ namespace CookingHub.Models.ViewModels.Articles
         public string Description { get; set; }
 
         public int CategoryId { get; set; }
-        [Required]
-        public virtual Category Category { get; set; }
+        
+        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
 
     }
 }

@@ -8,12 +8,13 @@ namespace CookingHub.Services.Data.Contracts
     using CookingHub.Models.ViewModels.Articles;
     public interface IArticlesService : IBaseDataService
     {
-        Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel);
+        Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel, string userId);
 
-        Task EditAsync(ArticlesEditViewModel articlesEditViewModel);
+        Task EditAsync(ArticleEditViewModel articlesEditViewModel, string userId);
 
         Task<IEnumerable<TEntity>> GetAllArticlesAsync<TEntity>();
 
         Task<TViewModel> GetArticleAsync<TViewModel>(string title);
+
     }
 }

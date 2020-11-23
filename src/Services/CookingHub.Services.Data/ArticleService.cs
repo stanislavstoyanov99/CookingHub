@@ -18,21 +18,31 @@ namespace CookingHub.Services.Data
 
     public class ArticleService : IArticlesService
     {
-        private readonly IDeletableEntityRepository<Article> articleRepository;
+        private readonly IDeletableEntityRepository<Article> articlesRepository;
+        private readonly IDeletableEntityRepository<Category> categoriesRepository;
 
-        public ArticleService(IDeletableEntityRepository<Article> articleRepository)
+        public ArticleService(IDeletableEntityRepository<Article> articlesRepository, IDeletableEntityRepository<Category> categoriesRepository)
         {
-            this.articleRepository = articleRepository;
+            this.articlesRepository = articlesRepository;
+            this.categoriesRepository = categoriesRepository;
         }
 
-        public async Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel)
+        public async Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articleCreateInputModel, string userId)
         {
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == articleCreateInputModel.CategoryId);
+            if (category == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, articleCreateInputModel.CategoryId));
+            }
+
             var article = new Article
             {
-                Title = articlesCreateInputModel.Title,
-                Description = articlesCreateInputModel.Description,
+                Title = articleCreateInputModel.Title,
+                Description = articleCreateInputModel.Description,
+                Category = category,
+                UserId = userId,
             };
-            bool doesArticleExist = await this.articleRepository
+            bool doesArticleExist = await this.articlesRepository
                .All()
                .AnyAsync(c => c.Title == article.Title);
             if (doesArticleExist)
@@ -41,8 +51,8 @@ namespace CookingHub.Services.Data
                     string.Format(ExceptionMessages.ArticleAlreadyExists, article.Title));
             }
 
-            await this.articleRepository.AddAsync(article);
-            await this.articleRepository.SaveChangesAsync();
+            await this.articlesRepository.AddAsync(article);
+            await this.articlesRepository.SaveChangesAsync();
 
             var viewModel = await this.GetViewModelByIdAsync<ArticlesDetailsViewModel>(article.Id);
 
@@ -51,7 +61,7 @@ namespace CookingHub.Services.Data
 
         public async Task DeleteByIdAsync(int id)
         {
-            var article = await this.articleRepository
+            var article = await this.articlesRepository
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (article == null)
@@ -60,13 +70,13 @@ namespace CookingHub.Services.Data
                     string.Format(ExceptionMessages.ArticleNotFound, id));
             }
 
-            this.articleRepository.Delete(article);
-            await this.articleRepository.SaveChangesAsync();
+            this.articlesRepository.Delete(article);
+            await this.articlesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(ArticlesEditViewModel articlesEditViewModel)
+        public async Task EditAsync(ArticleEditViewModel articlesEditViewModel, string userId)
         {
-            var article = await this.articleRepository
+            var article = await this.articlesRepository
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == articlesEditViewModel.Id);
 
@@ -78,14 +88,15 @@ namespace CookingHub.Services.Data
 
             article.Title = articlesEditViewModel.Title;
             article.Description = articlesEditViewModel.Description;
+            article.UserId = userId;
 
-            this.articleRepository.Update(article);
-            await this.articleRepository.SaveChangesAsync();
+            this.articlesRepository.Update(article);
+            await this.articlesRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllArticlesAsync<TEntity>()
         {
-            var articles = await this.articleRepository
+            var articles = await this.articlesRepository
               .All()
               .OrderBy(c => c.Title)
               .To<TEntity>()
@@ -96,7 +107,7 @@ namespace CookingHub.Services.Data
 
         public async Task<TViewModel> GetArticleAsync<TViewModel>(string title)
         {
-            var article = await this.articleRepository
+            var article = await this.articlesRepository
                 .All()
                 .Where(c => c.Title == title)
                 .To<TViewModel>()
@@ -107,7 +118,7 @@ namespace CookingHub.Services.Data
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
-            var articlesViewModel = await this.articleRepository
+            var articlesViewModel = await this.articlesRepository
                 .All()
                 .Where(c => c.Id == id)
                 .To<TViewModel>()
