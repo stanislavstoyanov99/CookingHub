@@ -66,11 +66,9 @@
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IAboutService, AboutService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
-<<<<<<< HEAD
             services.AddTransient<IArticlesService, ArticleService>();
-=======
             services.AddTransient<IRecipesService, RecipeService>();
->>>>>>> 11a6989bd0ce9d3767e57cf3ff3c72b6986caa86
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
