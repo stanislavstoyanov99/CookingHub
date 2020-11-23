@@ -1,10 +1,10 @@
 ﻿<h5>Model's administration</h5>
 <ul class="nav nav-pills flex-column">
-    <li class="">
-        <a asp-area="Administration" asp-controller="Recipe" asp-action="#">Recipes</a>
+    <li class="@AdminNavPages.RecipesNavClass(ViewContext)">
+        <a asp-area="Administration" asp-controller="Recipes" asp-action="Index">Recipes</a>
     </li>
     <li class="">
-        <a asp-area="Administration" asp-controller="Article" asp-action="#">Articles</a>
+        <a asp-area="Administration" asp-controller="Article" asp-action="Index">Articles</a>
     </li>
     <li class="@AdminNavPages.CategoriesNavClass(ViewContext)">
         <a asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a>

@@ -18,6 +18,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\CookingHub.Models.Common\CookingHub.Models.Common.csproj" />
+    <ProjectReference Include="..\CookingHub.Models.ViewModels\CookingHub.Models.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
