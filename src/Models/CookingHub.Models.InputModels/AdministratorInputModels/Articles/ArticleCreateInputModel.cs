@@ -2,6 +2,8 @@
 
 namespace CookingHub.Models.InputModels.AdministratorInputModels.Articles
 {
+    using CookingHub.Models.ViewModels.Categories;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
 
@@ -18,5 +20,7 @@ namespace CookingHub.Models.InputModels.AdministratorInputModels.Articles
         public string Description { get; set; }
 
         public int CategoryId { get; set; }
+
+        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
     }
 }

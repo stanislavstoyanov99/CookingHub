@@ -15,6 +15,7 @@ namespace CookingHub.Services.Data
     using CookingHub.Services.Mapping;
 
     using Microsoft.EntityFrameworkCore;
+
     public class ArticleService : IArticlesService
     {
         private readonly IDeletableEntityRepository<Article> articleRepository;
@@ -23,6 +24,7 @@ namespace CookingHub.Services.Data
         {
             this.articleRepository = articleRepository;
         }
+
         public async Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel)
         {
             var article = new Article

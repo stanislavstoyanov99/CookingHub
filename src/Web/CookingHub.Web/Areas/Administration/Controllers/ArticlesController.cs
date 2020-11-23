@@ -4,17 +4,19 @@
 
     using CookingHub.Models.InputModels.AdministratorInputModels.Articles;
     using CookingHub.Models.ViewModels.Articles;
+    using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Services.Data.Contracts;
     using Microsoft.AspNetCore.Mvc;
 
     public class ArticlesController : AdministrationController
     {
         private readonly IArticlesService articlesService;
+        private readonly ICategoriesService categoriesService;
 
-        public ArticlesController(IArticlesService articlesService)
+        public ArticlesController(IArticlesService articlesService, ICategoriesService categoriesService)
         {
             this.articlesService = articlesService;
-
+            this.categoriesService = categoriesService;
         }
 
         public IActionResult Index()
@@ -22,9 +24,17 @@
             return this.View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return this.View();
+            var categories = await this.categoriesService
+                   .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
+            var model = new ArticleCreateInputModel
+            {
+                Categories = categories,
+            };
+
+            return this.View(model);
         }
 
         [HttpPost]
@@ -79,5 +89,4 @@
             return this.View(articles);
         }
     }
-}
 }
