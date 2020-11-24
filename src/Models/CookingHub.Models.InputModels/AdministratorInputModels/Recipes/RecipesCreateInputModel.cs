@@ -22,12 +22,13 @@
         public string PreparationTime { get; set; }
 
         public double CookingTime { get; set; }
+
         [Range(0,12)]
         public int PortionsNumber { get; set; }
 
         [Required]
         public string Difficulty { get; set; }
-
+        
         [Required]
         public string ImagePath { get; set; }
 

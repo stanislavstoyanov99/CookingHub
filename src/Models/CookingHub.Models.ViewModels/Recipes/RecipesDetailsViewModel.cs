@@ -36,6 +36,9 @@
         public int PortionsNumber { get; set; }
 
         public Difficulty Difficulty { get; set; }
+        [Required]
+        public string ImagePath { get; set; }
+
         public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
         public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);

@@ -17,18 +17,28 @@
     public class RecipeService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
+        private readonly IDeletableEntityRepository<Category> categoriesRepository;
 
-        public RecipeService(IDeletableEntityRepository<Recipe> recipeRepository)
+        public RecipeService(IDeletableEntityRepository<Recipe> recipeRepository, IDeletableEntityRepository<Category> categoriesRepository)
         {
             this.recipeRepository = recipeRepository;
+            this.categoriesRepository = categoriesRepository;
         }
 
-        public async Task<RecipesDetailsViewModel> CreateAsync(RecipesCreateInputModel recipesCreateInputModel)
+        public async Task<RecipesDetailsViewModel> CreateAsync(RecipesCreateInputModel recipesCreateInputModel , string userId)
         {
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == recipesCreateInputModel.CategoryId);
+            if (category == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, recipesCreateInputModel.CategoryId));
+            }
+
             var recipe = new Recipe
             {
                 Name = recipesCreateInputModel.Name,
                 Description = recipesCreateInputModel.Description,
+                Category = category,
+                UserId = userId,
             };
 
             bool doesRecipeExist = await this.recipeRepository

@@ -1,6 +1,4 @@
-﻿
-
-namespace CookingHub.Models.ViewModels.Articles
+﻿namespace CookingHub.Models.ViewModels.Articles
 {
     using System.ComponentModel.DataAnnotations;
 

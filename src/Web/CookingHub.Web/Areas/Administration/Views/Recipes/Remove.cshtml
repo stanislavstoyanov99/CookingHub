@@ -1,0 +1,24 @@
+﻿@model CookingHub.Models.ViewModels.Recipes.RecipesDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Recipe";
+    this.ViewData["ActivePage"] = RecipesNavPages.Recipes;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <form asp-area="Administration" asp-controller="Recipes" asp-action="Remove" method="post">
+            <h5 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> recipe?</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="SanitizedDescription" class="form-control" disabled=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete recipe</button>
+            <button asp-area="Administration" asp-controller="Recipes" asp-action="GetAll" class="btn btn-primary">Back to all recipes</button>
+        </form>
+    </div>
+</div>

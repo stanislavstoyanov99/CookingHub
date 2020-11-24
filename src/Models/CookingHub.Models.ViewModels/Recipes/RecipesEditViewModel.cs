@@ -9,6 +9,7 @@
     using static CookingHub.Models.Common.ModelValidation.RecipeValidation;
     using  CookingHub.Data.Models;
     using CookingHub.Data.Models.Enumerations;
+    using CookingHub.Models.ViewModels.Categories;
 
     public class RecipesEditViewModel : IMapFrom<Recipe>
     {
@@ -35,13 +36,11 @@
         public Difficulty Difficulty { get; set; }
 
         [Required]
-        [MaxLength(ImagePathMaxLength)]
         public string ImagePath { get; set; }
 
         public int CategoryId { get; set; }
-        [Required]
-        public virtual Category Category { get; set; }
+     
+        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
 
-        
     }
 }

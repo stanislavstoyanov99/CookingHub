@@ -1,15 +1,14 @@
-﻿@model CookingHub.Models.InputModels.AdministratorInputModels.Recipes.RecipesCreateInputModel
+﻿@model CookingHub.Models.ViewModels.Recipes.RecipesEditViewModel
 @{
-    this.ViewData["Title"] = "Create Recipe";
-    this.ViewData["ActivePage"] = RecipesNavPages.Recipes;
-
+    this.ViewData["Title"] = "Edit Article";
+    this.ViewData["ActivePage"] = RecipesNavPages.Categories;
     var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
 <div class="row">
     <div class="col-md-9">
-        <form asp-area="Administration" asp-controller="Recipes" asp-action="Create" method="post">
-            <h4>Create new recipe</h4>
+        <form asp-area="Administration" asp-controller="Recipes" asp-action="Edit" method="post">
+            <h5>Edit <b>@Model.Name</b> category with id: @Model.Id</h5>
             <hr />
             <div class="form-group">
                 <label asp-for="Name"></label>
@@ -77,6 +76,7 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Save changes</button>
+            <button asp-area="Administration" asp-controller="Recipes" asp-action="GetAll" class="btn btn-primary">Back to all recipes</button>
         </form>
     </div>
 </div>
@@ -93,4 +93,3 @@
         });
     </script>
 }
-

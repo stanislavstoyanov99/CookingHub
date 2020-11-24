@@ -2,22 +2,29 @@
 {
     using System.Threading.Tasks;
 
+    using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
 
+
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class RecipesController : AdministrationController
     {
         private readonly IRecipesService recipesService;
         private readonly ICategoriesService categoriesService;
+        private readonly UserManager<CookingHubUser> userManager;
 
-        public RecipesController(IRecipesService recipesService, ICategoriesService categoriesService)
+        public RecipesController(IRecipesService recipesService, 
+            ICategoriesService categoriesService,
+            UserManager<CookingHubUser> userManager)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -41,21 +48,28 @@
         [HttpPost]
         public async Task<IActionResult> Create(RecipesCreateInputModel recipeCreateInputModel)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
+                var categories = await this.categoriesService
+                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                recipeCreateInputModel.Categories = categories;
                 return this.View(recipeCreateInputModel);
             }
 
-            await this.recipesService.CreateAsync(recipeCreateInputModel);
+            await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
             return this.RedirectToAction("GetAll", "Recipes", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var categoryToEdit = await this.recipesService
+            var recipeToEdit = await this.recipesService
                 .GetViewModelByIdAsync<RecipesEditViewModel>(id);
+            var categories = await this.categoriesService
+                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+            recipeToEdit.Categories = categories;
 
-            return this.View(categoryToEdit);
+            return this.View(recipeToEdit);
         }
 
         [HttpPost]
