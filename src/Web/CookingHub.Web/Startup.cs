@@ -2,6 +2,8 @@
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
+
     using CookingHub.Data;
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
@@ -63,11 +65,21 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IFaqService, FaqService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IArticlesService, ArticleService>();
             services.AddTransient<IRecipesService, RecipeService>();
+
+            var account = new Account(
+                this.configuration["Cloudinary:AppName"],
+                this.configuration["Cloudinary:AppKey"],
+                this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
