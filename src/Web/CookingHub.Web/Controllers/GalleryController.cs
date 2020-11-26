@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class AboutController : Controller
+    public class GalleryController : Controller
     {
         public IActionResult Index()
         {

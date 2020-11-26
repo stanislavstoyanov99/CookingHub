@@ -2,19 +2,19 @@
 {
     using System.Threading.Tasks;
 
-    using CookingHub.Models.InputModels.AdministratorInputModels.About;
-    using CookingHub.Models.ViewModels.About;
+    using CookingHub.Models.InputModels.AdministratorInputModels.Faq;
+    using CookingHub.Models.ViewModels.Faq;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class AboutController : AdministrationController
+    public class FaqController : AdministrationController
     {
-        private readonly IAboutService aboutService;
+        private readonly IFaqService faqService;
 
-        public AboutController(IAboutService aboutService)
+        public FaqController(IFaqService faqService)
         {
-            this.aboutService = aboutService;
+            this.faqService = faqService;
         }
 
         public IActionResult Index()
@@ -35,13 +35,13 @@
                 return this.View(faqCreateInputModel);
             }
 
-            await this.aboutService.CreateAsync(faqCreateInputModel);
+            await this.faqService.CreateAsync(faqCreateInputModel);
             return this.RedirectToAction("GetAll", "About", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var faqToEdit = await this.aboutService
+            var faqToEdit = await this.faqService
                 .GetViewModelByIdAsync<FaqEditViewModel>(id);
 
             return this.View(faqToEdit);
@@ -55,26 +55,26 @@
                 return this.View(faqEditViewModel);
             }
 
-            await this.aboutService.EditAsync(faqEditViewModel);
+            await this.faqService.EditAsync(faqEditViewModel);
             return this.RedirectToAction("GetAll", "About", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Remove(int id)
         {
-            var faqToDelete = await this.aboutService.GetViewModelByIdAsync<FaqDetailsViewModel>(id);
+            var faqToDelete = await this.faqService.GetViewModelByIdAsync<FaqDetailsViewModel>(id);
             return this.View(faqToDelete);
         }
 
         [HttpPost]
         public async Task<IActionResult> Remove(FaqDetailsViewModel faqDetailsViewModel)
         {
-            await this.aboutService.DeleteByIdAsync(faqDetailsViewModel.Id);
+            await this.faqService.DeleteByIdAsync(faqDetailsViewModel.Id);
             return this.RedirectToAction("GetAll", "About", new { area = "Administration" });
         }
 
         public async Task<IActionResult> GetAll()
         {
-            var faqs = await this.aboutService.GetAllFaqsAsync<FaqDetailsViewModel>();
+            var faqs = await this.faqService.GetAllFaqsAsync<FaqDetailsViewModel>();
             return this.View(faqs);
         }
     }

@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class AboutController : Controller
+    public class RecipesController : Controller
     {
         public IActionResult Index()
         {

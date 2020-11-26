@@ -7,19 +7,19 @@
 
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
-    using CookingHub.Models.InputModels.AdministratorInputModels.About;
-    using CookingHub.Models.ViewModels.About;
+    using CookingHub.Models.InputModels.AdministratorInputModels.Faq;
+    using CookingHub.Models.ViewModels.Faq;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
 
     using Microsoft.EntityFrameworkCore;
 
-    public class AboutService : IAboutService
+    public class FaqService : IFaqService
     {
         private readonly IDeletableEntityRepository<FaqEntry> faqEntriesRepository;
 
-        public AboutService(IDeletableEntityRepository<FaqEntry> faqEntriesRepository)
+        public FaqService(IDeletableEntityRepository<FaqEntry> faqEntriesRepository)
         {
             this.faqEntriesRepository = faqEntriesRepository;
         }

@@ -42,7 +42,7 @@
             }
             else
             {
-                // TODO
+                // TODO, remove the duplicate code
                 var currentPage = this.ViewContextData.RouteData.Values["page"]?.ToString();
                 var targetPage = "/" + this.ActiveWhen.Split("/")[1] + "/" + this.ActiveWhen.Split("/")[2];
 

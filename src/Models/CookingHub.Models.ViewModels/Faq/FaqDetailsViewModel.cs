@@ -1,4 +1,4 @@
-﻿namespace CookingHub.Models.ViewModels.About
+﻿namespace CookingHub.Models.ViewModels.Faq
 {
     using Ganss.XSS;
 

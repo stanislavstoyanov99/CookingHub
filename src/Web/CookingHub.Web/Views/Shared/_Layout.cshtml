@@ -30,14 +30,14 @@
     <header class="top-navbar">
         <partial name="_NavbarPartial" />
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="footer-area bg-f">
         <partial name="_FooterPartial" />
     </footer>
@@ -47,6 +47,16 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <!-- ALL JS FILES -->
+    <script src="~/js/popper.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/js/jquery.superslides.min.js" asp-append-version="true"></script>
+    <script src="~/js/images-loded.min.js" asp-append-version="true"></script>
+    <script src="~/js/isotope.min.js" asp-append-version="true"></script>
+    <script src="~/js/baguetteBox.min.js" asp-append-version="true"></script>
+    <script src="~/js/form-validator.min.js" asp-append-version="true"></script>
+    <script src="~/js/contact-form-script.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

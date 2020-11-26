@@ -14,29 +14,31 @@
                 <li active-when="/Home/Index" class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                <li class="nav-item dropdown">
+                <li active-when="/Recipes/Index" class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Recipes" asp-action="Index">Recipes</a>
+                </li>
+                <li active-when="/About/Index" class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                </li>
+                <li active-when="/Gallery/Index" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown-a">
                         <a class="dropdown-item" href="reservation.html">Reservation</a>
                         <a class="dropdown-item" href="stuff.html">Stuff</a>
-                        <a class="dropdown-item" href="gallery.html">Gallery</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Gallery" asp-action="Index">Gallery</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Blog</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                        <a class="dropdown-item" href="blog.html">blog</a>
-                        <a class="dropdown-item" href="blog-details.html">blog Single</a>
-                    </div>
+                <li active-when="/Articles/Index" class="nav-item dropdown">
+                    <a class="nav-link" asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                <li active-when="/Contacts/Index" class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Contacts" asp-action="Index">Contact</a>
+                </li>
                 <li active-when="/Home/Privacy" class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
-                <li active-when="/About/Index" class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="About" asp-action="Index">FAQ</a>
+                <li active-when="/Faq/Index" class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Faq" asp-action="Index">FAQ</a>
                 </li>
             </ul>
             <partial name="_LoginPartial" />

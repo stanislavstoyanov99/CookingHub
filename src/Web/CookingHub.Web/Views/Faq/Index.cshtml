@@ -1,0 +1,30 @@
+﻿@using CookingHub.Models.ViewModels.Faq
+@model IEnumerable<FaqDetailsViewModel>
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="text-center">
+        <h4 class="display-4">FAQ</h4>
+    </div>
+    <div id="accordion" class="mt-5">
+        <div class="card">
+            @foreach (var faq in Model)
+            {
+                <div class="card-header" id="@faq.Question">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" data-toggle="collapse" data-target="#collapse_@faq.Id" aria-expanded="true" aria-controls="@faq.Id">
+                            @faq.Question
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse_@faq.Id" class="collapse" aria-labelledby="@faq.Question" data-parent="#accordion">
+                    <div class="card-body">
+                        @Html.Raw(faq.SanitizedAnswer)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

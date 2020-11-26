@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookingHub.Models.InputModels.AdministratorInputModels.About;
-    using CookingHub.Models.ViewModels.About;
+    using CookingHub.Models.InputModels.AdministratorInputModels.Faq;
+    using CookingHub.Models.ViewModels.Faq;
 
-    public interface IAboutService : IBaseDataService
+    public interface IFaqService : IBaseDataService
     {
         Task<FaqDetailsViewModel> CreateAsync(FaqCreateInputModel faqCreateInputModel);
 

@@ -7,9 +7,14 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class AboutController : Controller
+    public class ArticlesController : Controller
     {
         public IActionResult Index()
+        {
+            return this.View();
+        }
+
+        public IActionResult Details()
         {
             return this.View();
         }

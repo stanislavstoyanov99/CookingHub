@@ -1,4 +1,4 @@
-﻿@model CookingHub.Models.ViewModels.About.FaqDetailsViewModel
+﻿@model CookingHub.Models.ViewModels.Faq.FaqDetailsViewModel
 @{
     this.ViewData["Title"] = "Delete Faq";
     this.ViewData["ActivePage"] = FaqNavPages.About;
@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-area="Administration" asp-controller="About" asp-action="Remove" method="post">
+        <form asp-area="Administration" asp-controller="Faq" asp-action="Remove" method="post">
             <h4 class="text-danger">Are you sure you want to delete faq with <b>@Model.Id</b> id?</h4>
             <hr />
             <div class="form-group">
@@ -18,7 +18,7 @@
                 <textarea asp-for="SanitizedAnswer" class="form-control" disabled=""></textarea>
             </div>
             <button type="submit" class="btn btn-danger">Delete faq</button>
-            <button asp-area="Administration" asp-controller="About" asp-action="GetAll" class="btn btn-primary">Back to all faqs</button>
+            <button asp-area="Administration" asp-controller="Faq" asp-action="GetAll" class="btn btn-primary">Back to all faqs</button>
         </form>
     </div>
 </div>

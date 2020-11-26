@@ -1,4 +1,4 @@
-﻿namespace CookingHub.Web.Areas.Administration.Views.About
+﻿namespace CookingHub.Web.Areas.Administration.Views.Faq
 {
     using CookingHub.Web.Areas.Administration.Views.Shared;
 

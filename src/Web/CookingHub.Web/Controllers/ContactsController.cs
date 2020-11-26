@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class AboutController : Controller
+    public class ContactsController : Controller
     {
         public IActionResult Index()
         {

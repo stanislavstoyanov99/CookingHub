@@ -1,4 +1,4 @@
-﻿@model CookingHub.Models.ViewModels.About.FaqEditViewModel
+﻿@model CookingHub.Models.ViewModels.Faq.FaqEditViewModel
 @{
     this.ViewData["Title"] = "Edit faq";
     this.ViewData["ActivePage"] = FaqNavPages.About;
@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-area="Administration" asp-controller="About" asp-action="Edit" method="post">
+        <form asp-area="Administration" asp-controller="Faq" asp-action="Edit" method="post">
             <h4>Edit FAQ with id: @Model.Id</h4>
             <hr />
             <div class="form-group">
@@ -20,7 +20,7 @@
                 <span asp-validation-for="Answer" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Edit faq</button>
-            <button asp-area="Administration" asp-controller="About" asp-action="GetAll" class="btn btn-primary">Back to all faqs</button>
+            <button asp-area="Administration" asp-controller="Faq" asp-action="GetAll" class="btn btn-primary">Back to all faqs</button>
         </form>
     </div>
 </div>
