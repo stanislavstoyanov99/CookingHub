@@ -64,7 +64,8 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(
+                serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IFaqService, FaqService>();

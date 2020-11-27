@@ -57,5 +57,27 @@
             public const string DescriptionError = "Description must be between {2} and {1} symbols";
             public const string ArticleIdError = "Please select category name.";
         }
+
+        public static class ContactFormEntryValidation
+        {
+            public const int FirstNameMinLength = 3;
+            public const int FirstNameMaxLength = 30;
+            public const int LastNameMinLength = 3;
+            public const int LastNameMaxLength = 30;
+
+            public const int SubjectMaxLength = 100;
+            public const int SubjectMinLegth = 5;
+
+            public const int ContentMaxLength = 10000;
+            public const int ContentMinLegth = 20;
+
+            public const string FirstNameLengthError = "First name must be between {2} and {1} symbols";
+            public const string LastNameLengthError = "Last name must be between {2} and {1} symbols";
+            public const string SubjectLengthError = "Subject must be between {2} and {1} symbols";
+            public const string ContentLengthError = "Content must be between {2} and {1} symbols";
+
+            public const string FirstNameDisplayName = "First Name";
+            public const string LastNameDispalyName = "Last Name";
+        }
     }
 }
