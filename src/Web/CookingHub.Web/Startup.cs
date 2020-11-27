@@ -65,8 +65,9 @@
 
             // Application services
             services.AddTransient<IEmailSender>(
-                serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+                serviceProvider => new SendGridEmailSender(this.configuration["SendGridCookingHub:ApiKey"]));
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IFaqService, FaqService>();
             services.AddTransient<ICategoriesService, CategoriesService>();

@@ -1,4 +1,6 @@
-﻿@{ this.ViewData["Title"] = "Contact"; }
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model CookingHub.Models.ViewModels.Contacts.ContactFormEntryViewModel
+@{ this.ViewData["Title"] = "Contact us"; }
 
 <!-- Start All Pages -->
 <div class="all-page-title page-breadcrumb">
@@ -11,7 +13,6 @@
     </div>
 </div>
 <!-- End All Pages -->
-
 <!-- Start Contact -->
 <div class="map-full"></div>
 <div class="contact-box">
@@ -20,47 +21,46 @@
             <div class="col-lg-12">
                 <div class="heading-title text-center">
                     <h2>Contact form</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form id="contactForm">
+                <form asp-controller="Contacts" asp-action="Index" method="post">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name">
-                                <div class="help-block with-errors"></div>
+                                <input asp-for="FirstName" placeholder="Enter first name" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" placeholder="Your Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
-                                <div class="help-block with-errors"></div>
+                                <input asp-for="LastName" placeholder="Enter last name" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <select class="custom-select d-block form-control" id="guest" required data-error="Please Select Person">
-                                    <option disabled selected>Please Select Person*</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <div class="help-block with-errors"></div>
+                                <input asp-for="Email" class="form-control" placeholder="Enter email">
+                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control" id="message" placeholder="Your Message" rows="4" data-error="Write your message" required></textarea>
-                                <div class="help-block with-errors"></div>
+                                <input asp-for="Subject" placeholder="Enter subject" class="form-control" />
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <textarea asp-for="Content" class="form-control" rows="6" placeholder="Enter content"></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
                             </div>
                             <div class="submit-button text-center">
-                                <button class="btn btn-common" id="submit" type="submit">Send Message</button>
-                                <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+                                <button class="btn btn-common" type="submit">Send Message</button>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
@@ -76,18 +76,26 @@
 
 @section Scripts
 {
-    <script src="~/js/jquery.mapify.js"></script>
+    <script src="~/js/jquery.mapify.js" asp-append-version="true"></script>
     <script>
         $('.map-full').mapify({
             points: [
                 {
-                    lat: 40.7143528,
-                    lng: -74.0059731,
+                    lat: 42.698334,
+                    lng: 23.319941,
                     marker: true,
                     title: 'Marker title',
-                    infoWindow: 'Live Dinner Restaurant'
+                    infoWindow: 'Cooking Hub'
                 }
             ]
+        });
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
         });
     </script>
 }

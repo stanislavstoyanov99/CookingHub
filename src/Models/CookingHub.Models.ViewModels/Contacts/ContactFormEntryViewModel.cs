@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Models.ViewModels.Contacts
 {
+    using CookingHub.Common.Attributes;
     using System.ComponentModel.DataAnnotations;
 
     using static CookingHub.Models.Common.ModelValidation.ContactFormEntryValidation;
@@ -28,7 +29,7 @@
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLegth, ErrorMessage = ContentLengthError)]
         public string Content { get; set; }
 
-        //[GoogleReCaptchaValidation] TODO
-        //public string RecaptchaValue { get; set; }
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }

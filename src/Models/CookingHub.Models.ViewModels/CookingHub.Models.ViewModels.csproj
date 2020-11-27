@@ -17,6 +17,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\CookingHub.Common\CookingHub.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingHub.Data.Models\CookingHub.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CookingHub.Services.Mapping\CookingHub.Services.Mapping.csproj" />
     <ProjectReference Include="..\CookingHub.Models.Common\CookingHub.Models.Common.csproj" />
