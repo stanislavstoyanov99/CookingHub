@@ -1,5 +1,6 @@
 #slides {
   position: relative;
+  color: red;
 }
 #slides .slides-container {
   display: none;
@@ -20,7 +21,7 @@
 }
 
 .slides-navigation {
-  margin: 0 auto;
+  
   position: absolute;
   z-index: 3;
   top: 46%;

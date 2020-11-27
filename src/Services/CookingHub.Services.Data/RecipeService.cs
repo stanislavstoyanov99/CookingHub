@@ -7,6 +7,7 @@
 
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
+    using CookingHub.Data.Models.Enumerations;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Common;
@@ -33,12 +34,22 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, recipesCreateInputModel.CategoryId));
             }
 
+            if (!Enum.TryParse(recipesCreateInputModel.Difficulty, true, out Difficulty difficulty))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.DifficultyInvalidType, recipesCreateInputModel.Difficulty));
+            }
+
             var recipe = new Recipe
             {
                 Name = recipesCreateInputModel.Name,
                 Description = recipesCreateInputModel.Description,
                 Category = category,
                 UserId = userId,
+                Ingredients = recipesCreateInputModel.Ingredients,
+                PreparationTime = recipesCreateInputModel.PreparationTime,
+                CookingTime = recipesCreateInputModel.CookingTime,
+                ImagePath = recipesCreateInputModel.ImagePath,
+                Difficulty = difficulty,
             };
 
             bool doesRecipeExist = await this.recipeRepository

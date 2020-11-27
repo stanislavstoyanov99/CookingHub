@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Models.InputModels.AdministratorInputModels.Recipes
 {
+    using CookingHub.Data.Models.Enumerations;
     using CookingHub.Models.ViewModels.Categories;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,7 @@
 
         public string Ingredients { get; set; }
 
-        public string PreparationTime { get; set; }
+        public double PreparationTime { get; set; }
 
         public double CookingTime { get; set; }
 

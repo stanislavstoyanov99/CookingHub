@@ -23,5 +23,7 @@
         public const string ArticleAlreadyExists = "Article with name {0} already exists.";
 
         public const string ArticleNotFound = "Article with id {0} is not found.";
+
+        public const string DifficultyInvalidType = "Difficulty type {0} is invalid";
     }
 }
