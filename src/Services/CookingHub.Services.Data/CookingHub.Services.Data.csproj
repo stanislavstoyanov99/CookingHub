@@ -21,11 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CookingHub.Common\CookingHub.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingHub.Data.Common\CookingHub.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingHub.Data.Models\CookingHub.Data.Models.csproj" />
     <ProjectReference Include="..\..\Models\CookingHub.Models.InputModels\CookingHub.Models.InputModels.csproj" />
     <ProjectReference Include="..\..\Models\CookingHub.Models.ViewModels\CookingHub.Models.ViewModels.csproj" />
     <ProjectReference Include="..\CookingHub.Services.Mapping\CookingHub.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CookingHub.Services.Messaging\CookingHub.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>
