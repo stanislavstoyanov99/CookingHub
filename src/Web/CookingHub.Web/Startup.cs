@@ -71,7 +71,7 @@
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IFaqService, FaqService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
-            services.AddTransient<IArticlesService, ArticleService>();
+            services.AddTransient<IArticlesService, ArticlesService>();
             services.AddTransient<IRecipesService, RecipeService>();
 
             var account = new Account(

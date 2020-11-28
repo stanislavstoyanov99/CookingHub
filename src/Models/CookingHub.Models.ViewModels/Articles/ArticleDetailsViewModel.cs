@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CookingHub.Models.ViewModels.Articles
+﻿namespace CookingHub.Models.ViewModels.Articles
 {
-    using CookingHub.Services.Mapping;
     using System.ComponentModel.DataAnnotations;
 
+    using CookingHub.Services.Mapping;
     using CookingHub.Data.Models;
+
     using Ganss.XSS;
 
     using static CookingHub.Models.Common.ModelValidation;
-    public class ArticlesDetailsViewModel : IMapFrom<Article>
+
+    public class ArticleDetailsViewModel : IMapFrom<Article>
     {
         [Display(Name = IdDisplayName)]
         public int Id { get; set; }

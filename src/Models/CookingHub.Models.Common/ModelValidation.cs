@@ -52,10 +52,12 @@
         {
             public const int TitleMinLength = 3;
             public const int TitleMaxLength = 30;
+            public const string TitleLengthError = "Title must be between {2} and {1} symbols";
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 20000;
-            public const string DescriptionError = "Description must be between {2} and {1} symbols";
-            public const string ArticleIdError = "Please select category name.";
+            public const string DescriptionLengthError = "Description must be between {2} and {1} symbols";
+            public const string ArticleIdError = "Please select article.";
+            public const string CategoryDisplayName = "Category";
         }
 
         public static class ContactFormEntryValidation

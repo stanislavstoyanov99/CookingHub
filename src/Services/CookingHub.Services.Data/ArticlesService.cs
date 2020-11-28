@@ -1,5 +1,4 @@
-﻿
-namespace CookingHub.Services.Data
+﻿namespace CookingHub.Services.Data
 {
     using System;
     using System.Collections.Generic;
@@ -16,23 +15,28 @@ namespace CookingHub.Services.Data
 
     using Microsoft.EntityFrameworkCore;
 
-    public class ArticleService : IArticlesService
+    public class ArticlesService : IArticlesService
     {
         private readonly IDeletableEntityRepository<Article> articlesRepository;
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
 
-        public ArticleService(IDeletableEntityRepository<Article> articlesRepository, IDeletableEntityRepository<Category> categoriesRepository)
+        public ArticlesService(
+            IDeletableEntityRepository<Article> articlesRepository,
+            IDeletableEntityRepository<Category> categoriesRepository)
         {
             this.articlesRepository = articlesRepository;
             this.categoriesRepository = categoriesRepository;
         }
 
-        public async Task<ArticlesDetailsViewModel> CreateAsync(ArticleCreateInputModel articleCreateInputModel, string userId)
+        public async Task<ArticleDetailsViewModel> CreateAsync(ArticleCreateInputModel articleCreateInputModel, string userId)
         {
-            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == articleCreateInputModel.CategoryId);
+            var category = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == articleCreateInputModel.CategoryId);
             if (category == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, articleCreateInputModel.CategoryId));
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CategoryNotFound, articleCreateInputModel.CategoryId));
             }
 
             var article = new Article
@@ -42,9 +46,10 @@ namespace CookingHub.Services.Data
                 Category = category,
                 UserId = userId,
             };
+
             bool doesArticleExist = await this.articlesRepository
                .All()
-               .AnyAsync(c => c.Title == article.Title);
+               .AnyAsync(a => a.Title == article.Title);
             if (doesArticleExist)
             {
                 throw new ArgumentException(
@@ -54,7 +59,7 @@ namespace CookingHub.Services.Data
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();
 
-            var viewModel = await this.GetViewModelByIdAsync<ArticlesDetailsViewModel>(article.Id);
+            var viewModel = await this.GetViewModelByIdAsync<ArticleDetailsViewModel>(article.Id);
 
             return viewModel;
         }
@@ -63,7 +68,8 @@ namespace CookingHub.Services.Data
         {
             var article = await this.articlesRepository
                 .All()
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id);
+
             if (article == null)
             {
                 throw new NullReferenceException(
@@ -78,7 +84,7 @@ namespace CookingHub.Services.Data
         {
             var article = await this.articlesRepository
                 .All()
-                .FirstOrDefaultAsync(c => c.Id == articlesEditViewModel.Id);
+                .FirstOrDefaultAsync(a => a.Id == articlesEditViewModel.Id);
 
             if (article == null)
             {
@@ -98,7 +104,7 @@ namespace CookingHub.Services.Data
         {
             var articles = await this.articlesRepository
               .All()
-              .OrderBy(c => c.Title)
+              .OrderBy(a => a.Title)
               .To<TEntity>()
               .ToListAsync();
 
@@ -109,7 +115,7 @@ namespace CookingHub.Services.Data
         {
             var article = await this.articlesRepository
                 .All()
-                .Where(c => c.Title == title)
+                .Where(a => a.Title == title)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
 
@@ -120,7 +126,7 @@ namespace CookingHub.Services.Data
         {
             var articlesViewModel = await this.articlesRepository
                 .All()
-                .Where(c => c.Id == id)
+                .Where(a => a.Id == id)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
 
