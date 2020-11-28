@@ -1,20 +1,32 @@
 ﻿namespace CookingHub.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
+
+    using CookingHub.Models.ViewModels;
+    using CookingHub.Models.ViewModels.Articles;
+    using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class ArticlesController : Controller
     {
-        public IActionResult Index()
+        private const int PageSize = 9;
+        private readonly IArticlesService articlesService;
+
+        public ArticlesController(IArticlesService articlesService)
         {
-            return this.View();
+            this.articlesService = articlesService;
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Index(int? pageNumber)
+        {
+            var allArticles = await Task.Run(() =>
+                this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>());
+
+            return this.View(await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize));
+        }
+
+        public IActionResult Details(int id)
         {
             return this.View();
         }

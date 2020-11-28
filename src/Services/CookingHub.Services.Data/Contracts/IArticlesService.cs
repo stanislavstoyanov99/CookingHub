@@ -1,11 +1,12 @@
-﻿
-namespace CookingHub.Services.Data.Contracts
+﻿namespace CookingHub.Services.Data.Contracts
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookingHub.Models.InputModels.AdministratorInputModels.Articles;
     using CookingHub.Models.ViewModels.Articles;
+
     public interface IArticlesService : IBaseDataService
     {
         Task<ArticleDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel, string userId);
@@ -16,5 +17,6 @@ namespace CookingHub.Services.Data.Contracts
 
         Task<TViewModel> GetArticleAsync<TViewModel>(string title);
 
+        IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>();
     }
 }

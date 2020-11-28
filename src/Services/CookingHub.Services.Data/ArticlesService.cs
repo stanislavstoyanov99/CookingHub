@@ -100,6 +100,17 @@
             await this.articlesRepository.SaveChangesAsync();
         }
 
+        public IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>()
+        {
+            var articles = this.articlesRepository
+                .All()
+                .OrderBy(x => x.Title)
+                .ThenByDescending(x => x.CreatedOn)
+                .To<TViewModel>();
+
+            return articles;
+        }
+
         public async Task<IEnumerable<TEntity>> GetAllArticlesAsync<TEntity>()
         {
             var articles = await this.articlesRepository
