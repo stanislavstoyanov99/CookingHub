@@ -1,2 +1,15 @@
-
+#List {
+    border-color: green;
+    border-style: solid;
+    border-width: medium;
+    border-radius : 12px;
+}
+.statistic-card {
+    margin-top:3px;
+    padding: 5px 10px;
+    border-color: #474747;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 12px;
+}
 /** ADD YOUR AWESOME CODES HERE **/

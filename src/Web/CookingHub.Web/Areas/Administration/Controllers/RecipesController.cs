@@ -18,7 +18,8 @@
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<CookingHubUser> userManager;
 
-        public RecipesController(IRecipesService recipesService, 
+        public RecipesController(
+            IRecipesService recipesService,
             ICategoriesService categoriesService,
             UserManager<CookingHubUser> userManager)
         {
@@ -46,41 +47,41 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RecipesCreateInputModel recipeCreateInputModel)
+        public async Task<IActionResult> Create(RecipesCreateInputModel recipesCreateInputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
                 var categories = await this.categoriesService
                   .GetAllCategoriesAsync<CategoryDetailsViewModel>();
-                recipeCreateInputModel.Categories = categories;
-                return this.View(recipeCreateInputModel);
+                recipesCreateInputModel.Categories = categories;
+                return this.View(recipesCreateInputModel);
             }
 
-            await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
+            await this.recipesService.CreateAsync(recipesCreateInputModel, user.Id);
             return this.RedirectToAction("GetAll", "Recipes", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var recipeToEdit = await this.recipesService
+            var recipesToEdit = await this.recipesService
                 .GetViewModelByIdAsync<RecipesEditViewModel>(id);
             var categories = await this.categoriesService
                   .GetAllCategoriesAsync<CategoryDetailsViewModel>();
-            recipeToEdit.Categories = categories;
+            recipesToEdit.Categories = categories;
 
-            return this.View(recipeToEdit);
+            return this.View(recipesToEdit);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RecipesEditViewModel recipeEditViewModel)
+        public async Task<IActionResult> Edit(RecipesEditViewModel recipesEditViewModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(recipeEditViewModel);
+                return this.View(recipesEditViewModel);
             }
 
-            await this.recipesService.EditAsync(recipeEditViewModel);
+            await this.recipesService.EditAsync(recipesEditViewModel);
             return this.RedirectToAction("GetAll", "Recipes", new { area = "Administration" });
         }
 

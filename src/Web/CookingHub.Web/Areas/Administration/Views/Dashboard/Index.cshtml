@@ -1,11 +1,60 @@
 ﻿@{
     this.ViewData["Title"] = "Dashboard";
+    
+    
 }
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            Dashboard panel in progress
+        <div class="col-md-3" style="margin-left:auto; margin-right:auto">
+            <h1 style="text-align:center;">Cooking Hub Dashboard</h1>
+        </div>
+    </div>
+    <div class="row statistic-card">
+        <div class="col" name="SystemUsers">
+            <canvas id="lineChart"></canvas>
+        </div>
+        <div class="col">
+            <h3>CookingHub System Users</h3>
+            <ul id="UsersNow">
+                <li>Daily Users</li>
+                <li>Registered Users: </li>
+                <li>Admins</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col statistic-card">
+            <h3>CookingHub Recipes</h3>
+            <div class="row">
+                <div class="col">
+                    <p>Recipes Count: </p>
+                    <p>Reviews Count: </p>
+                    <p>Most popular categories:</p>
+                    <ul class="statistic-list" id="RecipeCategories">
+                    </ul>
+                </div>
+                <div class="col statistic-card" name="RecipesStatistic">
+                    <canvas id="RecipesChar"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col statistic-card">
+            <h3>CookingHub Articles</h3>
+            <div class="row">
+                <div class="row">
+                    <div class="col" name="ArticlesStatistic">
+                        <canvas id="ArticlesChar"></canvas>
+                    </div>
+                    <div class="col">
+                        <p>Articles Count: </p>
+                        <p>Most popular categories:</p>
+                        <ul class="statistic-list" id="ArticleCategories">
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
