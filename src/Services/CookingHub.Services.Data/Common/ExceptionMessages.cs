@@ -20,7 +20,7 @@
 
         public const string RecipeNotFound = "Category with id {0} is not found.";
 
-        public const string ArticleAlreadyExists = "Article with name {0} already exists.";
+        public const string ArticleAlreadyExists = "Article with title {0} already exists.";
 
         public const string ArticleNotFound = "Article with id {0} is not found.";
 

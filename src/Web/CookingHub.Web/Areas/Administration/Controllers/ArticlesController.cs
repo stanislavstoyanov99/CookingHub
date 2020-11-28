@@ -7,6 +7,7 @@
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Services.Data.Contracts;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -48,11 +49,14 @@
         public async Task<IActionResult> Create(ArticleCreateInputModel articleCreateInputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+
             if (!this.ModelState.IsValid)
             {
                 var categories = await this.categoriesService
                    .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
                 articleCreateInputModel.Categories = categories;
+
                 return this.View(articleCreateInputModel);
             }
 
@@ -77,11 +81,14 @@
         public async Task<IActionResult> Edit(ArticleEditViewModel articleEditViewModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+
             if (!this.ModelState.IsValid)
             {
                 var categories = await this.categoriesService
                    .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
                 articleEditViewModel.Categories = categories;
+
                 return this.View(articleEditViewModel);
             }
 
@@ -91,13 +98,13 @@
 
         public async Task<IActionResult> Remove(int id)
         {
-            var articlesToDelete = await this.articlesService.GetViewModelByIdAsync<ArticlesDetailsViewModel>(id);
+            var articleToDelete = await this.articlesService.GetViewModelByIdAsync<ArticleDetailsViewModel>(id);
 
-            return this.View(articlesToDelete);
+            return this.View(articleToDelete);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(ArticlesDetailsViewModel articlesDetailsViewModel)
+        public async Task<IActionResult> Remove(ArticleDetailsViewModel articlesDetailsViewModel)
         {
             await this.articlesService.DeleteByIdAsync(articlesDetailsViewModel.Id);
             return this.RedirectToAction("GetAll", "Articles", new { area = "Administration" });
@@ -105,7 +112,7 @@
 
         public async Task<IActionResult> GetAll()
         {
-            var articles = await this.articlesService.GetAllArticlesAsync<ArticlesDetailsViewModel>();
+            var articles = await this.articlesService.GetAllArticlesAsync<ArticleDetailsViewModel>();
             return this.View(articles);
         }
     }
