@@ -13,10 +13,12 @@
 
         Task EditAsync(ArticleEditViewModel articlesEditViewModel, string userId);
 
-        Task<IEnumerable<TEntity>> GetAllArticlesAsync<TEntity>();
+        Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>();
 
         Task<TViewModel> GetArticleAsync<TViewModel>(string title);
 
         IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetRecentArticlesAsync<TViewModel>(int count = 0);
     }
 }

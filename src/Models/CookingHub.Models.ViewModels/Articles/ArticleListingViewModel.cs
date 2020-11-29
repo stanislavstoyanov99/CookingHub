@@ -30,8 +30,12 @@
 
         public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
 
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
+
         public string UserUsername { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public string CategoryName { get; set; }
     }
 }

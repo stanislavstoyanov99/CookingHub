@@ -12,4 +12,8 @@
     border-width: 3px;
     border-radius: 12px;
 }
+#article-size {
+    height: 80px;
+    width: 80px;
+}
 /** ADD YOUR AWESOME CODES HERE **/

@@ -125,12 +125,12 @@
             return articles;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllArticlesAsync<TEntity>()
+        public async Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>()
         {
             var articles = await this.articlesRepository
               .All()
               .OrderBy(a => a.Title)
-              .To<TEntity>()
+              .To<TViewModel>()
               .ToListAsync();
 
             return articles;
@@ -145,6 +145,18 @@
                 .FirstOrDefaultAsync();
 
             return article;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetRecentArticlesAsync<TViewModel>(int count = 0)
+        {
+            var recentArticles = await this.articlesRepository
+                .All()
+                .OrderByDescending(a => a.CreatedOn)
+                .Take(count)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return recentArticles;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
