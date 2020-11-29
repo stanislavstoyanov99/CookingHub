@@ -1,10 +1,11 @@
 ﻿namespace CookingHub.Models.ViewModels.Articles
 {
+    using System;
+
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
 
     using Ganss.XSS;
-    using System;
 
     public class ArticleListingViewModel : IMapFrom<Article>
     {
@@ -13,6 +14,8 @@
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public string ImagePath { get; set; }
 
         public string ShortDescription
         {

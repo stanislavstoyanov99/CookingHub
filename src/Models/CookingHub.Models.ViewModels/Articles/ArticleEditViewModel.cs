@@ -7,6 +7,8 @@
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Categories;
 
+    using Microsoft.AspNetCore.Http;
+
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.ArticleValidation;
 
@@ -22,9 +24,15 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionLengthError)]
         public string Description { get; set; }
 
+        [DataType(DataType.Url)]
+        [StringLength(ImageMaxLength, MinimumLength = ImageMinLength, ErrorMessage = ImagePathError)]
+        public string ImagePath { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile Image { get; set; }
+
         public int CategoryId { get; set; }
         
         public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
-
     }
 }

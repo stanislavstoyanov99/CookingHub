@@ -19,13 +19,16 @@
     {
         private readonly IDeletableEntityRepository<Article> articlesRepository;
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
         public ArticlesService(
             IDeletableEntityRepository<Article> articlesRepository,
-            IDeletableEntityRepository<Category> categoriesRepository)
+            IDeletableEntityRepository<Category> categoriesRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.articlesRepository = articlesRepository;
             this.categoriesRepository = categoriesRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<ArticleDetailsViewModel> CreateAsync(ArticleCreateInputModel articleCreateInputModel, string userId)
@@ -39,10 +42,14 @@
                     string.Format(ExceptionMessages.CategoryNotFound, articleCreateInputModel.CategoryId));
             }
 
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
+
             var article = new Article
             {
                 Title = articleCreateInputModel.Title,
                 Description = articleCreateInputModel.Description,
+                ImagePath = imageUrl,
                 Category = category,
                 UserId = userId,
             };
@@ -80,20 +87,27 @@
             await this.articlesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(ArticleEditViewModel articlesEditViewModel, string userId)
+        public async Task EditAsync(ArticleEditViewModel articleEditViewModel, string userId)
         {
             var article = await this.articlesRepository
                 .All()
-                .FirstOrDefaultAsync(a => a.Id == articlesEditViewModel.Id);
+                .FirstOrDefaultAsync(a => a.Id == articleEditViewModel.Id);
 
             if (article == null)
             {
                 throw new NullReferenceException(
-                    string.Format(ExceptionMessages.ArticleNotFound, articlesEditViewModel.Id));
+                    string.Format(ExceptionMessages.ArticleNotFound, articleEditViewModel.Id));
             }
 
-            article.Title = articlesEditViewModel.Title;
-            article.Description = articlesEditViewModel.Description;
+            if (articleEditViewModel.Image != null)
+            {
+                var newImageUrl = await this.cloudinaryService
+                    .UploadAsync(articleEditViewModel.Image, articleEditViewModel.Title + Suffixes.ArticleSuffix);
+                article.ImagePath = newImageUrl;
+            }
+
+            article.Title = articleEditViewModel.Title;
+            article.Description = articleEditViewModel.Description;
             article.UserId = userId;
 
             this.articlesRepository.Update(article);

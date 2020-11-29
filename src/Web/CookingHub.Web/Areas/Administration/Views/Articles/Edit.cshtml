@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-9">
-        <form asp-area="Administration" asp-controller="Articles" asp-action="Edit" method="post">
+        <form asp-area="Administration" asp-controller="Articles" asp-action="Edit" enctype="multipart/form-data" method="post">
             <h5>Edit <b>@Model.Title</b> category with id: @Model.Id</h5>
             <hr />
             <div class="form-group">
@@ -19,6 +19,20 @@
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Old Image</label>
+                <div class="form-group">
+                    <input asp-for="ImagePath" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <img class="img-fluid img-thumbnail" src="@Model.ImagePath" alt="Image" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input type="file" asp-for="Image" name="Image" />
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>

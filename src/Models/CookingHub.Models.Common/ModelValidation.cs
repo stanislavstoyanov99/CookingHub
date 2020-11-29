@@ -56,6 +56,10 @@
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 20000;
             public const string DescriptionLengthError = "Description must be between {2} and {1} symbols";
+            public const int ImageMinLength = 10;
+            public const int ImageMaxLength = 1000;
+            public const string ImagePathError = "Image path must be between {2} and {1} symbols";
+            public const string ImageDisplayName = "Image";
             public const string ArticleIdError = "Please select article.";
             public const string CategoryDisplayName = "Category";
         }

@@ -4,14 +4,16 @@ using CookingHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookingHub.Data.Migrations
 {
     [DbContext(typeof(CookingHubDbContext))]
-    partial class CookingHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201129100459_AddImagePathToArticle")]
+    partial class AddImagePathToArticle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookingHub.Models.ViewModels.Categories;
+    using Microsoft.AspNetCore.Http;
 
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.ArticleValidation;
@@ -17,6 +18,14 @@
         [Required(ErrorMessage = EmptyFieldLengthError)]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionLengthError)]
         public string Description { get; set; }
+
+        [DataType(DataType.Url)]
+        [StringLength(ImageMaxLength, MinimumLength = ImageMinLength, ErrorMessage = ImagePathError)]
+        public string ImagePath { get; set; }
+
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [DataType(DataType.Upload)]
+        public IFormFile Image { get; set; }
 
         [Display(Name = CategoryDisplayName)]
         public int CategoryId { get; set; }
