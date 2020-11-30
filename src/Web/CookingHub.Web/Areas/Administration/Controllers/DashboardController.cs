@@ -7,6 +7,10 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
+    using System;
+   
+    using Newtonsoft.Json;
+    using System.Security.Cryptography.X509Certificates;
 
     public class DashboardController : AdministrationController
     {
@@ -22,14 +26,19 @@
             this.articlesRepository = articlesRepository;
             this.reviewsRepository = reviewsRepository;
         }
-
+        
         public IActionResult Index()
         {
-            var statistics = new DashboardContentModel();
-          
-            statistics.Users = this.usersRepository.All().ToList();
+            var statistics = new DashboardContentModel()
+            {
+                RecipesCount = this.recipesRepository.All().Count(),
+                ArticlesCount = this.articlesRepository.All().Count(),
+                ReviewsCount = this.reviewsRepository.All().Count(),
+                RegisteredUsers = this.usersRepository.All().Count(),
+                Admins = this.usersRepository.All().Where(x => x.UserName == "Admin").Count(),
+            };
+
             return this.View(statistics);
         }
-
     }
 }

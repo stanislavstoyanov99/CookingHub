@@ -3,14 +3,30 @@
 
 // Write your JavaScript code.
 let ctxL = document.getElementById("lineChart").getContext('2d');
-let adudata = [0, 3, 15, 13, 15, 25, 3, 0, 12, 10, 55, 2];
+let ctxt = document.getElementById("RecipesnArticlesChar").getContext('2d');
+//$("#AdminDashboardButton").click(function () {
+//    myLaneChart.clear();
+//})
+$(document).ready(function () {
+    $.ajax({
+        url: '/api/statistics',
+        type: 'GET',
+        dataType: "json",
+        success: function (data) {
+            myLineChart.data.datasets[1].data = data.registeredUsers;
+            myDoughnutChart.data.datasets[0].data = [data.recipesCount, data.articlesCount];
+            myLineChart.update();
+            myDoughnutChart.update();
+        }
+    })
+});
 let myLineChart = new Chart(ctxL, {
     type: 'line',
     data: {
         labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
         datasets: [{
             label: "Average Daily Users",
-            data: adudata,
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: [
                 'rgba(200, 99, 132, .7)',
             ],
@@ -18,13 +34,27 @@ let myLineChart = new Chart(ctxL, {
         },
         {
             label: "Registered Users",
-            data: [3,6,9,9,12,13,15,18,33,34,40,41],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: [
                 'rgba(0, 10, 130, .7)',
             ],
             borderWidth: 3
         }
         ]
+    },
+    options: {
+        responsive: true
+    }
+});
+let myDoughnutChart = new Chart(ctxt, {
+    type: 'pie',
+    data: {
+        labels: ["Recipes","Articles"],
+        datasets: [{
+            label: "Average Daily Users",
+            data: [0, 0],
+            backgroundColor: ["#3e95cd","#c45850"],
+        }]
     },
     options: {
         responsive: true

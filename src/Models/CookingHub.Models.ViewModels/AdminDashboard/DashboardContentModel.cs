@@ -7,12 +7,17 @@
     using System.Text;
     public class DashboardContentModel
     {
-        public IEnumerable<CookingHubUser> Users { get; set; }
+        public int RegisteredUsers { get; set; }
 
-        public Recipe Recipes;
+        public int UsersToday { get; set; }
 
-        public Review Reviews;
+        public int Admins { get; set; }
 
-        public Article Articles;
+        public int RecipesCount {get;set;}
+
+        public int ArticlesCount { get; set; }
+
+        public int ReviewsCount { get; set; }
+
     }
 }
