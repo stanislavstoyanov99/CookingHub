@@ -1,4 +1,4 @@
-﻿@model CookingHub.Models.ViewModels.Recipes.RecipesDetailsViewModel
+﻿@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
 @{
     this.ViewData["Title"] = "Delete Recipe";
     this.ViewData["ActivePage"] = RecipesNavPages.Recipes;
@@ -16,6 +16,14 @@
             <div class="form-group">
                 <label asp-for="Description"></label>
                 <textarea asp-for="SanitizedDescription" class="form-control" disabled=""></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <input asp-for="Category.Name" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label>Created by</label>
+                <input asp-for="UserUsername" class="form-control" disabled="" />
             </div>
             <button type="submit" class="btn btn-danger">Delete recipe</button>
             <button asp-area="Administration" asp-controller="Recipes" asp-action="GetAll" class="btn btn-primary">Back to all recipes</button>

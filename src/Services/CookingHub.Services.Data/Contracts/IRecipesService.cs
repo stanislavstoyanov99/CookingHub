@@ -8,9 +8,9 @@
 
     public interface IRecipesService : IBaseDataService
     {
-        Task<RecipesDetailsViewModel> CreateAsync(RecipesCreateInputModel recipesCreateInputModel , string userId);
+        Task<RecipeDetailsViewModel> CreateAsync(RecipeCreateInputModel recipeCreateInputModel, string userId);
 
-        Task EditAsync(RecipesEditViewModel recipesEditViewModel);
+        Task EditAsync(RecipeEditViewModel recipeEditViewModel);
 
         Task<IEnumerable<TEntity>> GetAllRecipesAsync<TEntity>();
     }

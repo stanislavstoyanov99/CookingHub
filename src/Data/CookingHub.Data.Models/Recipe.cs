@@ -27,6 +27,8 @@
         [MaxLength(IngredientsMaxLength)]
         public string Ingredients { get; set; }
 
+        public int Rate { get; set; }
+
         public double PreparationTime { get; set; }
 
         public double CookingTime { get; set; }

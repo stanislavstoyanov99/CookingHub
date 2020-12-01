@@ -1,14 +1,17 @@
 ﻿namespace CookingHub.Models.InputModels.AdministratorInputModels.Recipes
 {
-    using CookingHub.Data.Models.Enumerations;
-    using CookingHub.Models.ViewModels.Categories;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static CookingHub.Models.Common.ModelValidation;
-    using static CookingHub.Models.Common.ModelValidation.CategoryValidation;
+    using CookingHub.Data.Models;
+    using CookingHub.Models.ViewModels.Categories;
 
-    public class RecipesCreateInputModel
+    using Microsoft.AspNetCore.Http;
+
+    using static CookingHub.Models.Common.ModelValidation;
+    using static CookingHub.Models.Common.ModelValidation.RecipeValidation;
+
+    public class RecipeCreateInputModel
     {
         [Required(ErrorMessage = EmptyFieldLengthError)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
@@ -18,21 +21,31 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionError)]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(IngredientsMaxLength, MinimumLength = IngredientsMinLength, ErrorMessage = IngredientsError)]
         public string Ingredients { get; set; }
 
+        [Display(Name = PreparationTimeDisplayName)]
         public double PreparationTime { get; set; }
 
+        [Display(Name = CookingTimeDisplayName)]
         public double CookingTime { get; set; }
 
-        [Range(0,12)]
+        [Display(Name = PortionsNumberDisplayName)]
+        [Range(PortionsMinLength, PortionsMaxLength)]
         public int PortionsNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
         public string Difficulty { get; set; }
-        
-        [Required]
+
         public string ImagePath { get; set; }
 
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [DataType(DataType.Upload)]
+        public IFormFile Image { get; set; }
+
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [Display(Name = nameof(Category))]
         public int CategoryId { get; set; }
 
         public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }

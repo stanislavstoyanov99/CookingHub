@@ -17,6 +17,10 @@
                 <label asp-for="Description"></label>
                 <textarea asp-for="SanitizedDescription" class="form-control" disabled=""></textarea>
             </div>
+            <div class="form-group">
+                <label>Created by</label>
+                <input asp-for="UserUsername" class="form-control" disabled="" />
+            </div>
             <button type="submit" class="btn btn-danger">Delete category</button>
             <button asp-area="Administration" asp-controller="Categories" asp-action="GetAll" class="btn btn-primary">Back to all categories</button>
         </form>

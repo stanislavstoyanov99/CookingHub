@@ -16,9 +16,9 @@
 
         public const string CategoryNotFound = "Category with id {0} is not found.";
 
-        public const string RecipeAlreadyExists = "Recepie with name {0} already exists.";
+        public const string RecipeAlreadyExists = "Recipe with name {0} already exists.";
 
-        public const string RecipeNotFound = "Category with id {0} is not found.";
+        public const string RecipeNotFound = "Recipe with id {0} is not found.";
 
         public const string ArticleAlreadyExists = "Article with title {0} already exists.";
 

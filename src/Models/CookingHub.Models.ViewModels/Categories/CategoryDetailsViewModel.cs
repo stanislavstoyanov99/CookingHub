@@ -31,5 +31,7 @@
         public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
         public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
+
+        public string UserUsername { get; set; }
     }
 }

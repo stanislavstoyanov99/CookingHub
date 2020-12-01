@@ -31,6 +31,7 @@
         [DataType(DataType.Upload)]
         public IFormFile Image { get; set; }
 
+        [Display(Name = nameof(Category))]
         public int CategoryId { get; set; }
         
         public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }

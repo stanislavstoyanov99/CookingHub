@@ -23,6 +23,10 @@
                     <img class="img-fluid img-thumbnail" src="@Model.ImagePath" alt="Image" />
                 </div>
             </div>
+            <div class="form-group">
+                <label>Created by</label>
+                <input asp-for="UserUsername" class="form-control" disabled="" />
+            </div>
             <button type="submit" class="btn btn-danger">Delete article</button>
             <button asp-area="Administration" asp-controller="Articles" asp-action="GetAll" class="btn btn-primary">Back to all articles</button>
         </form>
