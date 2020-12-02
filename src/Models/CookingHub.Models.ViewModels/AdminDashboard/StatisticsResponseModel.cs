@@ -16,6 +16,10 @@ namespace CookingHub.Models.ViewModels
 
         public int reviewedrecipesCount { get; set; }
 
+        public int reviewsCount { get; set; }
+
+        public int commentsCount { get; set; }
+
         public string[] topfiverecipes { get; set; }
 
         public string[] topfivearticles { get; set; }
