@@ -9,7 +9,5 @@
         public PaginatedList<RecipeListingViewModel> RecipesPaginated { get; set; }
 
         public IEnumerable<CategoryListingViewModel> Categories { get; set; }
-
-        public string SelectedTab { get; set; }
     }
 }

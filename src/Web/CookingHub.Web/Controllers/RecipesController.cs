@@ -37,7 +37,6 @@
             {
                 RecipesPaginated = recipesPaginated,
                 Categories = categories,
-                SelectedTab = categoryName,
             };
 
             return this.View(model);
