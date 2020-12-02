@@ -22,32 +22,23 @@
             this.categoriesService = categoriesService;
         }
 
-        // Page number is used for pagination in UI in order to show only 12 recipes in All Tab
-        // Category name is used in order to filter recipes by category (Categories are listed on the left side)
-        public async Task<IActionResult> Index(int? pageNumber, string categoryName)
+        public async Task<IActionResult> Index(string categoryName, int? pageNumber)
         {
-            var allRecipes = await Task.Run(() =>
-                this.recipesService.GetAllRecipesAsQueryeable<RecipeListingViewModel>());
+            var recipes = this.recipesService
+                .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
 
-            var recipesListingViewModel = await PaginatedList<RecipeListingViewModel>
-                .CreateAsync(allRecipes, pageNumber ?? 1, PageSize);
+            var recipesPaginated = await PaginatedList<RecipeListingViewModel>
+                .CreateAsync(recipes, pageNumber ?? 1, PageSize);
 
-            var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryListingViewModel>();
+            var categories = await this.categoriesService
+                .GetAllCategoriesAsync<CategoryListingViewModel>();
 
             var model = new RecipePageViewModel
             {
-                RecipesListingViewModel = recipesListingViewModel,
+                RecipesPaginated = recipesPaginated,
                 Categories = categories,
-                RecipesByCategory = new List<RecipeListingViewModel>(),
+                SelectedTab = categoryName,
             };
-
-            if (!string.IsNullOrEmpty(categoryName))
-            {
-                var recipesByCategory = await this.recipesService
-                    .GetRecipesByCategoryAsync<RecipeListingViewModel>(categoryName);
-
-                model.RecipesByCategory = recipesByCategory;
-            }
 
             return this.View(model);
         }

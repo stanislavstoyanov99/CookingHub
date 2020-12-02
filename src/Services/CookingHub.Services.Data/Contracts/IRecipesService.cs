@@ -17,6 +17,6 @@
 
         IQueryable<TViewModel> GetAllRecipesAsQueryeable<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetRecipesByCategoryAsync<TViewModel>(string categoryName);
+        IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null);
     }
 }

@@ -5,6 +5,7 @@
 let ctxL = document.getElementById("lineChart").getContext('2d');
 let ctxt = document.getElementById("RecipesnArticlesChar").getContext('2d');
 let ctxq = document.getElementById("additional").getContext('2d');
+
 //$("#AdminDashboardButton").click(function () {
 //    myLaneChart.clear();
 //})
@@ -23,10 +24,11 @@ $(document).ready(function () {
         }
     })
 });
+
 let myLineChart = new Chart(ctxL, {
     type: 'line',
     data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         datasets: [{
             label: "Average Daily Users",
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -49,20 +51,22 @@ let myLineChart = new Chart(ctxL, {
         responsive: true
     }
 });
+
 let myDoughnutChart = new Chart(ctxt, {
     type: 'pie',
     data: {
         labels: ["Recipes", "Articles"],
         datasets: [{
-            
+
             data: [0, 0],
-            backgroundColor: ["#3e95cd","#c45850"],
+            backgroundColor: ["#3e95cd", "#c45850"],
         }]
     },
     options: {
         responsive: false
     }
 });
+
 let mypolarareaChart = new Chart(ctxq, {
     type: 'bar',
     data: {
@@ -71,14 +75,14 @@ let mypolarareaChart = new Chart(ctxq, {
             label: "Reviews",
             data: [0, 0],
             backgroundColor: ["#52BE80",],
-
-        }, {
-                label: "Article Comments",
-                data: [0, 0],
-                backgroundColor: ["#F7DC6F"],
-            },
+        },
+        {
+            label: "Article Comments",
+            data: [0, 0],
+            backgroundColor: ["#F7DC6F"],
+        }]
     },
     options: {
         responsive: true
     }
-})
+});

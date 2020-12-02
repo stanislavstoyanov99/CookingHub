@@ -19,5 +19,7 @@
         public Difficulty Difficulty { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public Category Category { get; set; }
     }
 }
