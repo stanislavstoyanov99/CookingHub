@@ -136,12 +136,23 @@
             await this.recipesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllRecipesAsync<TEntity>()
+        public IQueryable<TViewModel> GetAllRecipesAsQueryeable<TViewModel>()
+        {
+            var recipes = this.recipesRepository
+                .All()
+                .OrderBy(x => x.Rate)
+                .ThenByDescending(x => x.CreatedOn)
+                .To<TViewModel>();
+
+            return recipes;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllRecipesAsync<TViewModel>()
         {
             var recipes = await this.recipesRepository
                .All()
                .OrderBy(r => r.Name)
-               .To<TEntity>()
+               .To<TViewModel>()
                .ToListAsync();
 
             return recipes;
@@ -156,6 +167,17 @@
                 .FirstOrDefaultAsync();
 
             return recipe;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetRecipesByCategoryAsync<TViewModel>(string categoryName)
+        {
+            var recipes = await this.recipesRepository
+                .All()
+                .Where(r => r.Category.Name == categoryName)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return recipes;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
