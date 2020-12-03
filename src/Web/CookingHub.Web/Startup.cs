@@ -78,6 +78,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IArticlesService, ArticlesService>();
             services.AddTransient<IRecipesService, RecipesService>();
+            services.AddTransient<IArticlesCommentsService, ArticlesCommentsService>();
 
             var account = new Account(
                 this.configuration["Cloudinary:AppName"],
