@@ -8,15 +8,16 @@
     using CookingHub.Data.Models;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
+
     using Microsoft.EntityFrameworkCore;
 
-    public class ArticlesCommentsService : IArticlesCommentsService
+    public class ArticleCommentsService : IArticleCommentsService
     {
-        private readonly IDeletableEntityRepository<ArticleComment> articlesCommentsRepository;
+        private readonly IDeletableEntityRepository<ArticleComment> articleCommentsRepository;
 
-        public ArticlesCommentsService(IDeletableEntityRepository<ArticleComment> articlesCommentsrepository)
+        public ArticleCommentsService(IDeletableEntityRepository<ArticleComment> articleCommentsrepository)
         {
-            this.articlesCommentsRepository = articlesCommentsrepository;
+            this.articleCommentsRepository = articleCommentsrepository;
         }
 
         public async Task CreateAsync(int articleId, string userId, string content, int? parentId = null)
@@ -29,7 +30,7 @@
                 ParentId = parentId,
             };
 
-            bool doesArticleCommentExist = await this.articlesCommentsRepository
+            bool doesArticleCommentExist = await this.articleCommentsRepository
                 .All()
                 .AnyAsync(x => x.ArticleId == articleComment.ArticleId && x.UserId == userId && x.Content == content);
             if (doesArticleCommentExist)
@@ -38,13 +39,13 @@
                     string.Format(ExceptionMessages.ArticleCommentAlreadyExists, articleComment.ArticleId, articleComment.Content));
             }
 
-            await this.articlesCommentsRepository.AddAsync(articleComment);
-            await this.articlesCommentsRepository.SaveChangesAsync();
+            await this.articleCommentsRepository.AddAsync(articleComment);
+            await this.articleCommentsRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> IsInArticlesId(int commentId, int articleId)
+        public async Task<bool> IsInArticleId(int commentId, int articleId)
         {
-            var commentArticleId = await this.articlesCommentsRepository
+            var commentArticleId = await this.articleCommentsRepository
                 .All()
                 .Where(x => x.Id == commentId)
                 .Select(x => x.ArticleId)

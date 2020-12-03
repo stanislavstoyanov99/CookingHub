@@ -1,4 +1,4 @@
-﻿namespace CookingHub.Models.ViewModels.ArticlesComments
+﻿namespace CookingHub.Models.ViewModels.ArticleComments
 {
     using System;
 
@@ -6,6 +6,7 @@
     using CookingHub.Services.Mapping;
 
     using Ganss.XSS;
+
     public class PostArticleCommentViewModel : IMapFrom<ArticleComment>
     {
         public int Id { get; set; }
@@ -19,6 +20,5 @@
         public DateTime CreatedOn { get; set; }
 
         public string UserUserName { get; set; }
-
     }
 }

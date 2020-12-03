@@ -1,8 +1,9 @@
-﻿namespace CookingHub.Models.InputModels.ArticlesComments
+﻿namespace CookingHub.Models.InputModels.ArticleComments
 {
     using System.ComponentModel.DataAnnotations;
 
     using static CookingHub.Models.Common.ModelValidation;
+
     public class CreateArticleCommentInputModel
     {
         public int ArticleId { get; set; }

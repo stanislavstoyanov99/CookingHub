@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
-    using CookingHub.Models.ViewModels.ArticlesComments;
+    using CookingHub.Models.ViewModels.ArticleComments;
 
     using Ganss.XSS;
     
-
     public class ArticleListingViewModel : IMapFrom<Article>
     {
         public int Id { get; set; }
@@ -40,6 +40,6 @@
 
         public string CategoryName { get; set; }
 
-        public IEnumerable<PostArticleCommentViewModel> ArticlesComments { get; set; }
+        public IEnumerable<PostArticleCommentViewModel> ArticleComments { get; set; }
     }
 }

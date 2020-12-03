@@ -1,6 +1,5 @@
 ﻿namespace CookingHub.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using CookingHub.Models.ViewModels;

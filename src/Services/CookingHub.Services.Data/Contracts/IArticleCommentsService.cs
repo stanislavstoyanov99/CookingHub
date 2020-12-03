@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
 
-    public interface IArticlesCommentsService 
+    public interface IArticleCommentsService
     {
         Task CreateAsync(int articleId, string userId, string content, int? parentId = null);
 
-        Task<bool> IsInArticlesId(int commentId, int articleId);
+        Task<bool> IsInArticleId(int commentId, int articleId);
     }
 }

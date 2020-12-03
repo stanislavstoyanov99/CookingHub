@@ -4,23 +4,23 @@
     using System.Threading.Tasks;
 
     using CookingHub.Data.Models;
-    using CookingHub.Models.InputModels.ArticlesComments;
+    using CookingHub.Models.InputModels.ArticleComments;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ArticlesCommentsController : Controller
+    public class ArticleCommentsController : Controller
     {
-        private readonly IArticlesCommentsService articlescommentsService;
+        private readonly IArticleCommentsService articleCommentsService;
         private readonly UserManager<CookingHubUser> userManager;
 
-        public ArticlesCommentsController(
-            IArticlesCommentsService commentsService,
+        public ArticleCommentsController(
+            IArticleCommentsService articleCommentsService,
             UserManager<CookingHubUser> userManager)
         {
-            this.articlescommentsService = commentsService;
+            this.articleCommentsService = articleCommentsService;
             this.userManager = userManager;
         }
 
@@ -32,7 +32,7 @@
 
             if (parentId.HasValue)
             {
-                if (!await this.articlescommentsService.IsInArticlesId(parentId.Value, input.ArticleId))
+                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, input.ArticleId))
                 {
                     return this.BadRequest();
                 }
@@ -42,7 +42,7 @@
 
             try
             {
-                await this.articlescommentsService.CreateAsync(input.ArticleId, userId, input.Content, parentId);
+                await this.articleCommentsService.CreateAsync(input.ArticleId, userId, input.Content, parentId);
             }
             catch (ArgumentException aex)
             {
