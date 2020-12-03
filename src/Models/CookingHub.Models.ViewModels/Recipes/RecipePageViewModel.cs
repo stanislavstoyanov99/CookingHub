@@ -6,10 +6,8 @@
 
     public class RecipePageViewModel
     {
-        public PaginatedList<RecipeListingViewModel> RecipesListingViewModel { get; set; }
+        public PaginatedList<RecipeListingViewModel> RecipesPaginated { get; set; }
 
         public IEnumerable<CategoryListingViewModel> Categories { get; set; }
-
-        public IEnumerable<RecipeListingViewModel> RecipesByCategory { get; set; }
     }
 }

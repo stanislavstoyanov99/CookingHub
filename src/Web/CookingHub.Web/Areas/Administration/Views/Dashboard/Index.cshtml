@@ -4,51 +4,54 @@
     var recipesCount = Model.RecipesCount;
     var articleCount = Model.ArticlesCount;
 }
-    
-<div class="container">
+
+<div class="container pl-3 centered">
     <div class="row">
-        <div class="col-md-3" style="margin-left:auto; margin-right:auto">
+        <div class="col-md-3 centered">
             <h1 style="text-align:center;">Cooking Hub Dashboard</h1>
         </div>
     </div>
-    <div class="row statistic-card">
+    <div class="row statistic-card shadow p-3 bg-white rounded" style="max-width:94%;">
         <div class="col" name="SystemUsers">
             <canvas id="lineChart"></canvas>
         </div>
         <div class="col">
-            <h3>CookingHub System Users</h3>
-            <ul id="UsersNow">
+            <h3 class="centered">CookingHub System Users</h3>
+            <ul id="UsersNow" class="centered">
                 <li>Daily Users</li>
-                <li>Registered Users:@Model.RegisteredUsers</li>
+                <li></li>
+                <li>Registered Users:</li>
+                <li>@Model.RegisteredUsers</li>
                 <li>Admins</li>
+                <li>@Model.Admins</li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="col statistic-card">
-            <h3>CookingHub Main Content</h3>
-                <div class="container">
-                    <p>Recipes Count: @recipesCount Articles Count: @articleCount </p>
-                </div>
-                <div class="conteiner statistic-card" name="RecipesStatistic">
-                    <canvas id="RecipesnArticlesChar"></canvas>
-                </div>
+        <div class="col statistic-card shadow p-3 mb-5 mr-3 mt-3 bg-white rounded dig">
+            <h3 class="centered">CookingHub Main Content</h3>
+            <div class="container">
+                <p style="text-align:center">Recipes Count: <strong class="recipe-sec">@recipesCount</strong> | Articles Count: <strong class="article-sec">@articleCount</strong> </p>
+            </div>
+            <div class="conteiner chart-card" name="RecipesStatistic">
+                <canvas class="centered" id="RecipesnArticlesChar"></canvas>
+            </div>
         </div>
-        <div class="col statistic-card">
+        <div class="col statistic-card shadow p-3 mb-5 mt-3 bg-white rounded dig">
             <h3>CookingHub Additional Data</h3>
-            
-                <div class="row">
-                    <div class="col" name="ArticlesStatistic">
-                        <canvas id="ArticlesChar"></canvas>
-                    </div>
-                    <div class="col">
-                        <p>Articles Count: </p>
-                        <p>Most popular categories:</p>
-                        <ul class="statistic-list" id="ArticleCategories">
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col" name="AdditionalStatistics">
+                    <canvas id="additional"></canvas>
                 </div>
-            
+                <div class="col">
+                    <ul class="centered" id="addit">
+                        <li>Reviews:</li>
+                        <li>Comments:</li>
+                        <li>CategoriesCount:</li>
+                        <li>Most popular categories:</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

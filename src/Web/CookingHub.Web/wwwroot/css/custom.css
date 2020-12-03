@@ -4,16 +4,40 @@
     border-width: medium;
     border-radius : 12px;
 }
+#RecipesnArticlesChar{
+    height:200px;
+}
 .statistic-card {
-    margin-top:3px;
     padding: 5px 10px;
-    border-color: #474747;
+    border-color: grey;
     border-style: solid;
     border-width: 3px;
-    border-radius: 12px;
 }
 #article-size {
     height: 80px;
     width: 80px;
 }
+.recipe-sec {
+    color: #3e95cd;
+}
+.article-sec {
+    color: #c45850;
+}
+.centered{
+    align-content:center;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+#UsersNow{
+    padding-left:12px;
+}
+.dig{
+    max-width:45%;
+}
+#DashboardCon{
+    background-image:url("../images/dashboard-background.jpg");
+    background-size: cover;
+}
+
 /** ADD YOUR AWESOME CODES HERE **/

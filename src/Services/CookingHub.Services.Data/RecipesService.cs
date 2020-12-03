@@ -18,6 +18,7 @@
 
     public class RecipesService : IRecipesService
     {
+        private const string AllPaginationFilter = "All";
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
         private readonly ICloudinaryService cloudinaryService;
@@ -158,6 +159,25 @@
             return recipes;
         }
 
+        public IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null)
+        {
+            var recipesByFilter = Enumerable.Empty<TViewModel>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(categoryName) && categoryName != AllPaginationFilter)
+            {
+                recipesByFilter = this.recipesRepository
+                    .All()
+                    .Where(x => x.Category.Name == categoryName)
+                    .To<TViewModel>();
+            }
+            else
+            {
+                recipesByFilter = this.GetAllRecipesAsQueryeable<TViewModel>();
+            }
+
+            return recipesByFilter;
+        }
+
         public async Task<TViewModel> GetRecipeAsync<TViewModel>(string name)
         {
             var recipe = await this.recipesRepository
@@ -167,17 +187,6 @@
                 .FirstOrDefaultAsync();
 
             return recipe;
-        }
-
-        public async Task<IEnumerable<TViewModel>> GetRecipesByCategoryAsync<TViewModel>(string categoryName)
-        {
-            var recipes = await this.recipesRepository
-                .All()
-                .Where(r => r.Category.Name == categoryName)
-                .To<TViewModel>()
-                .ToListAsync();
-
-            return recipes;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
