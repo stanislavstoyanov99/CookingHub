@@ -39,5 +39,42 @@
     background-image:url("../images/dashboard-background.jpg");
     background-size: cover;
 }
+.homeinfo {
+    position: absolute;
+    z-index: 0;
+    margin: 250px 50px;
+    font-size: 28px;
+    color:white;
+}
+.homeinfo h1{
+    font-size: 42px;
+    color: lightgray;
+}
+.article-box {
+    background-color: #540404;
+    align-content:center;
+    align-items:center;
+    padding-top:20px;
+    color:white;
+}
+#toArticle{
+    background-color:white;
+    color:black;
+    font-size:30px;
+    height:91%;
+    padding: 150px 50px;
 
+}
+@media screen and (min-width: 1280px) {
+    .ar-row {
+        margin-right: 300px;
+        margin-left: 300px;
+    }
+}
+@media(max-width: 1280px) {
+    .ar-row {
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}
 /** ADD YOUR AWESOME CODES HERE **/

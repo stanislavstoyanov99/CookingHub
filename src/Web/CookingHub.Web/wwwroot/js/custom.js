@@ -34,7 +34,7 @@
 		animation: 'fade',
 	});
 	
-	$( ".cover-slides ul li" ).append( "<div class='overlay-background'></div>" );
+    $( ".cover-slides ul li" ).append( "<div class='overlay-background'></div>" );
 	
 	/* ..............................................
     Map Full

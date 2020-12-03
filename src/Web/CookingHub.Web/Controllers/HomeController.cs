@@ -1,9 +1,11 @@
 ﻿namespace CookingHub.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookingHub.Models.ViewModels;
+    using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Privacy;
     using CookingHub.Services.Data.Contracts;
 
@@ -12,15 +14,20 @@
     public class HomeController : Controller
     {
         private readonly IPrivacyService privacyService;
+        private readonly IArticlesService articlesService;
 
-        public HomeController(IPrivacyService privacyService)
+        public HomeController(IPrivacyService privacyService , IArticlesService articlesService)
         {
             this.privacyService = privacyService;
+            this.articlesService = articlesService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return this.View();
+            var allArticles = await Task.Run(() =>
+                 this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>());
+            var top2 = allArticles.Take(2);
+            return this.View(top2);
         }
 
         public async Task<IActionResult> Privacy()

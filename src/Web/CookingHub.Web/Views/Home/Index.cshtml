@@ -1,54 +1,35 @@
 ﻿@{ this.ViewData["Title"] = "Home Page"; }
 
 <!-- Start slides -->
-<div id="slides" class="conteiner-fluid cover-slides">
-    <ul class="slides-container">
-        <li class="text-left">
-            <img src="~/images/slider-01.jpg" alt="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome to <br> Cooking Hub!</strong></h1>
-                        <p class="m-b-40">
-                            Feel free to exlore our online network for   <br>
-                            cooking and healty life!
-                        </p>
-                        <p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="text-left">
-            <img src="~/images/slider-02.jpg" alt="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome To <br> Live Dinner Restaurant</strong></h1>
-                        <p class="m-b-40">
-                            See how your users experience your website in realtime or view  <br>
-                            trends to see any changes in performance over time.
-                        </p>
-                        <p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="text-left">
-            <img src="~/images/slider-03.jpg" alt="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome To <br> Yamifood Restaurant</strong></h1>
-                        <p class="m-b-40">
-                            See how your users experience your website in realtime or view  <br>
-                            trends to see any changes in performance over time.
-                        </p>
-                        <p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div class="conteiner-fluid">
+    <div class="container homeinfo">
+        <h1 class="m-b-20"><strong>Welcome to <br> Cooking Hub!</strong></h1>
+        <p class="m-b-40">
+            Feel free to exlore our online network for   <br>
+            cooking and healty life! <br>
+        </p>
+        <p class="m-b-40" id="UnRegistered" style="font-size: 22px;">
+            If you want you can join our community<br>
+            and create and free account
+        </p>
+        <button class="btn btn-light">Sign up/Log in</button>
+    </div>
+    <div id="slides" class="conteiner-fluid cover-slides" style="z-index:-1;">
+        <ul class="slides-container">
+            <li class="text-left">
+                <img src="~/images/slider-01.jpg" alt="">
+
+            </li>
+            <li class="text-left">
+                <img src="~/images/slider-02.jpg" alt="">
+            </li>
+            <li class="text-left">
+                <img src="~/images/slider-03.jpg" alt="">
+            </li>
+        </ul>
+
+    </div>
+
 </div>
 <!-- End slides -->
 <!-- Start About -->
@@ -57,11 +38,10 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 text-center">
                 <div class="inner-column">
-                    <h1>Welcome To <span>Live Dinner Restaurant</span></h1>
-                    <h4>Little Story</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque auctor suscipit feugiat. Ut at pellentesque ante, sed convallis arcu. Nullam facilisis, eros in eleifend luctus, odio ante sodales augue, eget lacinia lectus erat et sem. </p>
-                    <p>Sed semper orci sit amet porta placerat. Etiam quis finibus eros. Sed aliquam metus lorem, a pellentesque tellus pretium a. Nulla placerat elit in justo vestibulum, et maximus sem pulvinar.</p>
-                    <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
+                    <h1>Cooking Hub</h1>
+                    <h4>Website created for all you home chefs out there!</h4>
+                    <p class="mt-4">Cooking Hub is an online community webside created for browsing recipes and articles about healty lifestyle!</p>
+                    <p>Our goal is to make the Internet a user-friendly place for people who want to find fresh ideas for homemade food!</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -77,9 +57,9 @@
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto text-center">
                 <p class="lead ">
-                    " If you're not the one cooking, stay out of the way and compliment the chef. "
+                    " No rules. Don't be afraid to do whatever you want. Cooking doesn't have to have rules. I don't like it that way. "
                 </p>
-                <span class="lead">Michael Strahan</span>
+                <span class="lead"> Masaharu Morimoto</span>
             </div>
         </div>
     </div>
@@ -92,22 +72,13 @@
             <div class="col-lg-12">
                 <div class="heading-title text-center">
                     <h2>Recipes</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+                    <p>Here are some examples of what you can do in fing in the Recipes page.</p>
                 </div>
             </div>
         </div>
 
-        <div class="row inner-menu-box">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Drinks</a>
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Lunch</</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Dinner</a>
-                </div>
-            </div>
-
-            <div class="col-9">
+        <div class="row inner-menu-box centered">
+            <div class="col-9 ml-auto mr-auto">
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         <div class="row">
@@ -321,15 +292,69 @@
                             </div>
                         </div>
                     </div>
+                    <div class="conteiner-fluid">
+                        <button class="btn btn-dark w-100" asp-area="" asp-controller="Recipes" asp-action="Index">To Recipes</button>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
+
 </div>
 <!-- End Menu -->
+<div class="article-box">
+    <div class="conteiner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2 style="color:white">Articles</h2>
+                    <p>If you are not hungry, feel free to browse our article section</p>
+                </div>
+            </div>
+            <div class="article-cards">
+                <div class="row ar-row">
+                    @foreach (var article in Model)
+                    {
+                        <div class="col-4 col-xs-12">
+                            <div class="blog-box-inner">
+                                <div class="blog-img-box">
+                                    <img class="img-fluid" src="@article.ImagePath" alt="image_@article.Id">
+                                </div>
+                                <div class="blog-detail">
+                                    <h4>@article.Title</h4>
+                                    <ul>
+                                        <li>
+                                            <span>Post by <i class="fa fa-user"></i> @article.UserUsername</span>
+                                        </li>
+                                        <li>|</li>
+                                        <li>
+                                            <span><i class="fa fa-calendar"></i> @article.CreatedOn.ToShortDateString()</span>
+                                        </li>
+                                    </ul>
+                                    <p>@Html.Raw(article.SanitizedShortDescription)</p>
+                                    <a class="btn btn-lg btn-circle btn-outline-new-white"
+                                       asp-area=""
+                                       asp-controller="Articles"
+                                       asp-action="Details"
+                                       asp-route-id="@article.Id">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-4">
+                        <div id="toArticle">
+                                <p>To Articles</p> 
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Start Gallery -->
-<div class="gallery-box">
+<div class="gallery-box" style="background-color:white;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
