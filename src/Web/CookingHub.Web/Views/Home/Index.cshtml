@@ -1,4 +1,9 @@
-﻿@{ this.ViewData["Title"] = "Home Page"; }
+﻿@using CookingHub.Common
+@using CookingHub.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<CookingHubUser> SignInManager
+@inject UserManager<CookingHubUser> UserManager
+@{ this.ViewData["Title"] = "Home Page"; }
 
 <!-- Start slides -->
 <div class="conteiner-fluid">
@@ -8,17 +13,18 @@
             Feel free to exlore our online network for   <br>
             cooking and healty life! <br>
         </p>
-        <p class="m-b-40" id="UnRegistered" style="font-size: 22px;">
-            If you want you can join our community<br>
-            and create and free account
-        </p>
-        <button class="btn btn-light">Sign up/Log in</button>
+        @if (!this.SignInManager.IsSignedIn(this.User)) {
+            <p class="m-b-40" id="UnRegistered" style="font-size: 22px;">
+                If you want you can join our community<br>
+                and create and free account
+            </p>
+        <button class="btn btn-light">Sign up</button>
+        }
     </div>
     <div id="slides" class="conteiner-fluid cover-slides" style="z-index:-1;">
         <ul class="slides-container">
             <li class="text-left">
                 <img src="~/images/slider-01.jpg" alt="">
-
             </li>
             <li class="text-left">
                 <img src="~/images/slider-02.jpg" alt="">
@@ -57,7 +63,7 @@
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto text-center">
                 <p class="lead ">
-                    " No rules. Don't be afraid to do whatever you want. Cooking doesn't have to have rules. I don't like it that way. "
+                    " No rules. <br> Don't be afraid to do whatever you want.<br> Cooking doesn't have to have rules."
                 </p>
                 <span class="lead"> Masaharu Morimoto</span>
             </div>
@@ -293,7 +299,7 @@
                         </div>
                     </div>
                     <div class="conteiner-fluid">
-                        <button class="btn btn-dark w-100" asp-area="" asp-controller="Recipes" asp-action="Index">To Recipes</button>
+                        <a class="btn btn-dark w-100" asp-area="" asp-controller="Recipes" asp-action="Index">To Recipes</a>
                     </div>
                 </div>
             </div>
@@ -316,7 +322,7 @@
                 <div class="row ar-row">
                     @foreach (var article in Model)
                     {
-                        <div class="col-4 col-xs-12">
+                        <div class="col-4 col-lg-4 col-md-6">
                             <div class="blog-box-inner">
                                 <div class="blog-img-box">
                                     <img class="img-fluid" src="@article.ImagePath" alt="image_@article.Id">
@@ -342,10 +348,10 @@
                             </div>
                         </div>
                     }
-                    <div class="col-4">
-                        <div id="toArticle">
-                                <p>To Articles</p> 
-                        </div>
+                    <div class="col-4 col-lg-4 col-md-6 toArticle-box ">
+
+                        <a class="button" id="toArticleBtn" asp-area="" asp-controller="Articles" asp-action="Index"><span>To Articles</span></a>
+
                     </div>
                 </div>
 
@@ -401,7 +407,7 @@
     </div>
 </div>
 <!-- End Gallery -->
-<!-- Start Customer Reviews -->
+<!-- Start Customer Reviews 
 <div class="customer-reviews-box">
     <div class="container">
         <div class="row">
@@ -454,7 +460,7 @@
         </div>
     </div>
 </div>
-<!-- End Customer Reviews -->
+End Customer Reviews -->
 <partial name="_ContactsInfoPartial" />
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
