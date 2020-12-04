@@ -1,4 +1,5 @@
-﻿@using CookingHub.Models.ViewModels.Recipes
+﻿@using System.Web
+@using CookingHub.Models.ViewModels.Recipes
 @model RecipePageViewModel
 @{
     this.ViewData["Title"] = "Recipes";
@@ -9,6 +10,18 @@
     var prevPage = !Model.RecipesPaginated.HasPreviousPage ? "1" : (Model.RecipesPaginated.PageIndex - 1).ToString();
     var nextDisabled = !Model.RecipesPaginated.HasNextPage ? "disabled" : "";
     var nextPage = !Model.RecipesPaginated.HasNextPage ? "1" : (Model.RecipesPaginated.PageIndex + 1).ToString();
+}
+
+@{
+    var queryString = this.Context.Request.QueryString;
+    bool hasQueryString = queryString.HasValue;
+
+    string queryParameter = string.Empty;
+    if (hasQueryString)
+    {
+        var encodedQueryString = HttpUtility.UrlDecode(queryString.Value);
+        queryParameter = encodedQueryString.Split("=")[1];
+    }
 }
 
 <!-- Start All Pages -->
@@ -38,10 +51,14 @@
             <div class="col-3">
                 <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
                     <div id="myTab" class="nav flex-column nav-tabs" role="tablist">
-                        <a class="nav-link active" asp-action="Index">All</a>
+                        <a class="nav-link @(hasQueryString ? "" : "active")" asp-action="Index">All</a>
                         @foreach (var category in Model.Categories)
                         {
-                            <a class="nav-link" asp-action="Index" asp-route-categoryName="@category.Name">@category.Name</a>
+                            <a class="nav-link @(queryParameter == category.Name ? "active" : "")"
+                               asp-action="Index"
+                               asp-route-categoryName="@category.Name">
+                                @category.Name
+                            </a>
                         }
                     </div>
                 </div>

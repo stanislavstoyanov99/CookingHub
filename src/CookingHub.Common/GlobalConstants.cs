@@ -4,7 +4,7 @@
     {
         public const string SystemName = "Cooking Hub";
 
-        public const string SystemEmail = "slavkata_99@abv.bg";
+        public const string SystemEmail = "stanislav.stoyanov369@gmail.com";
 
         public const string AdministratorUsername = "Admin";
 
