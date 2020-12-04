@@ -11,7 +11,7 @@
 
     public class RecipesController : Controller
     {
-        private const int PageSize = 12;
+        private const int PageSize = 1;
         private readonly IRecipesService recipesService;
         private readonly ICategoriesService categoriesService;
 
@@ -23,6 +23,8 @@
 
         public async Task<IActionResult> Index(string categoryName, int? pageNumber)
         {
+            this.TempData["CategoryName"] = categoryName;
+
             var recipes = this.recipesService
                 .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
 

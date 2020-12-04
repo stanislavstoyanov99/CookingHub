@@ -1,5 +1,6 @@
 ﻿@using System.Web
 @using CookingHub.Models.ViewModels.Recipes
+@using System.Text.RegularExpressions;
 @model RecipePageViewModel
 @{
     this.ViewData["Title"] = "Recipes";
@@ -14,13 +15,24 @@
 
 @{
     var queryString = this.Context.Request.QueryString;
-    bool hasQueryString = queryString.HasValue;
 
+    bool hasQueryString = queryString.HasValue;
+    bool isAllTabSelected = false;
     string queryParameter = string.Empty;
+
     if (hasQueryString)
     {
         var encodedQueryString = HttpUtility.UrlDecode(queryString.Value);
-        queryParameter = encodedQueryString.Split("=")[1];
+
+        string pattern = "categoryName=([^&#]+)";
+        if (Regex.IsMatch(encodedQueryString, pattern))
+        {
+            queryParameter = Regex.Match(encodedQueryString, pattern).Value.Split("=")[1];
+        }
+        else
+        {
+            isAllTabSelected = true;
+        }
     }
 }
 
@@ -51,10 +63,10 @@
             <div class="col-3">
                 <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
                     <div id="myTab" class="nav flex-column nav-tabs" role="tablist">
-                        <a class="nav-link @(hasQueryString ? "" : "active")" asp-action="Index">All</a>
+                        <a class="nav-link @(!hasQueryString || isAllTabSelected ? "active" : "")">All</a>
                         @foreach (var category in Model.Categories)
                         {
-                            <a class="nav-link @(queryParameter == category.Name ? "active" : "")"
+                            <a class="nav-link @(category.Name == queryParameter ? "active" : "")"
                                asp-action="Index"
                                asp-route-categoryName="@category.Name">
                                 @category.Name
@@ -108,9 +120,14 @@
                                 {
                                     var active = i == Model.RecipesPaginated.PageIndex ? "active" : string.Empty;
                                     <li class="page-item @active">
-                                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
-                                    </li>
-                                }
+                                        <a class="page-link"
+                                           asp-action="Index"
+                                           asp-route-pageNumber="@i"
+                                           asp-route-categoryName="@this.TempData["CategoryName"]">
+                                            @i
+                                    </a>
+                                </li>
+                            }
                                 <li class="page-item @nextDisabled">
                                     <a class="page-link" asp-action="Index" asp-route-pageNumber="@nextPage">
                                         Next
