@@ -344,7 +344,7 @@ button:focus {
 }
 
     .about-section-box .img-fluid {
-        box-shadow: 20px 20px 0px #d65106;
+        box-shadow: 20px 20px 0px #540404;
     }
 
 .inner-column {
@@ -807,7 +807,7 @@ button:focus {
 
     .f-social li a {
         font-size: 18px;
-        color: rgba(214, 81, 6);
+        color: #540404;
         width: 38px;
         height: 38px;
         display: block;
@@ -1070,6 +1070,7 @@ button:focus {
 .blog-box-inner {
     position: relative;
     margin-bottom: 30px;
+    
 }
 
     .blog-box-inner .blog-img-box {
@@ -1084,7 +1085,7 @@ button:focus {
         padding: 30px 25px;
         border: 1px solid #ddd;
         transition-duration: .5s;
-        height: 100%;
+        height:100%;
     }
 
 .blog-detail h4 {

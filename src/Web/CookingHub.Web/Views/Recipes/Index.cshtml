@@ -83,7 +83,7 @@
                             {
                                 @foreach (var recipe in Model.RecipesPaginated)
                                 {
-                                    <div class="col-lg-4 col-md-6 special-grid drinks">
+                                    <div class="col-lg-4 col-md-6 recipe-card special-grid drinks">
                                         <div class="gallery-single fix">
                                             <img src="@recipe.ImagePath" class="img-fluid" alt="Image">
                                             <div class="why-text">
@@ -109,7 +109,7 @@
                 @if (Model.RecipesPaginated.TotalPages != 0)
                 {
                     <div class="col-lg-12 col-md-6 mb-4">
-                        <nav aria-label="Page navigation">
+                        <nav id="PaginationNav" aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item @prevDisabled">
                                     <a class="page-link" asp-action="Index" asp-route-pageNumber="@prevPage">

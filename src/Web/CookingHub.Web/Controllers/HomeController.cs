@@ -26,7 +26,7 @@
         {
             var allArticles = await Task.Run(() =>
                  this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>());
-            var top2 = allArticles.Take(2);
+            var top2 = allArticles.OrderByDescending(x=>x.CreatedOn).Take(2).ToList();
             return this.View(top2);
         }
 
