@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Models.InputModels.AdministratorInputModels.Recipes
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 

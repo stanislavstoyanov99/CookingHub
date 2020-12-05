@@ -1,33 +1,50 @@
 ﻿namespace CookingHub.Web.Controllers
 {
     using System.Diagnostics;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
+    using CookingHub.Models.ViewModels.Home;
     using CookingHub.Models.ViewModels.Privacy;
+    using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
+        private const int TopRecipesCounter = 6;
+        private const int RecentArticlesCounter = 2;
         private readonly IPrivacyService privacyService;
         private readonly IArticlesService articlesService;
+        private readonly IRecipesService recipesService;
 
-        public HomeController(IPrivacyService privacyService , IArticlesService articlesService)
+        public HomeController(
+            IPrivacyService privacyService,
+            IArticlesService articlesService,
+            IRecipesService recipesService)
         {
             this.privacyService = privacyService;
             this.articlesService = articlesService;
+            this.recipesService = recipesService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allArticles = await Task.Run(() =>
-                 this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>());
-            var top2 = allArticles.OrderByDescending(x=>x.CreatedOn).Take(2).ToList();
-            return this.View(top2);
+            var topRecipes = await this
+                .recipesService.GetTopRecipesAsync<TopRecipeViewModel>(TopRecipesCounter);
+
+            var recentArticles = await this
+                .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
+
+            var model = new HomePageViewModel
+            {
+                TopRecipes = topRecipes,
+                RecentArticles = recentArticles,
+            };
+
+            return this.View(model);
         }
 
         public async Task<IActionResult> Privacy()

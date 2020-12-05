@@ -141,8 +141,6 @@
         {
             var recipes = this.recipesRepository
                 .All()
-                .OrderBy(x => x.Rate)
-                .ThenByDescending(x => x.CreatedOn)
                 .To<TViewModel>();
 
             return recipes;
@@ -157,6 +155,18 @@
                .ToListAsync();
 
             return recipes;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0)
+        {
+            var topRecipes = await this.recipesRepository
+               .All()
+               .OrderByDescending(r => r.Rate)
+               .To<TViewModel>()
+               .Take(count)
+               .ToListAsync();
+
+            return topRecipes;
         }
 
         public IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null)

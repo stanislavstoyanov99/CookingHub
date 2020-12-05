@@ -1,9 +1,11 @@
-﻿@using CookingHub.Common
-@using CookingHub.Data.Models
+﻿@using CookingHub.Data.Models
+@using CookingHub.Models.ViewModels.Home
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<CookingHubUser> SignInManager
-@inject UserManager<CookingHubUser> UserManager
-@{ this.ViewData["Title"] = "Home Page"; }
+@model HomePageViewModel
+@{
+    this.ViewData["Title"] = "Home Page";
+}
 
 <!-- Start slides -->
 <div class="conteiner-fluid">
@@ -11,14 +13,15 @@
         <h1 class="m-b-20"><strong>Welcome to <br> Cooking Hub!</strong></h1>
         <p class="m-b-40">
             Feel free to exlore our online network for   <br>
-            cooking and healty life! <br>
+            cooking and healthy life! <br>
         </p>
-        @if (!this.SignInManager.IsSignedIn(this.User)) {
+        @if (!this.SignInManager.IsSignedIn(this.User))
+        {
             <p class="m-b-40" id="UnRegistered" style="font-size: 22px;">
                 If you want you can join our community<br>
-                and create and free account
+                and create free account
             </p>
-        <button class="btn btn-light">Sign up</button>
+            <a class="btn btn-light" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
         }
     </div>
     <div id="slides" class="conteiner-fluid cover-slides" style="z-index:-1;">
@@ -320,7 +323,7 @@
             </div>
             <div class="article-cards">
                 <div class="row ar-row">
-                    @foreach (var article in Model)
+                    @foreach (var article in Model.RecentArticles)
                     {
                         <div class="col-4 col-lg-4 col-md-6">
                             <div class="blog-box-inner">
@@ -331,7 +334,7 @@
                                     <h4>@article.Title</h4>
                                     <ul>
                                         <li>
-                                            <span>Post by <i class="fa fa-user"></i> @article.UserUsername</span>
+                                            <span>Posted by <i class="fa fa-user"></i> @article.UserUsername</span>
                                         </li>
                                         <li>|</li>
                                         <li>
@@ -349,9 +352,7 @@
                         </div>
                     }
                     <div class="col-4 col-lg-4 col-md-6 toArticle-box ">
-
                         <a class="button" id="toArticleBtn" asp-area="" asp-controller="Articles" asp-action="Index"><span>To Articles</span></a>
-
                     </div>
                 </div>
 
@@ -372,42 +373,20 @@
         </div>
         <div class="tz-gallery">
             <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-01.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-01.jpg" alt="Gallery Images">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-02.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-02.jpg" alt="Gallery Images">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-03.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-03.jpg" alt="Gallery Images">
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-04.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-04.jpg" alt="Gallery Images">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-05.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-05.jpg" alt="Gallery Images">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="~/images/gallery-img-06.jpg">
-                        <img class="img-fluid" src="~/images/gallery-img-06.jpg" alt="Gallery Images">
-                    </a>
-                </div>
+                @foreach (var topRecipe in Model.TopRecipes)
+                {
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <a class="lightbox" href="@topRecipe.ImagePath">
+                            <img class="img-fluid" src="@topRecipe.ImagePath" alt="Gallery Images_@topRecipe.Id">
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 <!-- End Gallery -->
-<!-- Start Customer Reviews 
+<!-- Start Customer Reviews
 <div class="customer-reviews-box">
     <div class="container">
         <div class="row">
