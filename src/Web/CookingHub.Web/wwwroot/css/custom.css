@@ -157,8 +157,13 @@
 #recipeBody{
     padding:4px;
     border: 4px solid #540404;
+   
+}
+.recipeText{
+    min-height:150px;
 }
 #recipeProps {
+    
     margin-left: -6px;
     margin-right: -6px;
     margin-bottom: -6px;
@@ -171,19 +176,19 @@
     border: 4px dashed #540404;
     padding: 12px;
 }
-.recipeProperty{
-    text-align:center;
+.recipeProperty {
+    
+    text-align: center;
     border: 3px solid grey;
     border-radius: 12px;
     font-size: 16px;
-    padding-top:3px;
-    padding-bottom:3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     margin: 3px 3px 3px 3px;
-    max-width:180px;
-    min-width:150px;
-    background-color:white;
-    color:black;
-
+    max-width: 180px;
+    min-width: 150px;
+    background-color: white;
+    color: black;
 }
 .recipeReviews{
     margin-top:30px;
@@ -200,5 +205,11 @@
     height: 330px;
     width: 550px;
 }
-
+.recipeReviews {
+    border-top: 4px dashed #540404;
+    padding: 30px;
+}
+.reviewsPanel {
+    min-height: 100px;
+}
 /** ADD YOUR AWESOME CODES HERE **/
