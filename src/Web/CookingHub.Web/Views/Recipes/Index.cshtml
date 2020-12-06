@@ -63,7 +63,7 @@
             <div class="col-3">
                 <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
                     <div id="myTab" class="nav flex-column nav-tabs" role="tablist">
-                        <a class="nav-link @(!hasQueryString || isAllTabSelected ? "active" : "")">All</a>
+                        <a class="nav-link @(!hasQueryString || isAllTabSelected ? "active" : "")" asp-action="Index">All</a>
                         @foreach (var category in Model.Categories)
                         {
                             <a class="nav-link @(category.Name == queryParameter ? "active" : "")"
