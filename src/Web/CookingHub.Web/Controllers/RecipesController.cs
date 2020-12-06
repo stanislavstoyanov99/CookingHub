@@ -11,11 +11,13 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Server.IIS.Core;
 
     public class RecipesController : Controller
     {
         private const int PageSize = 1;
         private readonly IRecipesService recipesService;
+        private readonly IReviewsService reviewsService;
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<CookingHubUser> userManager;
 
@@ -54,7 +56,11 @@
         public async Task<IActionResult> Details(int id)
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
-
+            if (!this.reviewsService.GetAll<Review>(id).IsFaulted)
+            {
+                var reviews = await this.reviewsService.GetAll<Review>(recipe.Id);
+                recipe.Reviews = reviews;
+            }
             return this.View(recipe);
         }
 

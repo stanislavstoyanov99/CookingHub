@@ -10,6 +10,8 @@
 
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.RecipeValidation;
+    using System.Collections;
+    using System.Collections.Generic;
 
     public class RecipeDetailsViewModel : IMapFrom<Recipe>
     {
@@ -57,5 +59,7 @@
         public Category Category { get; set; }
 
         public string UserUsername { get; set; }
+
+        public IEnumerable<Review> Reviews { get; set; }
     }
 }

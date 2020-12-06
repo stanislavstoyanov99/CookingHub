@@ -27,5 +27,7 @@
         public const string DifficultyInvalidType = "Difficulty type {0} is invalid";
 
         public const string ArticleCommentAlreadyExists = "Article comment with article id {0} and content {1} already exists";
+
+        public const string ReviewNotFound = "No Reviews yet!";
     }
 }

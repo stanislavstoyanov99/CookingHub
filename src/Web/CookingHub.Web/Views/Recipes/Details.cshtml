@@ -11,32 +11,34 @@
                     <p id="recipeSubTitle">Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @Model.Rate </p>
                 </div>
                 <div class="conteiner" id="recipeBody">
-                     @Html.Raw(Model.Description) 
-                     @Html.Raw(Model.Ingredients) 
+                    <div class="recipeText">
+                        @Html.Raw(Model.Description)
+                        @Html.Raw(Model.Ingredients)
+                    </div>
                     <div class="row" id="recipeProps">
                         <div class="col-3 col-md-4 recipeProperty">
                             Difficulty:<br> @if (Model.Difficulty == Difficulty.Easy)
-                            {<strong style="color:lime">@Model.Difficulty</strong> }
+                            {<strong style="color:green">@Model.Difficulty</strong> }
                             else if (Model.Difficulty == Difficulty.Medium)
                             {
                                 <strong style="color:orange">@Model.Difficulty</strong>
                             }
                             else
                             {
-                                <strong style="color:red">@Model.Difficulty</strong>
+                                <strong style="color:darkred">@Model.Difficulty</strong>
                             }
                             
-                            </div>
-                            <div class="col-3 col-md-4 recipeProperty">
-                                Preperation time:<br> @Model.PreparationTime mins
-                            </div>
-                            <div class="col-3 col-md-4 recipeProperty">
-                                Portions Number:<br> @Model.PortionsNumber
-                            </div>
-                            <div class="col-3 col-md-4 recipeProperty">
-                                Cooking Time:<br> @Model.CookingTime mins
-                            </div>
                         </div>
+                        <div class="col-3 col-md-4 recipeProperty">
+                            Preperation time:<br> @Model.PreparationTime mins
+                        </div>
+                        <div class="col-3 col-md-4 recipeProperty">
+                            Portions Number:<br> @Model.PortionsNumber
+                        </div>
+                        <div class="col-3 col-md-4 recipeProperty">
+                            Cooking Time:<br> @Model.CookingTime mins
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-5">
@@ -46,9 +48,14 @@
                 
             </div>
         </div>
-        
-    </div>
-    <div class="recipeReviews">
-        <h2 class="centered">Reviews:</h2>
+        <div class="recipeReviews">
+            <h2 class="centered"><strong>Reviews:</strong></h2>
+            <div class="reviewsPanel">
+                @foreach(var n in Model.Reviews)
+                {
 
+                }
+            </div>
+        </div>
     </div>
+    
