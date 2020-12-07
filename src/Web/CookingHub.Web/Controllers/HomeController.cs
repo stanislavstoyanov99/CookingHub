@@ -47,6 +47,11 @@
             return this.View(model);
         }
 
+        public IActionResult ThankYouSubscription(string email)
+        {
+            return this.View("SuccessfullySubscribed", email);
+        }
+
         public async Task<IActionResult> Privacy()
         {
             var privacy = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();

@@ -15,15 +15,29 @@
         <div class="col-lg-6 col-md-6">
             <h3>Subscribe</h3>
             <h4 style="color:white;">If you would like to feel up to date with the most rated recipes up-to-date,feel free to subscribe.</h4>
-            <div class="subscribe_form">
-                <form class="subscribe_form">
-                    <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
-                    <hr />
-                    <button type="submit" class="submit">SUBSCRIBE</button>
-                    <div class="clearfix"></div>
+            <div class="sendgrid-subscription-widget widget-1707" data-emailerror="Please enter a valid email address" data-checkboxerror="Please tick the box to accept our conditions">
+                <form class="sg-widget" data-token="92708e8069ff04f83bd107b457e68776" onsubmit="return false;">
+                    <div class="sg-response"></div>
+                    <input class="sg_email" type="email" name="sg_email" placeholder="you@example.com" required="required">
+                    <input type="submit" class="sg-submit-btn" id="widget-1707" value="Subscribe">
+                    <div class="sg-consent-text">
+                        <label>
+                            <input type="checkbox" class="sg_consent_checkbox" name="sg_consent_checkbox"> I understand and consent to the following
+                        </label>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Notice</a>
+                    </div>
                 </form>
             </div>
-            
+            @*<div class="subscribe_form">
+                    <form class="subscribe_form">
+                        <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
+                        <hr />
+                        <button type="submit" class="submit">SUBSCRIBE</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+             *@
+
         </div>
     </div>
 </div>
@@ -41,3 +55,5 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="//app.sgwidget.com/js/sg-widget-v2.js"></script>
