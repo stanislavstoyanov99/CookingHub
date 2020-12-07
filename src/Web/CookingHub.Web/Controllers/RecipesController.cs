@@ -7,6 +7,7 @@
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Models.ViewModels.Recipes;
+    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Identity;
@@ -15,7 +16,7 @@
 
     public class RecipesController : Controller
     {
-        private const int PageSize = 1;
+        private const int PageSize = 12;
         private readonly IRecipesService recipesService;
         private readonly IReviewsService reviewsService;
         private readonly ICategoriesService categoriesService;
@@ -24,11 +25,13 @@
         public RecipesController(
             IRecipesService recipesService,
             ICategoriesService categoriesService,
+            IReviewsService reviewsService,
             UserManager<CookingHubUser> userManager)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
+            this.reviewsService = reviewsService;
         }
 
         public async Task<IActionResult> Index(string categoryName, int? pageNumber)
@@ -56,11 +59,9 @@
         public async Task<IActionResult> Details(int id)
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
-            if (!this.reviewsService.GetAll<Review>(id).IsFaulted)
-            {
-                var reviews = await this.reviewsService.GetAll<Review>(recipe.Id);
-                recipe.Reviews = reviews;
-            }
+            var reviews = await this.reviewsService.GetAll<ReviewDetailModel>(recipe.Id);
+            recipe.Reviews = reviews;
+
             return this.View(recipe);
         }
 

@@ -1,61 +1,102 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
 @{
     this.ViewData["Title"] = "Recipes";
+   
 }
-    <div class="conteiner-fluid recipeDetailsPage">
+@model  CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
+<div class="conteiner-fluid recipeDetailsPage">
 
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-7">
-                <div class="conteiner" id="recipeHeading">
-                    <h1 class="recipeTitle"><span>@Model.Name</span></h1>
-                    <p id="recipeSubTitle">Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @Model.Rate </p>
-                </div>
-                <div class="conteiner" id="recipeBody">
-                    <div class="recipeText">
-                        @Html.Raw(Model.Description)
-                        @Html.Raw(Model.Ingredients)
-                    </div>
-                    <div class="row" id="recipeProps">
-                        <div class="col-3 col-md-4 recipeProperty">
-                            Difficulty:<br> @if (Model.Difficulty == Difficulty.Easy)
-                            {<strong style="color:green">@Model.Difficulty</strong> }
-                            else if (Model.Difficulty == Difficulty.Medium)
-                            {
-                                <strong style="color:orange">@Model.Difficulty</strong>
-                            }
-                            else
-                            {
-                                <strong style="color:darkred">@Model.Difficulty</strong>
-                            }
-                            
-                        </div>
-                        <div class="col-3 col-md-4 recipeProperty">
-                            Preperation time:<br> @Model.PreparationTime mins
-                        </div>
-                        <div class="col-3 col-md-4 recipeProperty">
-                            Portions Number:<br> @Model.PortionsNumber
-                        </div>
-                        <div class="col-3 col-md-4 recipeProperty">
-                            Cooking Time:<br> @Model.CookingTime mins
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-7">
+            <div class="conteiner" id="recipeHeading">
+                <h1 class="recipeTitle"><span>@Model.Name</span></h1>
+                <p id="recipeSubTitle">Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @Model.Rate </p>
             </div>
-            <div class="col-12 col-md-6 col-lg-5">
-                <div class="recipeImage" >
-                    <img class="img-fluid recipe-img" src="@Model.ImagePath" />
+            <div class="conteiner" id="recipeBody">
+                <div class="recipeText">
+                    @Html.Raw(Model.Description)
+                    @Html.Raw(Model.Ingredients)
                 </div>
-                
+                <div class="row" id="recipeProps">
+                    <div class="col-3 col-md-4 recipeProperty">
+                        Difficulty:<br> @if (Model.Difficulty == Difficulty.Easy)
+                        {<strong style="color:green">@Model.Difficulty</strong> }
+                    else if (Model.Difficulty == Difficulty.Medium)
+                    {
+                        <strong style="color:orange">@Model.Difficulty</strong>
+                    }
+                    else
+                    {
+                        <strong style="color:darkred">@Model.Difficulty</strong>
+                    }
+
+                    </div>
+                    <div class="col-3 col-md-4 recipeProperty">
+                        Preperation time:<br> @Model.PreparationTime mins
+                    </div>
+                    <div class="col-3 col-md-4 recipeProperty">
+                        Portions Number:<br> @Model.PortionsNumber
+                    </div>
+                    <div class="col-3 col-md-4 recipeProperty">
+                        Cooking Time:<br> @Model.CookingTime mins
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="recipeReviews">
-            <h2 class="centered"><strong>Reviews:</strong></h2>
-            <div class="reviewsPanel">
-                @foreach(var n in Model.Reviews)
-                {
-
-                }
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="recipeImage">
+                <img class="img-fluid recipe-img" src="@Model.ImagePath" />
             </div>
+
         </div>
     </div>
-    
+    <div class="recipeReviews">
+        <h2 class="centered"><strong>Reviews:</strong></h2>
+        <div class="reviewsPanel">
+            @foreach (var n in Model.Reviews)
+            {
+
+            }
+        </div>
+    </div>
+    <button type="button" class="btn btn-CH" data-toggle="modal" data-target="#reviewsModal">
+        Create Review
+    </button>
+
+</div>
+<!--Review Modal-->
+<div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header CH-color">
+                <h5 class="modal-title CH-color">Give Us your opinion!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Reviews" asp-action="Create" enctype="multipart/form-data" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Review for : @Model.Name</span> <br>
+                        <input type="hidden" name="RecipeId" value="@Model.Id" />
+                        <div class="container">
+                            <div class="starrating d-flex justify-content-center flex-row-reverse">
+                                <input  type="radio" id="star5" name="Rate" value="5" /><label for="star5" title="5 star"></label>
+                                <input  type="radio" id="star4" name="Rate" value="4" /><label for="star4" title="4 star"></label>
+                                <input  type="radio" id="star3" name="Rate" value="3" /><label for="star3" title="3 star"></label>
+                                <input  type="radio" id="star2" name="Rate" value="2" /><label for="star2" title="2 star"></label>
+                                <input  type="radio" id="star1" name="Rate" value="1" /><label for="star1" title="1 star"></label>
+                            </div>
+                        </div>
+                        <label class="col-form-label" for="reviewDescription">Description:</label><br>
+                        <textarea id="reviewDescription" name="Content" type="text"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-CH">Send Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

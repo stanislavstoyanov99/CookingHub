@@ -51,20 +51,12 @@
 
         public async Task<IEnumerable<TViewModel>> GetAll<TViewModel>(int recipeId)
         {
-            bool doReviewsExist = await this.reviewsRepository.All().Where(o => o.RecipeId == recipeId).AnyAsync();
-            if (doReviewsExist)
-            {
-                var reviews = await this.reviewsRepository
-               .All()
-               .Where(o => o.RecipeId == recipeId)
-               .To<TViewModel>()
-               .ToListAsync();
-                return reviews;
-            }
-            else {
-                throw new ArgumentException(
-                 string.Format(ExceptionMessages.ReviewNotFound));
-            }
+            var reviews = await this.reviewsRepository
+           .All()
+           .Where(o => o.RecipeId == recipeId)
+           .To<TViewModel>()
+           .ToListAsync();
+            return reviews;
         }
     }
 }

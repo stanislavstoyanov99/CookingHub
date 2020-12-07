@@ -31,7 +31,7 @@
         public async Task<IActionResult> Create(CreateReviewInputModel input)
         {
            var userId = this.userManager.GetUserId(this.User);
-
+           input.UserId = userId;
            try
             {
                 await this.reviewsService.CreateAsync(input);

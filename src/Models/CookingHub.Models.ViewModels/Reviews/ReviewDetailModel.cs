@@ -1,12 +1,13 @@
 ﻿namespace CookingHub.Models.ViewModels.Reviews
 {
     using CookingHub.Data.Models;
+    using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    class ReviewDetailModel : IMapFrom<Review>
+   public class ReviewDetailModel : IMapFrom<Review>
     {
         public string Title { get; set; }
 
@@ -16,12 +17,11 @@
 
         public int RecipeId { get; set; }
 
-        public virtual Recipe Recipe { get; set; }
+        public RecipeDetailsViewModel Recipe { get; set; }
 
         public string UserId { get; set; }
 
-        public virtual CookingHubUser User { get; set; }
+        public string UserUsername { get; set; }
 
-        public virtual ICollection<ReviewComment> ReviewComments { get; set; }
     }
 }

@@ -79,6 +79,7 @@
             services.AddTransient<IArticlesService, ArticlesService>();
             services.AddTransient<IRecipesService, RecipesService>();
             services.AddTransient<IArticleCommentsService, ArticleCommentsService>();
+            services.AddTransient<IReviewsService, ReviewsService>();
 
             // External login providers
             services.AddAuthentication()

@@ -1,3 +1,4 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 #List {
     border-color: green;
     border-style: solid;
@@ -6,6 +7,18 @@
 }
 #RecipesnArticlesChar{
     height:200px;
+}
+.CH-color {
+    background-color: #540404;
+    color: white;
+}
+.btn-CH{
+    background-color: #540404;
+    color:white;
+}
+.btn-CH:hover{
+    background-color: grey;
+    color:white;
 }
 .statistic-card {
     padding: 5px 10px;
@@ -212,4 +225,31 @@
 .reviewsPanel {
     min-height: 100px;
 }
+#reviewDescription{
+    width:100%;
+}
+.starrating > input {
+    display: none;
+}
+
+.starrating > label:before {
+    content: "\f005"; /* Star */
+    margin: 2px;
+    font-size: 32px;
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+.starrating > label {
+    color: #222222; 
+}
+
+.starrating > input:checked ~ label {
+    color: #ffca08;
+}
+
+.starrating > input:hover ~ label {
+    color: #ffca08;
+}
+
 /** ADD YOUR AWESOME CODES HERE **/
