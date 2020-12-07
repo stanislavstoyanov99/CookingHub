@@ -13,8 +13,6 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
-    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\js\custom.js" />
     <None Include="wwwroot\js\jquery.mapify.js" />
     <None Include="wwwroot\js\legacy.js" />
@@ -43,6 +41,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap-select" Version="1.13.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>
@@ -72,5 +71,9 @@
     <ProjectReference Include="..\..\Services\CookingHub.Services.Data\CookingHub.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CookingHub.Services.Mapping\CookingHub.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CookingHub.Services.Messaging\CookingHub.Services.Messaging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 </Project>

@@ -80,6 +80,14 @@
             services.AddTransient<IRecipesService, RecipesService>();
             services.AddTransient<IArticleCommentsService, ArticleCommentsService>();
 
+            // External login providers
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+                });
+
             var account = new Account(
                 this.configuration["Cloudinary:AppName"],
                 this.configuration["Cloudinary:AppKey"],
