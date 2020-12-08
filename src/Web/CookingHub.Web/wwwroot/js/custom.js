@@ -6,9 +6,8 @@
     ................................................. */
 	
 	$(window).on('load', function() { 
-		$('.preloader').fadeOut(); 
-		$('#preloader').delay(550).fadeOut('slow'); 
-		$('body').delay(450).css({'overflow':'visible'});
+		$('.preloader').fadeOut('slow'); 
+		$('body').css({'overflow':'visible'});
 	});
 	
 	/* ..............................................
@@ -43,14 +42,21 @@
 	$(document).ready(function(){ 
 		$(window).on('scroll', function () {
 			if ($(this).scrollTop() > 100) { 
-				$('#back-to-top').fadeIn(); 
+				$('#back-to-top').fadeIn();
+				$('#chat-btn').fadeIn();
 			} else { 
-				$('#back-to-top').fadeOut(); 
+				$('#back-to-top').fadeOut();
+				$('#chat-btn').fadeOut(); 
 			} 
 		}); 
 		$('#back-to-top').click(function(){ 
 			$("html, body").animate({ scrollTop: 0 }, 600); 
 			return false; 
+		});
+		// TODO
+		$('#chat-btn').click(function () {
+			console.log('chat is clicked');
+			return false;
 		}); 
 	});
 	
@@ -81,19 +87,5 @@
 		animation: 'fadeIn',
 		noScrollbars: true
 	});
-	
-	
-	
-	/* ..............................................
-    Datepicker
-    ................................................. */
-	
-	$('.datepicker').pickadate();
-	
-	$('.time').pickatime();
-	
-	
-	
-	
 	
 }(jQuery));

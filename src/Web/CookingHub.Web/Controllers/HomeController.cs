@@ -14,7 +14,7 @@
 
     public class HomeController : Controller
     {
-        private const int TopRecipesCounter = 6;
+        private const int TopRecipesCounter = 9;
         private const int RecentArticlesCounter = 2;
         private readonly IPrivacyService privacyService;
         private readonly IArticlesService articlesService;
@@ -33,7 +33,7 @@
         public async Task<IActionResult> Index()
         {
             var topRecipes = await this
-                .recipesService.GetTopRecipesAsync<TopRecipeViewModel>(TopRecipesCounter);
+                .recipesService.GetTopRecipesAsync<RecipeListingViewModel>(TopRecipesCounter);
 
             var recentArticles = await this
                 .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);

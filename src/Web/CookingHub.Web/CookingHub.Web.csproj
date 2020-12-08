@@ -76,4 +76,11 @@
   <ItemGroup>
     <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\preloader.gif">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

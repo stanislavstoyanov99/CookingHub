@@ -9,6 +9,6 @@
     {
         public IEnumerable<ArticleListingViewModel> RecentArticles { get; set; }
 
-        public IEnumerable<TopRecipeViewModel> TopRecipes { get; set; }
+        public IEnumerable<RecipeListingViewModel> TopRecipes { get; set; }
     }
 }
