@@ -8,8 +8,7 @@ html {
 }
 
 #grad1 {
-    background-color: #9C27B0;
-    background-image: linear-gradient(120deg, #FF4081, #81D4FA)
+    background-image: linear-gradient(120deg, #540404, #ffffff)
 }
 
 #msform {
@@ -79,7 +78,7 @@ html {
 
 #msform .action-button {
     width: 100px;
-    background: skyblue;
+    background: #540404;
     font-weight: bold;
     color: white;
     border: 0 none;
@@ -91,7 +90,7 @@ html {
 
 #msform .action-button:hover,
 #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #540404
 }
 
 #msform .action-button-previous {
@@ -166,11 +165,6 @@ select.list-dt:focus {
     content: "\f0f5"
 }
 
-#progressbar #preview:before {
-    font-family: FontAwesome;
-    content: "\f06e"
-}
-
 #progressbar #confirm:before {
     font-family: FontAwesome;
     content: "\f00c"
@@ -183,7 +177,7 @@ select.list-dt:focus {
     display: block;
     font-size: 18px;
     color: #ffffff;
-    background: lightgray;
+    background: #010101;
     border-radius: 50%;
     margin: 0 auto 10px auto;
     padding: 2px
@@ -202,7 +196,7 @@ select.list-dt:focus {
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: skyblue
+    background: #540404;
 }
 
 .radio {
