@@ -1,7 +1,8 @@
 ﻿namespace CookingHub.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels;
@@ -20,18 +21,21 @@
         private readonly IRecipesService recipesService;
         private readonly IReviewsService reviewsService;
         private readonly ICategoriesService categoriesService;
+        private readonly IDeletableEntityRepository<CookingHubUser> userRepository;
         private readonly UserManager<CookingHubUser> userManager;
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoriesService categoriesService,
             IReviewsService reviewsService,
+            IDeletableEntityRepository<CookingHubUser> userRepository,
             UserManager<CookingHubUser> userManager)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
             this.reviewsService = reviewsService;
+            this.userRepository = userRepository;
         }
 
         public async Task<IActionResult> Index(string categoryName, int? pageNumber)
@@ -60,6 +64,7 @@
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
             var reviews = await this.reviewsService.GetAll<ReviewDetailModel>(recipe.Id);
+            
             recipe.Reviews = reviews;
 
             return this.View(recipe);

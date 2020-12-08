@@ -12,9 +12,21 @@
     background-color: #540404;
     color: white;
 }
-.btn-CH{
+.main-body{
+    margin-top: 50px;
+}
+.home-recipe-img{
+    width: 300px;
+    height:200px;
+}
+.home-gallery-img {
+    width: 300px !important;
+    height: 200px;
+}
+.btn-CH {
     background-color: #540404;
-    color:white;
+    color: white;
+    margin-top: 12px;
 }
 .btn-CH:hover{
     background-color: grey;
@@ -161,6 +173,7 @@
     background-color: #540404;
     color:white;
     padding: 4px;
+    margin-top: 10px;
 }
 #recipeHeading h1{
     color:white;
@@ -170,24 +183,33 @@
 #recipeBody{
     padding:4px;
     border: 4px solid #540404;
+    height:70%;
    
 }
 .recipeText{
-    min-height:150px;
+    min-height:400px;
+    height:100%;
+    background-color:white;
+    font-size:20px;
+    border-radius: 12px;
+    text-align:left;
+    padding: 10px;
 }
 #recipeProps {
     
     margin-left: -6px;
     margin-right: -6px;
-    margin-bottom: -6px;
+    margin-bottom: 10px;
     background-color: #540404;
-    padding-left: 12px;
+    overflow: hidden;
 }
 .recipeDetailsPage {
     margin-left: 50px;
     margin-right: 50px;
     border: 4px dashed #540404;
     padding: 12px;
+    background-image: url('../images/about-bg.jpg');
+    background-size:cover;
 }
 .recipeProperty {
     
@@ -197,7 +219,7 @@
     font-size: 16px;
     padding-top: 3px;
     padding-bottom: 3px;
-    margin: 3px 3px 3px 3px;
+    margin: 10px auto 10px auto;
     max-width: 180px;
     min-width: 150px;
     background-color: white;
@@ -206,24 +228,40 @@
 .recipeReviews{
     margin-top:30px;
 }
-.recipe-img{
-    border: 5px solid #540404;
+.recipeIngredients {
+    margin: 10px auto 10px auto;
+    background-color: white;
     border-radius: 12px;
-    height:330px;
-    width:550px;
-    margin-top:3px;
-    
+    padding: 10px;
+    width: 80%;
+    font-size: 20px;
+}
+.recipe-img {
+    border-radius: 12px;
+    height: 100%;
+    width: 100%;
+    margin-top: 3px;
+    max-height: 400px;
 }
 .recipeImage {
-    height: 330px;
-    width: 550px;
+    min-height: 330px;
+    width: 80%;
+    max-width: 80%;
+    padding-top:30px;
+    margin-left: auto;
+    margin-right:auto;  
+    
 }
 .recipeReviews {
     border-top: 4px dashed #540404;
-    padding: 30px;
+    padding: 26px;
 }
 .reviewsPanel {
     min-height: 100px;
+    width: 100%;
+    overflow: visible;
+    padding-left:30px;
+    padding-right:30px;
 }
 #reviewDescription{
     width:100%;
@@ -250,6 +288,25 @@
 
 .starrating > input:hover ~ label {
     color: #ffca08;
+}
+
+.review-card {
+    border: 3px dashed #540404;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 12px;
+    max-width: 32%;
+}
+.review-header{
+    background-color:#540404;
+    color:white;
+    border:3px solid #540404;
+    padding: 3px 3px;
+}
+.review-body {
+    padding: 3px 3px;
+    min-height: 100px;
+    
 }
 
 /** ADD YOUR AWESOME CODES HERE **/

@@ -29,12 +29,12 @@
         {
             var review = new Review
             {
+                Title = createReviewInputModel.Title,
                 RecipeId = createReviewInputModel.RecipeId,
                 UserId = createReviewInputModel.UserId,
                 Description = createReviewInputModel.Content,
                 Rate = createReviewInputModel.Rate,
             };
-
             await this.reviewsRepository.AddAsync(review);
             await this.reviewsRepository.SaveChangesAsync();
         }
