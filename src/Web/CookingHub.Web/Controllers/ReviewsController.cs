@@ -30,9 +30,10 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateReviewInputModel input)
         {
-           var userId = this.userManager.GetUserId(this.User);
-           input.UserId = userId;
-           try
+            var userId = this.userManager.GetUserId(this.User);
+            input.UserId = userId;
+
+            try
             {
                 await this.reviewsService.CreateAsync(input);
             }
@@ -41,7 +42,7 @@
                 return this.BadRequest(aex.Message);
             }
 
-           return this.RedirectToAction("Details", "Recipes", new { id = input.RecipeId });
+            return this.RedirectToAction("Details", "Recipes", new { id = input.RecipeId });
         }
     }
 }

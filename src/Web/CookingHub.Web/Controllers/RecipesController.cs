@@ -1,7 +1,7 @@
 ﻿namespace CookingHub.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
+
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
@@ -11,9 +11,9 @@
     using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Server.IIS.Core;
 
     public class RecipesController : Controller
     {
@@ -64,7 +64,7 @@
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
             var reviews = await this.reviewsService.GetAll<ReviewDetailModel>(recipe.Id);
-            
+
             recipe.Reviews = reviews;
 
             return this.View(recipe);
@@ -83,6 +83,7 @@
             return this.View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(RecipeCreateInputModel recipeCreateInputModel)
         {

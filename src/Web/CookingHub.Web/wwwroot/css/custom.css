@@ -309,4 +309,50 @@
     
 }
 
-/** ADD YOUR AWESOME CODES HERE **/
+.category-breadcrumb {
+    border-bottom: 1px solid #f9f9f9;
+    box-sizing: border-box;
+    padding: 80px 0;
+    width: 100%;
+    background-image: url(../images/bg_breadcrumbs.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.category-breadcrumb h1 {
+    font-size: 35px;
+    color: #ffffff;
+    font-family: 'Rubik', sans-serif;
+    padding: 8px 0;
+    font-weight: 600;
+}
+
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: .5rem;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.btn-secondary:hover {
+    background: #540404;
+    color: #fff !important;
+}
+
+.btn-primary {
+    color: #540404;
+    background-color: #fff;
+    border-color: #540404;
+}
+
+.btn-primary:hover {
+    background: #540404;
+    color: #fff !important;
+    border-color: #540404;
+}

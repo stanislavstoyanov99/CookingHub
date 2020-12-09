@@ -140,8 +140,9 @@
                             @foreach (var category in Model.Categories)
                             {
                                 <li>
-                                    <a asp-area="" asp-controller="Categories" asp-action="ByName" asp-route-id="@category.Id">
+                                    <a asp-area="" asp-controller="Articles" asp-action="ByName" asp-route-categoryName="@category.Name">
                                         <span>@category.Name</span>
+                                        <span>| @category.Articles.Count() articles</span>
                                     </a>
                                 </li>
                             }
