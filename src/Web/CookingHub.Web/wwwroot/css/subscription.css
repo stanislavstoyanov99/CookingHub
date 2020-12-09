@@ -1,7 +1,11 @@
-﻿.sendgrid-subscription-widget input {
+﻿#privacy-footer {
+    color: #fff;
+}
+.sendgrid-subscription-widget input {
     padding: .5em .5em .55em;
-    font-size: .8em;
-    font-family: sans-serif
+    font-size: .9em;
+    border: 1px solid #fff;
+    border-radius: 5px;
 }
 
 .sendgrid-subscription-widget .sg_signup_first_name, .sendgrid-subscription-widget .sg_signup_last_name {
@@ -10,9 +14,10 @@
 
 .sendgrid-subscription-widget .sg-submit-btn {
     display: inline-block;
-    color: #444;
+    color: #fff;
     border: 1px solid #ccc;
-    background: #ddd;
+    border-radius: 5px;
+    background: #540404;
     box-shadow: 0 0 5px -1px rgba(0, 0, 0, .2);
     cursor: pointer;
     vertical-align: middle;
@@ -21,7 +26,11 @@
     margin: 0 .4em;
     text-align: center;
     font-size: .9em;
-    font-family: sans-serif
+}
+
+.sendgrid-subscription-widget .sg-submit-btn:hover {
+    background-color: #fff;
+    color: #540404;
 }
 
 .sendgrid-subscription-widget .sg-submit-btn:active {
