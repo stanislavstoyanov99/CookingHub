@@ -35,7 +35,17 @@
                 Description = createReviewInputModel.Content,
                 Rate = createReviewInputModel.Rate,
             };
+
             await this.reviewsRepository.AddAsync(review);
+            await this.reviewsRepository.SaveChangesAsync();
+
+            var recipe = this.recipesRepository.All().Where(o => o.Id == createReviewInputModel.RecipeId).ToList();
+            var reviewsCount = this.reviewsRepository.All().Where(o => o.RecipeId == createReviewInputModel.RecipeId).Count();
+            var newrating = (recipe[0].Rate + createReviewInputModel.Rate) / reviewsCount;
+
+            var newrecipe = this.recipesRepository.All().FirstOrDefault(x => x.Id == createReviewInputModel.RecipeId);
+            newrecipe.Rate = newrating;
+            this.recipesRepository.Update(newrecipe);
             await this.reviewsRepository.SaveChangesAsync();
         }
 

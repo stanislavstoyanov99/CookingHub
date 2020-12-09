@@ -29,13 +29,8 @@
                 <li active-when="/Faq/Index" class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Faq" asp-action="Index">FAQ</a>
                 </li>
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    <li active-when="/Recipes/Create" class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Recipes" asp-action="Create">Create Recipe</a>
-                    </li>
-                }
             </ul>
+            
             <partial name="_LoginPartial" />
         </div>
     </div>

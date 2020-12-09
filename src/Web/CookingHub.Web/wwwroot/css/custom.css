@@ -1,4 +1,5 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 #List {
     border-color: green;
     border-style: solid;
@@ -15,9 +16,12 @@
 .main-body{
     margin-top: 50px;
 }
-.home-recipe-img{
+.nav-bug{
+    margin-top:140px !important;
+}
+.home-recipe-img {
     width: 300px;
-    height:200px;
+    height: 200px;
 }
 .home-gallery-img {
     width: 300px !important;
@@ -166,6 +170,19 @@
         margin-left: 100px;
     }
 }
+@media(max-width: 975px){
+    .ing-img {
+        border-top: 12px dashed  white;
+        border-left: none;
+    }
+}
+
+@media(min-width: 975px) {
+    .ing-img {
+        border-left: 12px dashed white;
+    }
+}
+
 .recipeTitle{
 
 }
@@ -183,7 +200,7 @@
 #recipeBody{
     padding:4px;
     border: 4px solid #540404;
-    height:70%;
+    
    
 }
 .recipeText{
@@ -201,7 +218,7 @@
     margin-right: -6px;
     margin-bottom: 10px;
     background-color: #540404;
-    overflow: hidden;
+    overflow: visible;
 }
 .recipeDetailsPage {
     margin-left: 50px;
@@ -258,7 +275,7 @@
 }
 .reviewsPanel {
     min-height: 100px;
-    width: 100%;
+    
     overflow: visible;
     padding-left:30px;
     padding-right:30px;
@@ -295,7 +312,10 @@
     padding-left: 0px !important;
     padding-right: 0px !important;
     margin-left: 12px;
-    max-width: 32%;
+    max-width:32%;
+}
+.star {
+    color:yellow;
 }
 .review-header{
     background-color:#540404;

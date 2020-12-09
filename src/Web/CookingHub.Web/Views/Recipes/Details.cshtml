@@ -1,25 +1,27 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
 @{
     this.ViewData["Title"] = "Recipes";
-   
+
 }
-@model  CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
+@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
 <div class="conteiner-fluid recipeDetailsPage">
 
     <div class="row" style="background-color:#540404; margin: 0px 10px 0px 10px; height:100%;">
         <div class="col-12  col-lg-6 centered">
-            <div class="conteiner" id="recipeHeading">
-                <h1 class="recipeTitle"><span>@Model.Name</span></h1>
-                <p id="recipeSubTitle">Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @Model.Rate </p>
-            </div>
-            <div class="conteiner" id="recipeBody">
-                <div class="recipeText">
+            <div class="conteiner d-flex flex-column h-100" id="recipeBody">
+                <div class="conteiner" id="recipeHeading">
+                    <h1 class="recipeTitle"><span>@Model.Name</span></h1>
+                    <p id="recipeSubTitle">Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @for (int i = 0; i < Model.Rate; i++)
+                    {<i class="fas fa-star star"></i>}
+                    </p>
+                </div>
+                <div class="flex-grow-1 recipeText">
                     @Html.Raw(Model.Description)
-                    
+
                 </div>
                 <div class="row" id="recipeProps">
-                    <div class="col-3 col-lg-6 recipeProperty">
-                        Difficulty:<br> 
+                    <div class="col-auto recipeProperty">
+                        Difficulty:<br>
                         @if (Model.Difficulty == Difficulty.Easy)
                         {<strong style="color:green">@Model.Difficulty</strong> }
                     else if (Model.Difficulty == Difficulty.Medium)
@@ -32,19 +34,19 @@
                     }
 
                     </div>
-                    <div class="col-3 col-lg-6 recipeProperty">
+                    <div class="col-auto recipeProperty">
                         Preperation time:<br> @Model.PreparationTime mins
                     </div>
-                    <div class="col-3 col-lg-6 recipeProperty">
+                    <div class="col-auto recipeProperty">
                         Portions Number:<br> @Model.PortionsNumber
                     </div>
-                    <div class="col-3 col-lg-4 recipeProperty">
+                    <div class="col-auto recipeProperty">
                         Cooking Time:<br> @Model.CookingTime mins
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12  col-lg-6" style="border-left: 12px dashed white;">
+        <div class="col-12  col-lg-6 ing-img">
             <div class="recipeImage">
                 <img class="img-fluid recipe-img" src="@Model.ImagePath" />
             </div>
@@ -55,13 +57,14 @@
     </div>
     <div class="recipeReviews">
         <h2 class="centered"><strong>Reviews:</strong></h2>
-        <div class="row reviewsPanel">
+        <div class="row d-flex reviewsPanel">
             @foreach (var n in Model.Reviews)
             {
-                <div class="col-sm-12 col-md-6 col-lg-4 review-card ">
+                <div class="col review-card ">
                     <div class="review-header">
                         <span>Author:@n.UserUsername</span><br>
-                        <span>Rate: @n.Rate</span>
+                        <span>Rate: @for (int i = 0; i < n.Rate; i++) { <i class="fas fa-star star"></i>
+                        }</span>
                     </div>
                     <div class="review-body">
                         <span><b>@n.Title</b></span><br>
@@ -71,13 +74,11 @@
             }
         </div>
         <div class="row" style="padding: 0 50px 0 50px;">
-        <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
-            Create Review   
-        </button>
-            </div>
+            <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
+                Create Review
+            </button>
+        </div>
     </div>
-    
-
 </div>
 <!--Review Modal-->
 <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-hidden="true">

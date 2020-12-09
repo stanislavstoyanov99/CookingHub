@@ -7,20 +7,33 @@
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
-        </li>
-        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <li class="nav-item">
-                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" id="AdminDashboard" title="Admin">Admin Dashboard</a>
-            </li>
-        }
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="nav-link btn btn-link">Logout</button>
-            </form>
-        </li>
+        <div class="dropdown">
+            <button type="button" class="btn btn-CH dropdown-toggle" data-toggle="dropdown">
+                <i class="fas fa-user">@(this.User.Identity.Name)</i>
+            </button>
+            <div class="dropdown-menu">
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <li active-when="/Recipes/Create" class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Recipes" asp-action="Create">Create Recipe</a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Profile!</a>
+                </li>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" id="AdminDashboard" title="Admin">Admin Dashboard</a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                        <button type="submit" class="nav-link btn btn-link">Logout</button>
+                    </form>
+                </li>
+            </div>
+        </div>
     }
     else
     {
@@ -32,3 +45,4 @@
         </li>
     }
 </ul>
+
