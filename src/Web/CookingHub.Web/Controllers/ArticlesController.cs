@@ -14,6 +14,7 @@
     {
         private const int PageSize = 9;
         private const int RecentArticlesCount = 6;
+        private const int ArticlesByCategoryCount = 6;
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
 
@@ -58,6 +59,23 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> ByName(int? pageNumber, string categoryName)
+        {
+            var articlesByCategoryName = await Task.Run(() => this.articlesService
+                .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName));
+
+            if (articlesByCategoryName.Count() == 0)
+            {
+                return this.NotFound();
+            }
+
+            this.TempData["CategoryName"] = categoryName;
+            var articlesByCategoryNamePaginated = await PaginatedList<ArticleListingViewModel>
+                    .CreateAsync(articlesByCategoryName, pageNumber ?? 1, ArticlesByCategoryCount);
+
+            return this.View(articlesByCategoryNamePaginated);
         }
     }
 }

@@ -15,7 +15,7 @@
 
         Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>();
 
-        Task<TViewModel> GetArticleAsync<TViewModel>(string title);
+        IQueryable<TViewModel> GetAllArticlesByCategoryNameAsQueryeable<TViewModel>(string categoryName);
 
         IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>();
 

@@ -1,0 +1,79 @@
+﻿@using CookingHub.Models.ViewModels.Articles
+@model PaginatedList<ArticleListingViewModel>
+@{
+    this.ViewData["Title"] = $"{this.TempData["CategoryName"]} Category";
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+}
+
+<div class="category-breadcrumb text-center">
+    <div class="col-lg-12 text-center">
+        <h1>Category: @this.TempData["CategoryName"]</h1>
+    </div>
+</div>
+<div class="containter pt-4 pb-4">
+    <div class="card-deck">
+        @foreach (var article in Model)
+        {
+            <div class="card">
+                <img class="card-img-top zoom" src="@article.ImagePath" alt="Article image_@article.Id">
+                <div class="card-body">
+                    <h5 class="card-title">@article.Title</h5>
+                    <p class="card-text">@Html.Raw(article.SanitizedShortDescription)</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">
+                        <i class="fa fa-user"></i> @article.UserUsername
+                        <br />
+                        <i class="fa fa-calendar"></i> @article.CreatedOn.ToLocalTime()
+                        <br />
+                        <i class="fa fa-comments"></i> @article.ArticleComments.Count()
+                    </small>
+                </div>
+            </div>
+        }
+    </div>
+    @if (Model.TotalPages != 0)
+    {
+        <div class="col-lg-12 col-md-6 mb-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center pt-4">
+                    <li class="page-item @prevDisabled">
+                        <a class="page-link"
+                           asp-action="ByName"
+                           asp-route-pageNumber="@prevPage"
+                           asp-route-categoryName="@this.TempData["CategoryName"]">
+                            Previous
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var active = i == Model.PageIndex ? "active" : string.Empty;
+                        <li class="page-item @active">
+                            <a class="page-link"
+                               asp-action="ByName"
+                               asp-route-pageNumber="@i"
+                               asp-route-categoryName="@this.TempData["CategoryName"]">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link"
+                           asp-action="ByName"
+                           asp-route-pageNumber="@nextPage"
+                           asp-route-categoryName="@this.TempData["CategoryName"]">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+                <a class="btn btn-sm btn-light" asp-controller="Articles" asp-action="Index">Back to articles</a>
+            </nav>
+        </div>
+    }
+</div>

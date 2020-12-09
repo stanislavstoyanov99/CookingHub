@@ -109,6 +109,7 @@
             article.Title = articleEditViewModel.Title;
             article.Description = articleEditViewModel.Description;
             article.UserId = userId;
+            article.CategoryId = articleEditViewModel.CategoryId;
 
             this.articlesRepository.Update(article);
             await this.articlesRepository.SaveChangesAsync();
@@ -136,15 +137,15 @@
             return articles;
         }
 
-        public async Task<TViewModel> GetArticleAsync<TViewModel>(string title)
+        public IQueryable<TViewModel> GetAllArticlesByCategoryNameAsQueryeable<TViewModel>(string categoryName)
         {
-            var article = await this.articlesRepository
+            var articles = this.articlesRepository
                 .All()
-                .Where(a => a.Title == title)
-                .To<TViewModel>()
-                .FirstOrDefaultAsync();
+                .Where(a => a.Category.Name == categoryName)
+                .OrderBy(a => a.Title)
+                .To<TViewModel>();
 
-            return article;
+            return articles;
         }
 
         public async Task<IEnumerable<TViewModel>> GetRecentArticlesAsync<TViewModel>(int count = 0)
