@@ -1,0 +1,113 @@
+﻿@using CookingHub.Models.ViewModels.Articles
+@model PaginatedList<ArticleListingViewModel>
+
+@{
+    this.ViewData["Title"] = "Search results";
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+}
+
+<link href="~/css/search-results.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 left-side-sidebar">
+            <div class="row text-center">
+                <div class="col-md-8 offset-md-6 text-center pt-3">
+                    <h3>Not happy with the results?</h3>
+                    <p class="body-text-3x">Type your search again</p>
+                    <div class="small-search-wrap">
+                        <div class="search-form">
+                            <form asp-action="Search" method="get">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" name="searchTitle" id="name">
+                                    <button class="search-btn">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="invisible small">
+                </div>
+                <div class="col-md-12 offset-md-4 pb-3">
+                    <div class="v-heading-v2">
+                        <h4 class="v-search-result-count">About @Model.Count() results</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix mt-40">
+                <ul class="xsearch-items">
+                    @foreach (var searchResult in Model)
+                    {
+                        <li class="search-item">
+                            <div class="search-item-img">
+                                <img src="@searchResult.ImagePath" width="70" height="70">
+                            </div>
+                            <div class="search-item-content">
+                                <h3 class="search-item-caption">
+                                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@searchResult.Id">
+                                        @searchResult.Title
+                                    </a>
+                                </h3>
+                                <div class="search-item-meta mb-15">
+                                    <ul class="list-inline">
+                                        <li class="time">@searchResult.CreatedOn.ToLocalTime()</li>
+                                        <li>@searchResult.ArticleComments.Count() Comments</li>
+                                        <li class="pl-0"><a href="#">Category: @searchResult.CategoryName</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    @Html.Raw(searchResult.SanitizedShortDescription)
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            @if (Model.TotalPages != 0)
+            {
+                <div class="col-lg-12 col-md-6 mb-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item @prevDisabled">
+                                <a class="page-link"
+                                   asp-action="Search"
+                                   asp-route-pageNumber="@prevPage"
+                                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
+                                    Previous
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                var active = i == Model.PageIndex ? "active" : string.Empty;
+                                <li class="page-item @active">
+                                    <a class="page-link"
+                                       asp-action="Search"
+                                       asp-route-pageNumber="@i"
+                                       asp-route-searchTitle=@this.TempData["SearchTitle"]>@i</a>
+                                </li>
+                            }
+                            <li class="page-item @nextDisabled">
+                                <a class="page-link"
+                                   asp-action="Search"
+                                   asp-route-pageNumber="@nextPage"
+                                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<partial name="_ContactsInfoPartial" />

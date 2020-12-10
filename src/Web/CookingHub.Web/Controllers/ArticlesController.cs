@@ -15,6 +15,7 @@
         private const int PageSize = 9;
         private const int RecentArticlesCount = 6;
         private const int ArticlesByCategoryCount = 6;
+        private const int ArticlesInSearchPage = 4;
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
 
@@ -32,18 +33,10 @@
             return this.View(await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize));
         }
 
-        public async Task<IActionResult> Details(int id, string searchTitle)
+        public async Task<IActionResult> Details(int id)
         {
             var article = await this.articlesService
                 .GetViewModelByIdAsync<ArticleListingViewModel>(id);
-
-            if (!string.IsNullOrEmpty(searchTitle))
-            {
-                article = this.articlesService
-                    .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
-                    .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower()))
-                    .FirstOrDefault();
-            }
 
             var categories = await this.categoriesService
                 .GetAllCategoriesAsync<CategoryListingViewModel>();
@@ -59,6 +52,25 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Search(int? pageNumber, string searchTitle)
+        {
+            var articles = await Task.Run(() => this.articlesService
+                .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
+                .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower())));
+
+            if (articles.Count() == 0)
+            {
+                return this.NotFound();
+            }
+
+            this.TempData["SearchTitle"] = searchTitle;
+
+            var articlesPaginated = await PaginatedList<ArticleListingViewModel>
+                .CreateAsync(articles, pageNumber ?? 1, ArticlesInSearchPage);
+
+            return this.View(articlesPaginated);
         }
 
         public async Task<IActionResult> ByName(int? pageNumber, string categoryName)

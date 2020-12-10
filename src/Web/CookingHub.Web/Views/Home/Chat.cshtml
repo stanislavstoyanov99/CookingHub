@@ -21,6 +21,7 @@
         var connection =
             new signalR.HubConnectionBuilder()
                 .withUrl("/chat")
+                .withAutomaticReconnect()
                 .build();
 
         connection.on("NewMessage",
@@ -38,5 +39,12 @@
         connection.start().catch(function (err) {
             return console.error(err);
         });
+
+        const startSignalRConnection = connection => connection.start()
+            .then(() => console.info('Websocket Connection Established'))
+            .catch(err => console.error('SignalR Connection Error: ', err));
+
+        // re-establish the connection if it is dropped
+        connection.onclose(() => setTimeout(() => startSignalRConnection(connection), 5000));
     </script>
 }
