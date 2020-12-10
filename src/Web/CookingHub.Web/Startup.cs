@@ -1,6 +1,5 @@
 ﻿namespace CookingHub.Web
 {
-    using System;
     using System.Reflection;
 
     using CloudinaryDotNet;
@@ -64,9 +63,9 @@
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
-            services.AddSingleton(this.configuration);
-
             services.AddSignalR();
+
+            services.AddSingleton(this.configuration);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -141,10 +140,10 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
+                        endpoints.MapHub<ChatHub>("/chat");
                     });
         }
     }

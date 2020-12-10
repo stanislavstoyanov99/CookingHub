@@ -15,10 +15,6 @@
   <ItemGroup>
     <None Include="wwwroot\js\custom.js" />
     <None Include="wwwroot\js\jquery.mapify.js" />
-    <None Include="wwwroot\js\legacy.js" />
-    <None Include="wwwroot\js\picker.date.js" />
-    <None Include="wwwroot\js\picker.js" />
-    <None Include="wwwroot\js\picker.time.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
     <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />

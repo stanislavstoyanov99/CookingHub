@@ -1035,10 +1035,16 @@ button:focus {
     min-height: 50px;
 }
 
-    .form-control:focus {
-        border: 1px solid #540404;
-        box-shadow: none;
-    }
+.contact-form {
+    border-radius: 25px;
+    border-color: #540404;
+    min-height: 50px;
+}
+
+.form-control:focus {
+    border: 1px solid #540404;
+    box-shadow: none;
+}
 
 .form-group .picker__input.picker__input--active {
     border-color: #540404;

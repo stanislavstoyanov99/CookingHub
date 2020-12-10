@@ -70,7 +70,7 @@
             return this.View(recipe);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Submit()
         {
             var categories = await this.categoriesService
                 .GetAllCategoriesAsync<CategoryDetailsViewModel>();
@@ -85,7 +85,7 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(RecipeCreateInputModel recipeCreateInputModel)
+        public async Task<IActionResult> Submit(RecipeCreateInputModel recipeCreateInputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 

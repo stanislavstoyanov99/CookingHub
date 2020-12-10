@@ -23,7 +23,9 @@
             <div class="card">
                 <img class="card-img-top zoom" src="@article.ImagePath" alt="Article image_@article.Id">
                 <div class="card-body">
-                    <h5 class="card-title">@article.Title</h5>
+                    <h5 class="card-title">
+                        <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">@article.Title</a>
+                    </h5>
                     <p class="card-text">@Html.Raw(article.SanitizedShortDescription)</p>
                 </div>
                 <div class="card-footer">
