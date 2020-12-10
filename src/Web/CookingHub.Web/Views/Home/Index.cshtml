@@ -115,51 +115,52 @@
     </div>
 </div>
 <!-- End Menu -->
+<!-- Start Article -->
 <div class="article-box">
-    <div class="conteiner">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="heading-title text-center">
-                    <h2 style="color:white">Articles</h2>
-                    <p>If you are not hungry, feel free to browse our article section</p>
-                </div>
-            </div>
-            <div class="article-cards">
-                <div class="row ar-row">
-                    @foreach (var article in Model.RecentArticles)
-                    {
-                        <div class="col-4 col-lg-4 col-md-6">
-                            <div class="blog-box-inner">
-                                <div class="blog-img-box">
-                                    <img class="img-fluid" src="@article.ImagePath" alt="image_@article.Id">
-                                </div>
-                                <div class="blog-detail">
-                                    <h4>@article.Title</h4>
-                                    <ul>
-                                        <li>
-                                            <span>Posted by <i class="fa fa-user"></i> @article.UserUsername</span>
-                                        </li>
-                                        <li>|</li>
-                                        <li>
-                                            <span><i class="fa fa-calendar"></i> @article.CreatedOn.ToShortDateString()</span>
-                                        </li>
-                                    </ul>
-                                    <p>@Html.Raw(article.SanitizedShortDescription)</p>
-                                    <a class="btn btn-lg btn-circle btn-outline-new-white"
-                                       asp-area=""
-                                       asp-controller="Articles"
-                                       asp-action="Details"
-                                       asp-route-id="@article.Id">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    <div class="col-4 col-lg-4 col-md-6 toArticle-box ">
-                        <a class="button" id="toArticleBtn" asp-area="" asp-controller="Articles" asp-action="Index"><span>To Articles</span></a>
-                    </div>
-                </div>
+
+    <div class="row h-100" style="overflow:visible">
+        <div class="col-lg-12">
+            <div class="heading-title text-center">
+                <h2 style="color:white">Articles</h2>
+                <p>If you are not hungry, feel free to browse our article section</p>
             </div>
         </div>
+
+        <div class="row d-flex h-100  ml-auto mr-auto">
+            @foreach (var article in Model.RecentArticles)
+            {
+                <div class="col-12 col-md-4">
+                    <div class="blog-box-inner">
+                        <div class="blog-img-box">
+                            <img class="img-fluid home-pic" src="@article.ImagePath" alt="image_@article.Id">
+                        </div>
+                        <div class="blog-detail">
+                            <h4>@article.Title</h4>
+                            <ul>
+                                <li>
+                                    <span>Posted by <i class="fa fa-user"></i> @article.UserUsername</span>
+                                </li>
+                                <li>|</li>
+                                <li>
+                                    <span><i class="fa fa-calendar"></i> @article.CreatedOn.ToShortDateString()</span>
+                                </li>
+                            </ul>
+                            <p>@Html.Raw(article.SanitizedShortDescription)</p>
+                            <a class="btn btn-lg btn-circle btn-outline-new-white"
+                               asp-area=""
+                               asp-controller="Articles"
+                               asp-action="Details"
+                               asp-route-id="@article.Id">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-12 col-md-4 toArticle-box ">
+                <a class="button" id="toArticleBtn" asp-area="" asp-controller="Articles" asp-action="Index"><span>To Articles</span></a>
+            </div>
+        </div>
+
+
     </div>
 </div>
 <!-- Start Gallery -->
@@ -169,22 +170,40 @@
             <div class="col-lg-12">
                 <div class="heading-title text-center">
                     <h2>Gallery</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+
                 </div>
             </div>
         </div>
-        <div class="tz-gallery">
-            <div class="row">
-                @foreach (var topRecipe in Model.TopRecipes)
+
+        <!--<div class="container mt-3">
+        <div id="GalleryCarusel" class="carousel slide" data-ride="carousel">
+            <!-- The slideshow
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <span style="width:1100px;height:500px;background-color:grey;">this</span>
+                </div>
+                @foreach (var n in Model.Gallery)
                 {
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <a class="lightbox" href="@topRecipe.ImagePath">
-                            <img class="img-fluid home-gallery-img" src="@topRecipe.ImagePath" alt="Gallery Images_@topRecipe.Id">
-                        </a>
+
+                    <div class="carousel-item">
+                        <img src="@n.ImagePath" alt="Image" width="1100" height="500">
                     </div>
+
                 }
             </div>
+                <!-- Left and right controls
+                <a class="carousel-control-prev" href="#GalleryCarusel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#GalleryCarusel" data-slide="next">
+                    <span class="carousel-control-next-icon btn-dark"> NEXT</span>
+                </a>
+
         </div>
+
+    </div>-->
+
     </div>
 </div>
 <!-- End Gallery -->

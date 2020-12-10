@@ -10,5 +10,7 @@
         public IEnumerable<ArticleListingViewModel> RecentArticles { get; set; }
 
         public IEnumerable<RecipeListingViewModel> TopRecipes { get; set; }
+
+        public IEnumerable<RecipeDetailsViewModel> Gallery { get; set; }
     }
 }

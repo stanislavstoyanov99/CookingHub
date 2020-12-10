@@ -39,10 +39,14 @@
             var recentArticles = await this
                 .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
 
+            var gallery = await this
+                .recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
+
             var model = new HomePageViewModel
             {
                 TopRecipes = topRecipes,
                 RecentArticles = recentArticles,
+                Gallery = gallery,
             };
 
             return this.View(model);

@@ -9,7 +9,7 @@
     {
         <div class="dropdown">
             <button type="button" class="btn btn-CH dropdown-toggle" data-toggle="dropdown">
-                <i class="fas fa-user">@(this.User.Identity.Name)</i>
+                <i class="fas fa-user"></i>@(this.User.Identity.Name)
             </button>
             <div class="dropdown-menu">
                 @if (this.User.Identity.IsAuthenticated)
@@ -44,5 +44,5 @@
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
-</ul>
+</ul
 
