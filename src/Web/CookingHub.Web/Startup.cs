@@ -1,5 +1,6 @@
 ﻿namespace CookingHub.Web
 {
+    using System;
     using System.Reflection;
 
     using CloudinaryDotNet;
@@ -14,6 +15,7 @@
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
     using CookingHub.Services.Messaging;
+    using CookingHub.Web.Hubs;
     using CookingHub.Web.Middlewares;
 
     using Microsoft.AspNetCore.Builder;
@@ -63,6 +65,8 @@
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
+
+            services.AddSignalR();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -137,6 +141,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

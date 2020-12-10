@@ -10,6 +10,7 @@
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
@@ -50,6 +51,12 @@
         public IActionResult ThankYouSubscription(string email)
         {
             return this.View("SuccessfullySubscribed", email);
+        }
+
+        [Authorize]
+        public IActionResult Chat()
+        {
+            return this.View();
         }
 
         public async Task<IActionResult> Privacy()
