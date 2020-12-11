@@ -90,7 +90,13 @@
                                                 <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id">
                                                     <h4>@recipe.Name</h4>
                                                 </a>
-                                                <p>@recipe.Rate</p>
+                                                <p>
+                                                    @if (recipe.Rate == 0)
+                                                    {<strong>No Rate yet!</strong> }
+                                                    else
+                                                    { @for (int i = 0; i < recipe.Rate; i++)
+                                                        {<i class="fas fa-star star"></i>}}
+                                                    </p>
                                                 <h5>@recipe.Difficulty</h5>
                                             </div>
                                         </div>

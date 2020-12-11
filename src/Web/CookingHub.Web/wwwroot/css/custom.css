@@ -195,13 +195,28 @@
         border-left: 12px dashed white;
     }
 }
+.mx-h{
+    height:300px;
+}
+.br-12{
+    border-radius:12px;
+}
+.recipeTitle {
+}
+.gallery-bg{
+    background-image: url('../images/body-bg.jpg');
+    background-size: cover;
+    color:white;
+    padding:20px;
 
-.recipeTitle{
 
 }
-#recipeHeading{
-    background-color: #540404;
+.gallery-bg h2{
     color:white;
+}
+#recipeHeading {
+    background-color: #540404;
+    color: white;
     padding: 4px;
     margin-top: 10px;
 }

@@ -508,7 +508,9 @@ button:focus {
 -------------------------------------------------------------------*/
 
 .gallery-box {
-    padding: 70px 0px;
+    max-width:100%;
+    height:auto;
+    border-radius:0px 0px 40px 40px;
 }
 
 .tz-gallery {
