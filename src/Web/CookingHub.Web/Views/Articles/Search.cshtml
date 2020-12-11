@@ -23,9 +23,9 @@
                     <p class="body-text-3x">Type your search again</p>
                     <div class="small-search-wrap">
                         <div class="search-form">
-                            <form asp-action="Search" method="get">
+                            <form id="search-form">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" name="searchTitle" id="name">
+                                    <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" name="searchTitle" id="searchInput">
                                     <button class="search-btn">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="clearfix mt-40">
-                <ul class="xsearch-items">
+                <ul id="search-results" class="xsearch-items">
                     @foreach (var searchResult in Model)
                     {
                         <li class="search-item">
@@ -111,3 +111,27 @@
 </div>
 
 <partial name="_ContactsInfoPartial" />
+
+@section Scripts
+{
+    <script>
+        const form = document.getElementById('search-form');
+        const searchResultsUl = document.getElementById('search-results');
+        const searchInput = document.getElementById('searchInput');
+
+        form.addEventListener('submit', onSubmitEventHandler);
+
+        function onSubmitEventHandler(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: `/api/articlesSearch/1/${searchInput.value}`,
+                type: 'GET',
+                dataType: "json",
+                success: function (data) {
+                    data.forEach(result => searchResultsUl.appendChild(result));
+                }
+            });
+        }
+    </script>
+}
