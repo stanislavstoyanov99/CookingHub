@@ -124,12 +124,38 @@
         function onSubmitEventHandler(e) {
             e.preventDefault();
 
+            searchResultsUl.innerHTML = '';
+
+            // Use function el for JS course
             $.ajax({
-                url: `/api/articlesSearch/1/${searchInput.value}`,
+                url: `/api/articlesSearch/${@Model.PageIndex}/${searchInput.value}`,
                 type: 'GET',
                 dataType: "json",
                 success: function (data) {
-                    data.forEach(result => searchResultsUl.appendChild(result));
+                    data.forEach(result => {
+                        const containerData = `
+                    <li class="search-item">
+                        <div class="search-item-img"><img src = "${result.imagePath}" width = "70" height = "70"></div>
+                            <div class="search-item-content">
+                            <h3 class="search-item-caption">
+                                <a href="/Articles/Details/${result.id}">
+                                    ${result.title}
+                                </a>
+                            </h3>
+                            <div class="search-item-meta mb-15">
+                                <ul class="list-inline">
+                                    <li class="time">${result.createdOn}</li>
+                                    <li>${result.articleComments.length} Comments</li>
+                                    <li class="pl-0"><a href="#">Category: ${result.categoryName}</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                ${result.sanitizedShortDescription}
+                            </div>
+                        </div>
+                    </li>`;
+                        searchResultsUl.innerHTML += containerData;
+                    });
                 }
             });
         }

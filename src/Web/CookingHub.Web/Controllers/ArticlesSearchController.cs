@@ -23,8 +23,8 @@
 
         [HttpGet("{pageNumber}/{searchTitle}")]
         public async Task<ActionResult<PaginatedList<ArticleListingViewModel>>> Get(
-            [FromQuery] int? pageNumber,
-            [FromQuery] string searchTitle)
+            [FromRoute] int? pageNumber,
+            [FromRoute] string searchTitle)
         {
             var articles = await Task.Run(() => this.articlesService
                .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
