@@ -15,149 +15,168 @@
 <link href="~/css/search-results.css" rel="stylesheet" asp-append-version="true" />
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 left-side-sidebar">
-            <div class="row text-center">
-                <div class="col-md-8 offset-md-6 text-center pt-3">
-                    <h3>Not happy with the results?</h3>
-                    <p class="body-text-3x">Type your search again</p>
-                    <div class="small-search-wrap">
-                        <div class="search-form">
-                            <form id="search-form">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" name="searchTitle" id="searchInput">
-                                    <button class="search-btn">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </form>
+    <div class="row text-center">
+        <div class="col-md-12 text-center pt-3">
+            <h3>Not happy with the results?</h3>
+            <p class="body-text-3x">Type your search again</p>
+            <div class="small-search-wrap">
+                <div class="search-form mr-auto ml-auto" style="max-width: 50%;">
+                    <form id="search-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" name="searchTitle" id="searchInput">
+                            <button class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
                         </div>
-                    </div>
-                    <hr class="invisible small">
-                </div>
-                <div class="col-md-12 offset-md-4 pb-3">
-                    <div class="v-heading-v2">
-                        <h4 class="v-search-result-count">About @Model.Count() results</h4>
-                    </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="clearfix mt-40">
-                <ul id="search-results" class="xsearch-items">
-                    @foreach (var searchResult in Model)
-                    {
-                        <li class="search-item">
-                            <div class="search-item-img">
-                                <img src="@searchResult.ImagePath" width="70" height="70">
-                            </div>
-                            <div class="search-item-content">
-                                <h3 class="search-item-caption">
-                                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@searchResult.Id">
-                                        @searchResult.Title
-                                    </a>
-                                </h3>
-                                <div class="search-item-meta mb-15">
-                                    <ul class="list-inline">
-                                        <li class="time">@searchResult.CreatedOn.ToLocalTime()</li>
-                                        <li>@searchResult.ArticleComments.Count() Comments</li>
-                                        <li class="pl-0"><a href="#">Category: @searchResult.CategoryName</a></li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    @Html.Raw(searchResult.SanitizedShortDescription)
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+            <hr class="invisible small">
+        </div>
+        <div class="col-md-12 pb-3">
+            <div class="v-heading-v2">
+                <h4 id="about-info" class="v-search-result-count">About @Model.Count() results</h4>
             </div>
-            @if (Model.TotalPages != 0)
-            {
-                <div class="col-lg-12 col-md-6 mb-4">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item @prevDisabled">
-                                <a class="page-link"
-                                   asp-action="Search"
-                                   asp-route-pageNumber="@prevPage"
-                                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
-                                    Previous
-                                </a>
-                            </li>
-                            @for (int i = 1; i <= Model.TotalPages; i++)
-                            {
-                                var active = i == Model.PageIndex ? "active" : string.Empty;
-                                <li class="page-item @active">
-                                    <a class="page-link"
-                                       asp-action="Search"
-                                       asp-route-pageNumber="@i"
-                                       asp-route-searchTitle=@this.TempData["SearchTitle"]>@i</a>
-                                </li>
-                            }
-                            <li class="page-item @nextDisabled">
-                                <a class="page-link"
-                                   asp-action="Search"
-                                   asp-route-pageNumber="@nextPage"
-                                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
-                                    Next
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            }
         </div>
     </div>
+
+    <div class="clearfix mt-40">
+        <div class="preloader"></div>
+        <ul id="search-results" class="xsearch-items">
+            @foreach (var searchResult in Model)
+            {
+                <li class="search-item">
+                    <div class="search-item-img">
+                        <img src="@searchResult.ImagePath" width="70" height="70">
+                    </div>
+                    <div class="search-item-content">
+                        <h3 class="search-item-caption">
+                            <a asp-controller="Articles" asp-action="Details" asp-route-id="@searchResult.Id">
+                                @searchResult.Title
+                            </a>
+                        </h3>
+                        <div class="search-item-meta mb-15">
+                            <ul class="list-inline">
+                                <li class="time">@searchResult.CreatedOn.ToLocalTime()</li>
+                                <li>@searchResult.ArticleComments.Count() Comments</li>
+                                <li class="pl-0"><a href="#">Category: @searchResult.CategoryName</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            @Html.Raw(searchResult.SanitizedShortDescription)
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
+<!--Pagination-->
+@if (Model.TotalPages != 0)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @prevDisabled">
+                <a class="page-link"
+                   asp-action="Search"
+                   asp-route-pageNumber="@prevPage"
+                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
+                    Previous
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                var active = i == Model.PageIndex ? "active" : string.Empty;
+                <li class="page-item @active">
+                    <a class="page-link"
+                       asp-action="Search"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchTitle=@this.TempData["SearchTitle"]>@i</a>
+                </li>
+            }
+            <li class="page-item @nextDisabled">
+                <a class="page-link"
+                   asp-action="Search"
+                   asp-route-pageNumber="@nextPage"
+                   asp-route-searchTitle=@this.TempData["SearchTitle"]>
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
 
 <partial name="_ContactsInfoPartial" />
 
 @section Scripts
 {
     <script>
-        const form = document.getElementById('search-form');
-        const searchResultsUl = document.getElementById('search-results');
-        const searchInput = document.getElementById('searchInput');
+        const elements = {
+            form() { return document.getElementById('search-form') },
+            searchResultsUl() { return document.getElementById('search-results') },
+            searchInput() { return document.getElementById('searchInput') },
+            aboutInfo() { return document.getElementById('about-info') }
+        };
 
-        form.addEventListener('submit', onSubmitEventHandler);
+        elements.form().addEventListener('submit', onSubmitEventHandler);
 
         function onSubmitEventHandler(e) {
+            $('.preloader').show();
             e.preventDefault();
 
-            searchResultsUl.innerHTML = '';
+            elements.searchResultsUl().innerHTML = '';
+            elements.aboutInfo().textContent = '';
 
-            // Use function el for JS course
             $.ajax({
-                url: `/api/articlesSearch/${@Model.PageIndex}/${searchInput.value}`,
+                url: `/api/articlesSearch/${@Model.PageIndex}/${elements.searchInput().value}`,
                 type: 'GET',
                 dataType: "json",
                 success: function (data) {
+                    elements.aboutInfo().textContent = `About ${data.length} results`;
+
                     data.forEach(result => {
-                        const containerData = `
+                        const listItem = `
                     <li class="search-item">
-                        <div class="search-item-img"><img src = "${result.imagePath}" width = "70" height = "70"></div>
-                            <div class="search-item-content">
+                        <div class="search-item-img">
+                            <img src = "${result.imagePath}" width = "70" height = "70">
+                        </div>
+                        <div class="search-item-content">
                             <h3 class="search-item-caption">
                                 <a href="/Articles/Details/${result.id}">
                                     ${result.title}
                                 </a>
                             </h3>
-                            <div class="search-item-meta mb-15">
-                                <ul class="list-inline">
-                                    <li class="time">${result.createdOn}</li>
-                                    <li>${result.articleComments.length} Comments</li>
-                                    <li class="pl-0"><a href="#">Category: ${result.categoryName}</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                ${result.sanitizedShortDescription}
-                            </div>
+                        <div class="search-item-meta mb-15">
+                            <ul class="list-inline">
+                                <li class="time">${convertUTCDateToLocalDate(new Date(result.createdOn)).toLocaleString()}</li>
+                                <li>${result.articleComments.length} Comments</li>
+                                <li class="pl-0"><a href="#">Category: ${result.categoryName}</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            ${result.sanitizedShortDescription}
+                        </div>
                         </div>
                     </li>`;
-                        searchResultsUl.innerHTML += containerData;
+
+                        elements.searchResultsUl().innerHTML += listItem;
                     });
+                },
+                complete: function () {
+                    $('.preloader').hide();
                 }
             });
+        }
+
+        function convertUTCDateToLocalDate(date) {
+            var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+            var offset = date.getTimezoneOffset() / 60;
+            var hours = date.getHours();
+
+            newDate.setHours(hours - offset);
+
+            return newDate;
         }
     </script>
 }

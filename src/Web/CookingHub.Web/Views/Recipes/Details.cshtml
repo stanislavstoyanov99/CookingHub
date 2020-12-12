@@ -1,9 +1,10 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
+@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
 @{
     this.ViewData["Title"] = "Recipes";
 
 }
-@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
+
 <div class="main-body conteiner-fluid">
     <div class="recipeDetailsPage">
 
@@ -99,12 +100,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-controller="Reviews" asp-action="Create" enctype="multipart/form-data" method="post">
+            <form id="submit-form" asp-controller="Reviews" asp-action="Create" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <span>Review for : @Model.Name</span> <br>
                         <label for="Title">Title</label>
-                        <input type="text" id="Title" name="Title" />
+                        <input type="text" id="title" name="Title" />
                         <input type="hidden" name="RecipeId" value="@Model.Id" />
                         <div class="container">
                             <div class="starrating d-flex justify-content-center flex-row-reverse">
@@ -121,9 +122,34 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-CH">Send Review</button>
+                    <button id="submit-btn" type="button" class="btn btn-CH">Send Review</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts 
+{
+    <script>
+        const submitBtn = document.getElementById('submit-btn');
+        const title = document.getElementById('title');
+        const description = document.getElementById('reviewDescription');
+        const footer = document.querySelector('.modal-footer');
+
+        const errorSpan = document.createElement('span');
+        errorSpan.setAttribute('style', 'display: hidden');
+
+        submitBtn.addEventListener('click', onClickEventHandler);
+
+        function onClickEventHandler() {
+            if (title.value === '' || description.value === '') {
+                errorSpan.textContent = 'You must enter the field.';
+                errorSpan.setAttribute('style', 'color: red; display: block');
+                footer.appendChild(errorSpan);
+            } else {
+                $('#submit-form').submit();
+            }
+        }
+    </script>
+}

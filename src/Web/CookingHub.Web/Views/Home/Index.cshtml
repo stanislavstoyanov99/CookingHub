@@ -9,7 +9,6 @@
     var subgalleries = gallery.Select((x, i) => new { Index = i, Value = x }).GroupBy(x => x.Index / 3).Select(x => x.Select(v => v.Value).ToList()).ToList();
     
    var active = false;
-
 }
 
 <!-- Start slides -->
@@ -200,23 +199,22 @@
                                 <div class="row h-100">
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id"><img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" /> </a>
-                                        
+                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                            <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" />
+                                        </a>                        
                                     }
                                 </div>
                             </div>
-
-
                         }
                         else
                         {
                             <div class="carousel-item mx-h gallery-box">
                                 <div class="row h-100">
-
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id"><img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" /> </a>
-
+                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                            <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" />
+                                        </a>
                                     }
                                 </div>
                             </div>
@@ -244,9 +242,10 @@
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
 </a>
-<a href="#" id="chat-btn" title="Chat" style="display: none;">
+<a asp-controller="Home" asp-action="Chat" id="chat-btn" title="Chat" style="display: none;">
     <i class="fas fa-comment" aria-hidden="true"></i>
 </a>
+
 @section Scripts{
     <script>
         $(document).ready(function () {

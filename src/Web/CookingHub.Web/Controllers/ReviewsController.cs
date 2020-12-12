@@ -1,5 +1,8 @@
 ﻿namespace CookingHub.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.Reviews;
     using CookingHub.Services.Data.Contracts;
@@ -7,11 +10,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class ReviewsController : Controller
     {

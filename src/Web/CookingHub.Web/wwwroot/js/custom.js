@@ -49,15 +49,10 @@
 				$('#chat-btn').fadeOut(); 
 			} 
 		}); 
-		$('#back-to-top').click(function(){ 
+		$('#back-to-top').click(function() { 
 			$("html, body").animate({ scrollTop: 0 }, 600); 
 			return false; 
 		});
-		// TODO
-		$('#chat-btn').click(function () {
-			console.log('chat is clicked');
-			return false;
-		}); 
 	});
 	
 	/* ..............................................
