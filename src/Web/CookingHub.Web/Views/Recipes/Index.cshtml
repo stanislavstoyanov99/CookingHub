@@ -58,7 +58,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row inner-menu-box">
             <div class="col-3">
                 <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
@@ -83,7 +82,7 @@
                             {
                                 @foreach (var recipe in Model.RecipesPaginated)
                                 {
-                                    <div class="col-lg-4 col-md-6 recipe-card special-grid drinks">
+                                    <div class="col-lg-4 col-md-6 mt-4 recipe-card special-grid drinks">
                                         <div class="gallery-single fix">
                                             <img src="@recipe.ImagePath" class="img-fluid" alt="Image">
                                             <div class="why-text">
@@ -92,12 +91,18 @@
                                                 </a>
                                                 <p>
                                                     @if (recipe.Rate == 0)
-                                                    {<strong>No Rate yet!</strong> }
+                                                    {
+                                                        <strong>No Rate yet!</strong>
+                                                    }
                                                     else
-                                                    { @for (int i = 0; i < recipe.Rate; i++)
-                                                        {<i class="fas fa-star star"></i>}}
-                                                    </p>
-                                                <h5>@recipe.Difficulty</h5>
+                                                    {
+                                                        for (int i = 0; i < recipe.Rate; i++)
+                                                        {
+                                                            <i class="fas fa-star star"></i>
+                                                        }
+                                                    }
+                                                </p>
+                                                <h5><i class="fas fa-tachometer-alt"></i> @recipe.Difficulty</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -131,9 +136,9 @@
                                            asp-route-pageNumber="@i"
                                            asp-route-categoryName="@this.TempData["CategoryName"]">
                                             @i
-                                    </a>
-                                </li>
-                            }
+                                        </a>
+                                    </li>
+                                }
                                 <li class="page-item @nextDisabled">
                                     <a class="page-link" asp-action="Index" asp-route-pageNumber="@nextPage">
                                         Next
@@ -163,13 +168,12 @@
 </div>
 <!-- End QT -->
 <!-- Start Customer Reviews -->
-<div class="customer-reviews-box">
+<div class="recipes-reviews-box">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="heading-title text-center">
-                    <h2>Customer Reviews</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+                    <h2>Recipe Reviews</h2>
                 </div>
             </div>
         </div>
@@ -177,30 +181,27 @@
             <div class="col-md-8 mr-auto ml-auto text-center">
                 <div id="reviews" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner mt-4">
-                        <div class="carousel-item text-center active">
-                            <div class="img-box p-1 border rounded-circle m-auto">
-                                <img class="d-block w-100 rounded-circle" src="~/images/quotations-button.png" alt="">
+                        @for (int i = 0; i < Model.Reviews.Count(); i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "") text-center">
+                                <div class="img-box p-1 border rounded-circle m-auto">
+                                    <img class="d-block w-100 rounded-circle" src="~/images/quotations-button.png" alt="Review image">
+                                </div>
+                                <h5 class="mt-4 mb-0">
+                                    <strong class="text-warning text-uppercase">@Model.Reviews.ElementAt(i).UserUsername</strong>
+                                </h5>
+                                <h6 class="text-dark m-0">
+                                    <span>
+                                        @for (int j = 0; j < Model.Reviews.ElementAt(i).Rate; j++)
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                    </span>
+                                </h6>
+                                <p class="m-0 pt-3">@Model.Reviews.ElementAt(i).Title</p>
+                                <p class="m-0 pt-3">@Html.Raw(Model.Reviews.ElementAt(i).SanitizedDescription)</p>
                             </div>
-                            <h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Paul Mitchel</strong></h5>
-                            <h6 class="text-dark m-0">Web Developer</h6>
-                            <p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-                        </div>
-                        <div class="carousel-item text-center">
-                            <div class="img-box p-1 border rounded-circle m-auto">
-                                <img class="d-block w-100 rounded-circle" src="~/images/quotations-button.png" alt="">
-                            </div>
-                            <h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Steve Fonsi</strong></h5>
-                            <h6 class="text-dark m-0">Web Designer</h6>
-                            <p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-                        </div>
-                        <div class="carousel-item text-center">
-                            <div class="img-box p-1 border rounded-circle m-auto">
-                                <img class="d-block w-100 rounded-circle" src="~/images/quotations-button.png" alt="">
-                            </div>
-                            <h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Daniel vebar</strong></h5>
-                            <h6 class="text-dark m-0">Seo Analyst</h6>
-                            <p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-                        </div>
+                        }
                     </div>
                     <a class="carousel-control-prev" href="#reviews" role="button" data-slide="prev">
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -221,4 +222,7 @@
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+</a>
+<a asp-controller="Home" asp-action="Chat" id="chat-btn" title="Chat" style="display: none;">
+    <i class="fas fa-comment" aria-hidden="true"></i>
 </a>

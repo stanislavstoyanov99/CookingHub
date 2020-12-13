@@ -2,40 +2,41 @@
 @model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
 @{
     this.ViewData["Title"] = "Recipes";
-
 }
 
 <div class="main-body conteiner-fluid">
     <div class="recipeDetailsPage">
-
         <div class="row" style="background-color:#540404; margin: 0px 10px 0px 10px; height:100%;">
-            <div class="col-12  col-lg-6 centered">
+            <div class="col-12 col-lg-6 centered">
                 <div class="conteiner d-flex flex-column h-100" id="recipeBody">
                     <div class="conteiner" id="recipeHeading">
                         <h1 class="recipeTitle"><span>@Model.Name</span></h1>
                         <p id="recipeSubTitle">
-                            Author: @Model.UserUsername | Category:@Model.Category.Name | Rating: @for (int i = 0; i < Model.Rate; i++)
-                            {<i class="fas fa-star star"></i>}
+                            Author: @Model.UserUsername | Category: @Model.Category.Name | Rating:
+                            @for (int i = 0; i < Model.Rate; i++)
+                            {
+                                <i class="fas fa-star star"></i>
+                            }
                         </p>
                     </div>
                     <div class="flex-grow-1 recipeText">
-                        @Html.Raw(Model.Description)
-
+                        @Html.Raw(Model.SanitizedDescription)
                     </div>
                     <div class="row" id="recipeProps">
                         <div class="col-auto recipeProperty">
                             Difficulty:<br>
                             @if (Model.Difficulty == Difficulty.Easy)
-                            {<strong style="color:green">@Model.Difficulty</strong> }
-                        else if (Model.Difficulty == Difficulty.Medium)
-                        {
-                            <strong style="color:orange">@Model.Difficulty</strong>
-                        }
-                        else
-                        {
-                            <strong style="color:darkred">@Model.Difficulty</strong>
-                        }
-
+                            {
+                                <strong style="color:green">@Model.Difficulty</strong>
+                            }
+                            else if (Model.Difficulty == Difficulty.Medium)
+                            {
+                                <strong style="color:orange">@Model.Difficulty</strong>
+                            }
+                            else
+                            {
+                                <strong style="color:darkred">@Model.Difficulty</strong>
+                            }
                         </div>
                         <div class="col-auto recipeProperty">
                             Preperation time:<br> @Model.PreparationTime mins
@@ -54,34 +55,43 @@
                     <img class="img-fluid recipe-img" src="@Model.ImagePath" />
                 </div>
                 <div class="recipeIngredients">
-                    @Html.Raw(Model.Ingredients)
+                    @Html.Raw(Model.SanitizedIngredients)
                 </div>
             </div>
         </div>
         <div class="recipeReviews">
             <h2 class="centered"><strong>Reviews:</strong></h2>
-            <div class="row reviewsPanel">
-
-                @foreach (var n in Model.Reviews)
-                {
-                    <div class="col-12 col-lg-4 review-card ">
-                        <div class="review-header">
-                            <span>Author:@n.UserUsername</span><br>
-                            <span>
-                                Rate: @for (int i = 0; i < n.Rate; i++)
-                                {<i class="fas fa-star star"></i>
-                                }
-                            </span>
+            @if (Model.Reviews.Count() != 0)
+            {
+                <div class="row reviewsPanel">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="col-12 col-lg-4 review-card ">
+                            <div class="review-header">
+                                <span>Author: @review.UserUsername</span><br>
+                                <span><i class="fa fa-calendar-alt"></i> @review.CreatedOn.ToLocalTime()</span><br>
+                                <span>
+                                    Rate:
+                                    @for (int i = 0; i < review.Rate; i++)
+                                    {
+                                        <i class="fas fa-star star"></i>
+                                    }
+                                </span>
+                            </div>
+                            <div class="review-body">
+                                <span><b>@review.Title</b></span><br>
+                                <span>@review.Description</span>
+                            </div>
                         </div>
-                        <div class="review-body">
-                            <span><b>@n.Title</b></span><br>
-                            <span>@n.Description</span>
-                        </div>
-                    </div>
-                }
-
-
-            </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    There are not any reviews for this recipe yet!
+                </div>
+            }
             <div class="row" style="padding: 0 50px 0 50px;">
                 <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
                     Create Review
@@ -129,7 +139,7 @@
     </div>
 </div>
 
-@section Scripts 
+@section Scripts
 {
     <script>
         const submitBtn = document.getElementById('submit-btn');
@@ -144,7 +154,7 @@
 
         function onClickEventHandler() {
             if (title.value === '' || description.value === '') {
-                errorSpan.textContent = 'You must enter the field.';
+                errorSpan.textContent = 'You must enter title and description fields.';
                 errorSpan.setAttribute('style', 'color: red; display: block');
                 footer.appendChild(errorSpan);
             } else {
