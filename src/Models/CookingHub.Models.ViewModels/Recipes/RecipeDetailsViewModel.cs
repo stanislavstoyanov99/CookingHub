@@ -1,18 +1,18 @@
 ﻿namespace CookingHub.Models.ViewModels.Recipes
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
     using CookingHub.Data.Models.Enumerations;
+    using CookingHub.Models.ViewModels.Reviews;
+    using CookingHub.Models.ViewModels.Categories;
 
     using Ganss.XSS;
 
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.RecipeValidation;
-    using System.Collections;
-    using System.Collections.Generic;
-    using CookingHub.Models.ViewModels.Reviews;
 
     public class RecipeDetailsViewModel : IMapFrom<Recipe>
     {
@@ -53,14 +53,16 @@
 
         public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
+        public string SanitizedIngredients => new HtmlSanitizer().Sanitize(this.Ingredients);
+
         public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
 
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        public CategoryDetailsViewModel Category { get; set; }
 
         public string UserUsername { get; set; }
 
-        public IEnumerable<ReviewDetailModel> Reviews { get; set; }
+        public IEnumerable<ReviewDetailsViewModel> Reviews { get; set; }
     }
 }

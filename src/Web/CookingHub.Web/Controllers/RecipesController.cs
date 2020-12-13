@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels;
@@ -21,21 +20,18 @@
         private readonly IRecipesService recipesService;
         private readonly IReviewsService reviewsService;
         private readonly ICategoriesService categoriesService;
-        private readonly IDeletableEntityRepository<CookingHubUser> userRepository;
         private readonly UserManager<CookingHubUser> userManager;
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoriesService categoriesService,
             IReviewsService reviewsService,
-            IDeletableEntityRepository<CookingHubUser> userRepository,
             UserManager<CookingHubUser> userManager)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
             this.reviewsService = reviewsService;
-            this.userRepository = userRepository;
         }
 
         public async Task<IActionResult> Index(string categoryName, int? pageNumber)
@@ -51,10 +47,14 @@
             var categories = await this.categoriesService
                 .GetAllCategoriesAsync<CategoryListingViewModel>();
 
+            var reviews = await this.reviewsService
+                .GetTopReviews<ReviewListingViewModel>();
+
             var model = new RecipePageViewModel
             {
                 RecipesPaginated = recipesPaginated,
                 Categories = categories,
+                Reviews = reviews,
             };
 
             return this.View(model);
@@ -63,7 +63,7 @@
         public async Task<IActionResult> Details(int id)
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
-            var reviews = await this.reviewsService.GetAll<ReviewDetailModel>(recipe.Id);
+            var reviews = await this.reviewsService.GetAll<ReviewDetailsViewModel>(recipe.Id);
 
             recipe.Reviews = reviews;
 
@@ -127,7 +127,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(RecipeEditViewModel recipeEditViewModel)
         {
-           
             if (!this.ModelState.IsValid)
             {
                 return this.View(recipeEditViewModel);
@@ -136,6 +135,5 @@
             await this.recipesService.EditAsync(recipeEditViewModel);
             return this.RedirectToAction("RecipeList", "Recipes");
         }
-
     }
 }

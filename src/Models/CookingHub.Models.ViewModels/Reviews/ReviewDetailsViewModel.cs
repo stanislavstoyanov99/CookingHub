@@ -1,13 +1,12 @@
 ﻿namespace CookingHub.Models.ViewModels.Reviews
 {
+    using System;
+
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Mapping;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
-   public class ReviewDetailModel : IMapFrom<Review>
+    public class ReviewDetailsViewModel : IMapFrom<Review>
     {
         public string Title { get; set; }
 
@@ -23,5 +22,6 @@
 
         public string UserUsername { get; set; }
 
+        public DateTime CreatedOn { get; set; }
     }
 }
