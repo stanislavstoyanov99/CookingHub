@@ -40,7 +40,7 @@
                 .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
 
             var gallery = await this
-                .recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
+                .recipesService.GetAllRecipesAsync<GalleryViewModel>();
 
             var model = new HomePageViewModel
             {

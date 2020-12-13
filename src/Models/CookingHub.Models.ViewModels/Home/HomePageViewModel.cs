@@ -11,6 +11,6 @@
 
         public IEnumerable<RecipeListingViewModel> TopRecipes { get; set; }
 
-        public IEnumerable<RecipeDetailsViewModel> Gallery { get; set; }
+        public IEnumerable<GalleryViewModel> Gallery { get; set; }
     }
 }
