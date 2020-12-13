@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "RecipeList";
+}
+<div class="conteiner-fluid d-flex flex-column h-100" style="min-height:500px;">
+    <div class="row h-100">
+        <div class="col" id="List">
+            <div class="list-group" id="list-tab" role="tablist">
+                @foreach (var n in Model)
+                {
+                    <a class="list-group-item list-group-item-action" id="@n.Name-list" data-toggle="pill" href="list-@n.Name" role="tab" aria-controls="list-@n.Name" aria-selected="true"><span>@n.Name</span></a>
+                    
+                }
+
+
+            </div>
+        </div>
+        
+    </div>
+</div>

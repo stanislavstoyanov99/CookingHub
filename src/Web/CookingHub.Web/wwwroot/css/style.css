@@ -1300,7 +1300,9 @@ blockquote {
 
 .des-l {
     display: inline-block;
-    width: 100%;
+    width: 90%;
+    margin-bottom:38px;
+    
 }
 
     .des-l p {
@@ -1308,8 +1310,11 @@ blockquote {
     }
 
 .comment-item-right a {
+    position:absolute;
+   
     font-size: 16px;
     font-weight: 500;
+    margin-bottom:30px;
 }
 
 .right-btn-re {
@@ -1332,17 +1337,20 @@ blockquote {
 }
 
 .blog-comment-box .children {
-    margin-left: 70px;
+    margin-left: 0px;
 }
 
 .comment-item {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .comment-item-right i {
     padding-right: 10px;
 }
 
+.comment-item children{
+    margin-top:30px;
+}
 .comment-form-respond input {
     min-height: 38px;
     border: 1px solid #010101;

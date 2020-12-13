@@ -96,11 +96,11 @@
                                 <h3>Leave your comment </h3>
                                 <div class="comment-respond-form">
                                     <form id="AddCommentForm" class="comment-form-respond row" asp-controller="ArticleComments" asp-action="Create" method="post">
-                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                        
                                             <input type="hidden" name="ArticleId" value="@Model.ArticleListingViewModel.Id" />
                                             <input type="hidden" name="ParentId" value="0" />
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                        
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <textarea name="Content" class="form-control" id="textarea_com" placeholder="Your Comment" rows="2"></textarea>
                                             </div>

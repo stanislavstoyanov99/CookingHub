@@ -70,6 +70,14 @@
             return this.View(recipe);
         }
 
+        public async Task<IActionResult> RecipeList()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var recipeList = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user);
+
+            return this.View(recipeList);
+        }
+
         public async Task<IActionResult> Submit()
         {
             var categories = await this.categoriesService
@@ -102,5 +110,32 @@
             await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
             return this.RedirectToAction("Index", "Recipes");
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var recipeToEdit = await this.recipesService
+                .GetViewModelByIdAsync<RecipeEditViewModel>(id);
+
+            var categories = await this.categoriesService
+                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
+            recipeToEdit.Categories = categories;
+
+            return this.View(recipeToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RecipeEditViewModel recipeEditViewModel)
+        {
+           
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(recipeEditViewModel);
+            }
+
+            await this.recipesService.EditAsync(recipeEditViewModel);
+            return this.RedirectToAction("RecipeList", "Recipes");
+        }
+
     }
 }

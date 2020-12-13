@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels.Recipes;
 
@@ -20,5 +20,7 @@
         IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null);
 
         Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0);
+
+        Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(CookingHubUser userId);
     }
 }

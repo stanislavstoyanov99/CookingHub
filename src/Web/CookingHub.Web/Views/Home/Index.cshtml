@@ -199,9 +199,9 @@
                                 <div class="row h-100">
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
-                                            <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" />
-                                        </a>                        
+                                    <a class="col-4" style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                    <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" />
+                                    </a>                      
                                     }
                                 </div>
                             </div>
@@ -212,23 +212,23 @@
                                 <div class="row h-100">
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-4" style="height:100%" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
-                                            <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" />
-                                        </a>
+                                    <a class="col-4" style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                    <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image" /> 
+                                    </a>
                                     }
                                 </div>
                             </div>
                         }
                         @if (active == false) active = true;
                     }
-                    <a class="carousel-control-prev" href="#GalleryCarusel" data-slide="prev">
-                        <span class="carousel-control-prev-icon btn-dark">PREV</span>
-                    </a>
-                    <a class="carousel-control-next" href="#GalleryCarusel" data-slide="next">
-                        <span class="carousel-control-next-icon btn-dark"> NEXT</span>
-                    </a>
-                    <!-- Left and right controls-->
-                </div>
+                    <a class="carousel-control-prev" style="z-index:4;background-color:grey;font-size: 30px;" href="#GalleryCarusel" data-slide="prev">
+                    <span class="ml-auto" style="margin-right:30px;"> <i class="fas fa-chevron-left d-block"></i></span>
+                        </a>
+                    <a class="carousel-control-next" style="z-index:4 ; background-color:grey;font-size: 30px;" href="#GalleryCarusel" data-slide="next">
+                        <span class="mr-auto" style="margin-left:30px;"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <!-- Left and right controls-->
+</div>
 
             </div>
 

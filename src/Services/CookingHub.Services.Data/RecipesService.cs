@@ -214,5 +214,16 @@
 
             return recipeViewModel;
         }
+
+        public async Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(CookingHubUser user)
+        {
+            var recipe = await this.recipesRepository
+                .All()
+                .Where(r => r.UserId == user.Id)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return recipe;
+        }
     }
 }

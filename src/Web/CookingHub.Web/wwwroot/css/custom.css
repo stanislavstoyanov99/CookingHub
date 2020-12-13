@@ -73,6 +73,10 @@
     background-image:url("../images/dashboard-background.jpg");
     background-size: cover;
 }
+.pow{
+    position:absolute;
+   right:0;
+}
 .homeinfo {
     position: absolute;
     z-index: 0;

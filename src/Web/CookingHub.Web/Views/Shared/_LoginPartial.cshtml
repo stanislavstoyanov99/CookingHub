@@ -14,24 +14,27 @@
             <div class="dropdown-menu">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <li active-when="/Recipes/Create" class="nav-item">
+                    <div active-when="/Recipes/Create" class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Recipes" asp-action="Submit">Submit Recipe</a>
-                    </li>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Recipes" asp-action="RecipeList">View Own Recipes</a>
+                    </div>
                 }
-                <li class="nav-item">
+                <div class="nav-item">
                     <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Profile!</a>
-                </li>
+                </div>
                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
-                    <li class="nav-item">
+                    <div class="nav-item">
                         <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" id="AdminDashboard" title="Admin">Admin Dashboard</a>
-                    </li>
+                    </div>
                 }
-                <li class="nav-item">
+                <div class="nav-item">
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                         <button type="submit" class="nav-link btn btn-link">Logout</button>
                     </form>
-                </li>
+                </div>
             </div>
         </div>
     }
