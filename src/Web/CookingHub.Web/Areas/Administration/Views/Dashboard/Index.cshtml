@@ -21,9 +21,9 @@
                 <li>Daily Users</li>
                 <li></li>
                 <li>Registered Users:</li>
-                <li>@Model.RegisteredUsers</li>
+                <li><b>@Model.RegisteredUsers</b></li>
                 <li>Admins</li>
-                <li>@Model.Admins</li>
+                <li><b>@Model.Admins</b></li>
             </ul>
         </div>
     </div>
@@ -45,13 +45,16 @@
                 </div>
                 <div class="col-12">
                     <ul class="text-left ml-auto mr-auto" style="width:300px;" >
-                        <li>Reviews:</li>
-                        <li>Comments:</li>
-                        <li>CategoriesCount:</li>
-                        <li>Most popular categories:</li>
+                        <li>Reviews:@Model.ReviewsCount</li>
+                        <li>Comments:@Model.ArticleCommentsCount</li>
+                        <li>Categories:@Model.CategoriesCount</li>
+                        <li>Most popular category:</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+ }

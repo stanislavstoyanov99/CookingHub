@@ -74,12 +74,12 @@ let mypolarareaChart = new Chart(ctxq, {
         datasets: [{
             label: "Reviews",
             data: [0, 0],
-            backgroundColor: ["#52BE80",],
+            backgroundColor: ["#52BE80", "#F7DC6F"],
         },
         {
             label: "Article Comments",
             data: [0, 0],
-            backgroundColor: ["#F7DC6F"],
+            backgroundColor: ["#F7DC6F","#F7DC6F"],
         }]
     },
     options: {

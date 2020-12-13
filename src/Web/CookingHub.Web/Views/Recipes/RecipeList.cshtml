@@ -1,19 +1,47 @@
 ﻿@{
     ViewData["Title"] = "RecipeList";
 }
-<div class="conteiner-fluid d-flex flex-column h-100" style="min-height:500px;">
-    <div class="row h-100">
-        <div class="col" id="List">
-            <div class="list-group" id="list-tab" role="tablist">
+<div class="conteiner-fluid d-flex flex-column bg-userList  h-100" style="min-height:500px;">
+    <div class="row h-100 justify-content-center">
+        <div class="col-12 col-md-9">
+            <div id="accordion">
                 @foreach (var n in Model)
                 {
-                    <a class="list-group-item list-group-item-action" id="@n.Name-list" data-toggle="pill" href="list-@n.Name" role="tab" aria-controls="list-@n.Name" aria-selected="true"><span>@n.Name</span></a>
-                    
+                    <div class="card br-black">
+                        <div class="card-header text-center ">
+                            <a class="collapsed  card-link" data-toggle="collapse" href="#@n.Name">
+                                @n.Name
+                            </a>
+                        </div>
+                        <div id="@n.Name" class="collapse show" data-parent="#accordion">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-6 col-lg-3 br-black listpic">
+                                        <img class="img-fluid listpic" src="@n.ImagePath" />
+                                    </div>
+                                    <div class="col-6 col-lg-3 bg-dark text-light">
+                                        Description:<br>
+                                        @Html.Raw(n.Description)
+                                    </div>
+                                    <div class="col-6 col-lg-3 br-black">
+                                        <div class="row w-100">
+                                            <div class="col-12">Difficulty:@n.Difficulty</div>
+                                            <div class="col-12">Portions Number:@n.PortionsNumber</div>
+                                            <div class="col-12">Pr.Time:@n.PreparationTime</div>
+                                            <div class="col-12">Cooking Time:@n.CookingTime</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-lg-3 bg-dark text-light">
+                                        Ingredients:<br>
+                                        @Html.Raw(n.Ingredients)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
-
-
             </div>
         </div>
-        
+
     </div>
 </div>

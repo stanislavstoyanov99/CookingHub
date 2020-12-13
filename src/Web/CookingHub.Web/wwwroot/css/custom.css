@@ -69,8 +69,11 @@
 .dig{
     max-width:45%;
 }
-#DashboardCon{
-    background-image:url("../images/dashboard-background.jpg");
+.br-black{
+    border: 3px solid #222222;
+}
+#DashboardCon {
+    background-image: url("../images/dashboard-background.jpg");
     background-size: cover;
 }
 .pow{
@@ -91,6 +94,14 @@
 .home-pic{
     width:100%;
     height: 100%;
+}
+.listpic{
+    width:300px;
+    height:200px;
+}
+.bg-userList{
+    background-image: url('../images/about-bg.jpg');
+    background-size: cover;
 }
 .carousel-inner img {
     width: 100%;

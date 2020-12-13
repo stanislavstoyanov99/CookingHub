@@ -4,7 +4,7 @@
 @inject SignInManager<CookingHubUser> SignInManager
 @inject UserManager<CookingHubUser> UserManager
 
-<div class="navbar-nav">
+<div class="navbar-nav mb-2">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <div class="dropdown">
