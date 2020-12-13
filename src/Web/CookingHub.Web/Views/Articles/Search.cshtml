@@ -39,7 +39,6 @@
             </div>
         </div>
     </div>
-
     <div class="clearfix mt-40">
         <div class="preloader"></div>
         <ul id="search-results" class="xsearch-items">
@@ -127,8 +126,10 @@
             elements.searchResultsUl().innerHTML = '';
             elements.aboutInfo().textContent = '';
 
+            const searchTitleParameter = elements.searchInput().value !== '' ? elements.searchInput().value : null;
+
             $.ajax({
-                url: `/api/articlesSearch/${@Model.PageIndex}/${elements.searchInput().value}`,
+                url: `/api/articlesSearch/${@Model.PageIndex}/${searchTitleParameter}`,
                 type: 'GET',
                 dataType: "json",
                 success: function (data) {
@@ -164,7 +165,16 @@
                 },
                 complete: function () {
                     $('.preloader').hide();
-                }
+                },
+                statusCode: {
+                    404: function () {
+                        const noResultsMessage = document.createElement('div');
+                        noResultsMessage.innerHTML = `<div class="alert alert-info" role="alert">
+                                            No results found.</div>`;
+
+                        elements.searchResultsUl().appendChild(noResultsMessage);
+                    }
+                },
             });
         }
 
