@@ -29,5 +29,7 @@
         public const string ArticleCommentAlreadyExists = "Article comment with article id {0} and content {1} already exists";
 
         public const string ReviewsNotFound = "No Reviews yet!";
+
+        public const string CookingHubUserNotFound = "User with id {0} is not found.";
     }
 }

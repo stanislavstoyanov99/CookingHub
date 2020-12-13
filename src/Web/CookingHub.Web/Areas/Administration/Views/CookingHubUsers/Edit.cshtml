@@ -1,0 +1,41 @@
+﻿@model List<CookingHub.Models.ViewModels.CookingHubUsers.CookingHubUserEditViewModel>
+@{
+    this.ViewData["Title"] = "Edit CookingHubUser";
+    this.ViewData["ActivePage"] = CookingHubUserNavPages.CookingHubUsers;
+
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <form asp-area="Administration" asp-controller="CookingHubUsers" asp-action="Edit" enctype="multipart/form-data" method="post">
+            <h5>Edit <b></b> CookingHubUser </h5>
+            <hr />
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model[i].RoleId" />
+                    <input type="hidden" asp-for="@Model[i].RoleName" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].RoleName
+                    </label>
+                </div>
+            }
+                <button type="submit" class="btn btn-success">Save changes</button>
+                <button asp-area="Administration" asp-controller="CookingHubUsers" asp-action="GetAll" class="btn btn-primary">Back to all users</button>
+            </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

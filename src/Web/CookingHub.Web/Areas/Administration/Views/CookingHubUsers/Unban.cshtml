@@ -1,0 +1,24 @@
+﻿@model CookingHub.Models.ViewModels.CookingHubUsers.CookingHubUserDetailsViewModel
+@{
+    this.ViewData["Title"] = "Unban CookingHubUser";
+    this.ViewData["ActivePage"] = CookingHubUserNavPages.CookingHubUsers;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <form asp-area="Administration" asp-controller="CookingHubUsers" asp-action="Unban" method="post">
+            <h5 class="text-danger">Are you sure you want to unban user <b>@Model.Username</b></h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedOn"></label>
+                <textarea asp-for="CreatedOn" class="form-control" disabled=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Unban CookingHubUser</button>
+            <button asp-area="Administration" asp-controller="CookingHubUsers" asp-action="GetAll" class="btn btn-primary">Back to all users</button>
+        </form>
+    </div>
+</div>

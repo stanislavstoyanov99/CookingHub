@@ -1,0 +1,65 @@
+﻿@using CookingHub.Models.ViewModels.CookingHubUsers
+@model IEnumerable<CookingHubUserDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All users";
+    this.ViewData["ActivePage"] = CookingHubUserNavPages.CookingHubUsers;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>CookingHubUsers List</h4>
+            <hr />
+            <h5>Total Count : <span>@Model.Count()</span></h5>
+            @if (Model.Count() != 0)
+            {
+                <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">CreatedOn</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Functions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            @if (!user.isDeleted)
+                            {
+                                <tr>
+                                    <th scope="row">@user.Username</th>
+                                    <td>@user.CreatedOn</td>
+                                    <td>@user.Gender.ToString()</td>
+                                    <td>
+                                        <a class="badge badge-success" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+                                        <a class="badge badge-danger" asp-action="Ban" asp-route-id="@user.Id">Ban</a>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <th scope="row">@user.Username</th>
+                                    <td>@user.CreatedOn</td>
+                                    <td>@user.Gender.ToString()</td>
+                                    <td>
+                                        <a class="badge badge-success" asp-action="Unban" asp-route-id="@user.Id">Unban</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+                <hr />
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    There is not any data available.
+                </div>
+            }
+        </div>
+    </div>
+</div>

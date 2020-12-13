@@ -17,6 +17,8 @@
 
         public static string Articles => "Articles";
 
+        public static string CookingHubUsers => "CookingHubUsers";
+
         public static string PrivacyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Privacy);
 
         public static string AboutNavClass(ViewContext viewContext) => PageNavClass(viewContext, About);
@@ -26,6 +28,8 @@
         public static string RecipesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Recipes);
 
         public static string ArticlesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Articles);
+
+        public static string CookingHubUsersNavClass(ViewContext viewContext) => PageNavClass(viewContext, CookingHubUsers);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {
