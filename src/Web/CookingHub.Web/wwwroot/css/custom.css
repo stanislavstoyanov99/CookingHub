@@ -424,3 +424,8 @@
     color: #fff !important;
     border-color: #540404;
 }
+
+#avatar-img {
+    max-width: 65px;
+    border-radius: 50px;
+}
