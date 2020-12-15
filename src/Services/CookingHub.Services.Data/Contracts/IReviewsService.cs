@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookingHub.Models.InputModels.Reviews;
+    using CookingHub.Models.ViewModels.Reviews;
 
     public interface IReviewsService : IBaseDataService
     {

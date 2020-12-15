@@ -1,4 +1,4 @@
-﻿namespace CookingHub.Models.InputModels.Chat
+﻿namespace CookingHub.Models.ViewModels.Chat
 {
     public class Message
     {

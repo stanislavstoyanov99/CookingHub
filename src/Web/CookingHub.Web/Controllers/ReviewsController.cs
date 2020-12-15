@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using CookingHub.Data.Models;
-    using CookingHub.Models.InputModels.Reviews;
+    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;

@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using CookingHub.Models.InputModels.Chat;
+    using CookingHub.Models.ViewModels.Chat;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
