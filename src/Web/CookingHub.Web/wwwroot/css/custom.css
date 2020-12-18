@@ -10,8 +10,13 @@
     height:200px;
 }
 .CH-color {
-    background-color: #540404;
+    background-color: #540404 !important;
     color: white;
+    border-color: darkgrey !important;
+}
+.ch-border {
+    border-left: 8px solid #540404;
+    border-right: 8px solid #540404;
 }
 .main-body {
     
@@ -19,10 +24,13 @@
     padding-right: 50px;
 }
 .mt-50 {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 .nav-bug{
-    margin-top:140px !important;
+    margin-top:130px !important;
+}
+.no-ovfl{
+    overflow-x:hidden !important;
 }
 .home-recipe-img {
     width: 300px;
@@ -75,6 +83,10 @@
 }
 .br-black{
     border: 3px solid #222222;
+}
+.no-padding{
+    padding: 0px 0px 0px 0px;
+    overflow-y: hidden;
 }
 #DashboardCon {
     background-image: url("../images/dashboard-background.jpg");

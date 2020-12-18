@@ -131,7 +131,7 @@
                                 {
                                     var active = i == Model.RecipesPaginated.PageIndex ? "active" : string.Empty;
                                     <li class="page-item @active">
-                                        <a class="page-link"
+                                        <a class="page-link CH-color"
                                            asp-action="Index"
                                            asp-route-pageNumber="@i"
                                            asp-route-categoryName="@this.TempData["CategoryName"]">
@@ -185,7 +185,7 @@
                         {
                             <div class="carousel-item @(i == 0 ? "active" : "") text-center">
                                 <div class="img-box p-1 border rounded-circle m-auto">
-                                    <img class="d-block w-100 rounded-circle" src="~/images/quotations-button.png" alt="Review image">
+                                    <img class="d-block w-100 rounded-circle" src="~/images/quotations-button .png" alt="Review image">
                                 </div>
                                 <h5 class="mt-4 mb-0">
                                     <strong class="text-warning text-uppercase">@Model.Reviews.ElementAt(i).UserUsername</strong>
@@ -198,7 +198,7 @@
                                         }
                                     </span>
                                 </h6>
-                                <p class="m-0 pt-3">@Model.Reviews.ElementAt(i).Title</p>
+                                <p class="m-0 pt-3"><b>@Model.Reviews.ElementAt(i).Title</b></p>
                                 <p class="m-0 pt-3">@Html.Raw(Model.Reviews.ElementAt(i).SanitizedDescription)</p>
                             </div>
                         }

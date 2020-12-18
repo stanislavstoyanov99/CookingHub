@@ -4,43 +4,45 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 ch-border bg-dark">
+        <h1 class="text-light">@ViewData["Title"]</h1>
         <form id="register" asp-route-returnUrl="@Model.ReturnUrl" method="post"></form>
         <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post"></form>
-        <h4>Create a new account.</h4>
+        <h4 class="text-light">Create a new account.</h4>
         <hr />
         <div class="form-group">
-            <label asp-for="Input.Email"></label>
+            <label class="text-light" asp-for="Input.Email"></label>
             <input asp-for="Input.Email" class="form-control" form="register" />
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Input.Username"></label>
+            <label class="text-light" asp-for="Input.Username"></label>
             <input asp-for="Input.Username" class="form-control" form="register" />
             <span asp-validation-for="Input.Username" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Input.FullName"></label>
+            <label class="text-light" asp-for="Input.FullName"></label>
             <input asp-for="Input.FullName" class="form-control" form="register" />
             <span asp-validation-for="Input.FullName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Input.Password"></label>
+            <label class="text-light" asp-for="Input.Password"></label>
             <input asp-for="Input.Password" class="form-control" form="register" />
             <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Input.ConfirmPassword"></label>
+            <label class="text-light" asp-for="Input.ConfirmPassword"></label>
             <input asp-for="Input.ConfirmPassword" class="form-control" form="register" />
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
-        <div class="form-group form-check-inline">
+        <div class=" text-light form-group form-check-inline">
             @foreach (var gender in Model.Input.Genders)
             {
-                <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input" form="register" /> @gender
+                <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input pl-2" form="register" /> @gender
             }
         </div>
         <span asp-validation-for="Input.SelectedGender" class="text-danger"></span>

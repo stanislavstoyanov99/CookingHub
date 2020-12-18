@@ -510,7 +510,7 @@ button:focus {
 .gallery-box {
     max-width:100%;
     height:auto;
-    border-radius:0px 0px 40px 40px;
+    
 }
 
 .tz-gallery {
@@ -560,7 +560,7 @@ button:focus {
 }
 
 .text-warning {
-    color: #d65106 !important;
+    color: #540404 !important;
     font-size: 24px;
 }
 
