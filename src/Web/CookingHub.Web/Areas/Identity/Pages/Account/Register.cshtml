@@ -4,8 +4,6 @@
     ViewData["Title"] = "Register";
 }
 
-
-
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6 ch-border bg-dark">
@@ -57,7 +55,7 @@
 
                         @foreach (var provider in Model.ExternalLogins)
                         {
-                            <button type="submit" class="btn btn-fb" form="external-account" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Register with @provider.DisplayName</button>
+                            <button type="submit" class="btn btn-fb" form="external-account" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-facebook"></i> Register with @provider.DisplayName</button>
                         }
                     }
                 }

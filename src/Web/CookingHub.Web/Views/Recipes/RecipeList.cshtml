@@ -1,39 +1,43 @@
-﻿@{
+﻿@using CookingHub.Models.ViewModels.Recipes 
+@model IEnumerable<RecipeDetailsViewModel>
+
+@{
     ViewData["Title"] = "RecipeList";
 }
-<div class="conteiner-fluid d-flex flex-column bg-userList  h-100" style="min-height:500px;">
+
+<div class="conteiner-fluid d-flex flex-column bg-userList h-100" style="min-height:500px;">
     <div class="row h-100 justify-content-center">
         <div class="col-12 col-md-9">
             <div id="accordion">
-                @foreach (var n in Model)
+                @foreach (var recipe in Model)
                 {
-                    <div class="card br-black">
+                    <div class="card br-black" id="@recipe.Id">
                         <div class="card-header text-center ">
-                            <a class="collapsed  card-link" data-toggle="collapse" href="#@n.Name">
-                                @n.Name
+                            <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
+                                @recipe.Name
                             </a>
                         </div>
-                        <div id="@n.Name" class="collapse show" data-parent="#accordion">
+                        <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-6 col-lg-3 br-black listpic">
-                                        <img class="img-fluid listpic" src="@n.ImagePath" />
+                                        <img class="img-fluid listpic" src="@recipe.ImagePath" alt="Recipe Image @recipe.Id" />
                                     </div>
                                     <div class="col-6 col-lg-3 bg-dark text-light">
                                         Description:<br>
-                                        @Html.Raw(n.Description)
+                                        @Html.Raw(recipe.Description)
                                     </div>
                                     <div class="col-6 col-lg-3 br-black">
                                         <div class="row w-100">
-                                            <div class="col-12">Difficulty:@n.Difficulty</div>
-                                            <div class="col-12">Portions Number:@n.PortionsNumber</div>
-                                            <div class="col-12">Pr.Time:@n.PreparationTime</div>
-                                            <div class="col-12">Cooking Time:@n.CookingTime</div>
+                                            <div class="col-12">Difficulty: @recipe.Difficulty</div>
+                                            <div class="col-12">Portions Number: @recipe.PortionsNumber</div>
+                                            <div class="col-12">Preparation Time: @recipe.PreparationTime</div>
+                                            <div class="col-12">Cooking Time: @recipe.CookingTime</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-lg-3 bg-dark text-light">
                                         Ingredients:<br>
-                                        @Html.Raw(n.Ingredients)
+                                        @Html.Raw(recipe.Ingredients)
                                     </div>
                                 </div>
                             </div>
