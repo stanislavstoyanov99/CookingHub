@@ -13,13 +13,13 @@
 
         @foreach (var comment in comments)
         {
-            <div class="comment-item children">
+            <div class="comment-item children pb-3">
                 <div class="comment-item-left">
                     <img id="avatar-img" src="/images/avt-img-2.jpg" alt="User image for @comment.UserUserName">
                 </div>
                 <div class="comment-item-right">
                     <div class="pull-left">
-                        @comment.UserUserName
+                        <strong>@comment.UserUserName</strong>
                     </div>
                     <div class="pull-right">
                         <i class="far fa-calendar-alt" aria-hidden="true"></i><span>@comment.CreatedOn.ToLocalTime()</span>
@@ -29,7 +29,7 @@
                     </div>
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <a onclick="showAddCommentForm(@comment.Id)" class="right-btn-re">
+                        <a href="#" onclick="showAddCommentForm(@comment.Id)" class="right-btn-re">
                             <i class="fa fa-reply" aria-hidden="true"></i> Reply
                         </a>
                     }
@@ -91,7 +91,7 @@
                                 <p>@Html.Raw(Model.ArticleListingViewModel.SanitizedDescription)</p>
                             </div>
                             <div class="blog-comment-box">
-                                <h3>Comments</h3>
+                                <h3><i class="fa fa-comments" aria-hidden="true"></i> Comments (@Model.ArticleListingViewModel.ArticleComments.Count())</h3>
                                 @{ DisplayComments(null); }
                             </div>
                             <div class="comment-respond-box">
@@ -104,11 +104,12 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <textarea name="Content" class="form-control" id="textarea_com" placeholder="Your Comment" rows="2"></textarea>
+                                                <textarea id="content-textarea" name="Content" class="form-control" placeholder="Your Comment" required></textarea>
+                                                <span asp-validation-for="@Model.CreateArticleCommentInputModel.Content" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <button class="btn btn-submit">Submit comment</button>
+                                            <button class="btn btn-primary" type="submit">Submit comment</button>
                                         </div>
                                     </form>
                                 </div>
@@ -198,15 +199,5 @@
                 scrollTop: $("#AddCommentForm").offset().top
             }, 1000);
         }
-    </script>
-
-    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: "textarea",
-            plugins: [
-                "image paste table link code media"
-            ]
-        });
     </script>
 }

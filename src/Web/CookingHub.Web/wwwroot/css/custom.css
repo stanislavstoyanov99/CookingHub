@@ -425,7 +425,25 @@
     border-color: #540404;
 }
 
+.btn-fb {
+    color: #0069d9;
+    background-color: #fff;
+    border-color: #204d74;
+}
+
+.btn-fb:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #204d74;
+}
+
 #avatar-img {
     max-width: 65px;
     border-radius: 50px;
+}
+
+#content-textarea {
+    border: 2px solid;
+    border-radius: 25px;
+    border-color: #540404;
 }
