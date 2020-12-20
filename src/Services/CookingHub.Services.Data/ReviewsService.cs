@@ -65,10 +65,16 @@
             await this.reviewsRepository.SaveChangesAsync();
         }
 
-        // TODO
-        public Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var review = await this.reviewsRepository.All().FirstOrDefaultAsync(r => r.Id == id);
+            if (review == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.ReviewNotFound, id));
+            }
+
+            this.reviewsRepository.Delete(review);
+            await this.reviewsRepository.SaveChangesAsync();
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
@@ -94,6 +100,10 @@
                 .Where(r => r.RecipeId == recipeId)
                 .To<TViewModel>()
                 .ToListAsync();
+            if (reviews == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.ReviewsNotFound));
+            }
 
             return reviews;
         }
