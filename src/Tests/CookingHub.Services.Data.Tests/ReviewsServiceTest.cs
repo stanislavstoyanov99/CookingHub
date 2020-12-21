@@ -75,16 +75,69 @@
         }
 
         [Fact]
-        public async Task CheckIfReviewsCreateAsyncThrowsException()
+        public async Task CheckIfGetReviewByIdThrowsNullException()
         {
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(
+                async () => await this.reviewService.GetViewModelByIdAsync<ReviewDetailsViewModel>(3));
+            Assert.Equal(string.Format(ExceptionMessages.ReviewNotFound,3), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfReviwesCreateAsyncWorks()
+        {
+            //TODO
+            this.SeedDatabase();
+            var review = new CreateReviewInputModel()
+            {
+               Title = this.firstReview.Title,
+               Rate = this.firstReview.Rate,
+               Content = this.firstReview.Description,
+               RecipeId = this.firstReview.RecipeId,
+               UserId = this.firstReview.UserId,
+            };
+            //await this.reviewService.CreateAsync(review);
+
+            var result = await this.reviewsRepository.All().AnyAsync();
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task CheckIfReviewsCreateAsyncThrowsExceptionforDuplicate()
+        {
+            this.SeedDatabase();
+
             var review = new CreateReviewInputModel()
             {
                 Title = this.firstReview.Title,
                 Rate = this.firstReview.Rate,
                 Content = this.firstReview.Description,
-                RecipeId = 17,
-                UserId = "12",
+                RecipeId = this.firstReview.RecipeId,
+                UserId = this.firstReview.UserId,
             };
+
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+               async () => await this.reviewService.CreateAsync(review));
+
+            Assert.NotNull(exception);
+        }
+        [Fact]
+        public async Task CheckIfReviewsServiceDeletByIdDeleteInvalidReviewId()
+        {
+            this.SeedDatabase();
+
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(
+               async () => await this.reviewService.DeleteByIdAsync(0));
+
+            Assert.NotNull(exception);
+        }
+        [Fact]
+        public async Task CheckIfReviewsServiceDeletByIdWorks()
+        {
+            this.SeedDatabase();
+            await this.reviewService.DeleteByIdAsync(1);
+            var any = this.reviewsRepository.All().Any();
+            Assert.False(any);
         }
 
         private void InitializeDatabaseAndRepositories()

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using CookingHub.Data.Common.Repositories;
@@ -39,35 +40,47 @@
                 Rate = createReviewInputModel.Rate,
             };
 
-            await this.reviewsRepository.AddAsync(review);
-            await this.reviewsRepository.SaveChangesAsync();
-
-            var reviews = this.reviewsRepository
-                .All()
-                .Where(o => o.RecipeId == createReviewInputModel.RecipeId)
-                .ToList();
-            var reviewsCount = reviews.Count;
-            var oldrecipeRate = 0;
-
-            foreach (var currReview in reviews)
+            if (this.reviewsRepository.All().Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId==createReviewInputModel.RecipeId).Any())
             {
-                oldrecipeRate += currReview.Rate;
+                throw new ArgumentException(string.Format(ExceptionMessages.ReviewAlreadyExists, review.Id));
+
             }
+            else
+            {
 
-            var newrating = oldrecipeRate / reviewsCount;
+                await this.reviewsRepository.AddAsync(review);
+                await this.reviewsRepository.SaveChangesAsync();
 
-            var newrecipe = this.recipesRepository
-                .All()
-                .FirstOrDefault(x => x.Id == createReviewInputModel.RecipeId);
-            newrecipe.Rate = newrating;
+                var reviews = this.reviewsRepository
+                    .All()
+                    .Where(o => o.RecipeId == createReviewInputModel.RecipeId)
+                    .ToList();
+                var reviewsCount = reviews.Count;
+                var oldrecipeRate = 0;
 
-            this.recipesRepository.Update(newrecipe);
-            await this.reviewsRepository.SaveChangesAsync();
+                foreach (var currReview in reviews)
+                {
+                    oldrecipeRate += currReview.Rate;
+                }
+
+                var newrating = oldrecipeRate / reviewsCount;
+
+                var newrecipe = this.recipesRepository
+                    .All()
+                    .FirstOrDefault(x => x.Id == createReviewInputModel.RecipeId);
+                newrecipe.Rate = newrating;
+
+                this.recipesRepository.Update(newrecipe);
+                await this.reviewsRepository.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            var review = await this.reviewsRepository.All().FirstOrDefaultAsync(r => r.Id == id);
+            var review = await this.reviewsRepository
+                .All()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
             if (review == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.ReviewNotFound, id));
