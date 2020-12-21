@@ -115,22 +115,27 @@
                     <div class="form-group">
                         <span>Review for : @Model.Recipe.Name</span> <br>
                         <label for="Title">Title</label>
-                        <input id="title" asp-for="CreateReviewInputModel.Title" name="Title" />
+                        <input id="title" asp-for="@Model.CreateReviewInputModel.Title" />
                         <div class="form-group">
-                            <span asp-validation-for="CreateReviewInputModel.Title" class="text-danger"></span>
+                            <span asp-validation-for="@Model.CreateReviewInputModel.Title" class="text-danger"></span>
                         </div>
-                        <input type="hidden" name="RecipeId" value="@Model.Recipe.Id" />
+                        <input type="hidden" asp-for="@Model.CreateReviewInputModel.RecipeId" value="@Model.Recipe.Id" />
                         <div class="container">
                             <div class="starrating d-flex justify-content-center flex-row-reverse">
-                                <input type="radio" id="star5" name="Rate" value="5" /><label for="star5" title="5 star"></label>
-                                <input type="radio" id="star4" name="Rate" value="4" /><label for="star4" title="4 star"></label>
-                                <input type="radio" id="star3" name="Rate" value="3" /><label for="star3" title="3 star"></label>
-                                <input type="radio" id="star2" name="Rate" value="2" /><label for="star2" title="2 star"></label>
-                                <input type="radio" id="star1" name="Rate" value="1" /><label for="star1" title="1 star"></label>
+                                <input type="radio" id="star5" asp-for="@Model.CreateReviewInputModel.Rate" value="5" />
+                                <label for="star5" title="5 star"></label>
+                                <input type="radio" id="star4" asp-for="@Model.CreateReviewInputModel.Rate" value="4" />
+                                <label for="star4" title="4 star"></label>
+                                <input type="radio" id="star3" asp-for="@Model.CreateReviewInputModel.Rate" value="3" />
+                                <label for="star3" title="3 star"></label>
+                                <input type="radio" id="star2" asp-for="@Model.CreateReviewInputModel.Rate" value="2" />
+                                <label for="star2" title="2 star"></label>
+                                <input type="radio" id="star1" asp-for="@Model.CreateReviewInputModel.Rate" value="1" />
+                                <label for="star1" title="1 star"></label>
                             </div>
                         </div>
                         <label class="col-form-label" for="reviewDescription">Description:</label><br>
-                        <textarea id="reviewDescription" name="Content"></textarea>
+                        <textarea id="reviewDescription" asp-for="@Model.CreateReviewInputModel.Content"></textarea>
                         <div class="form-group">
                             <span asp-validation-for="@Model.CreateReviewInputModel.Content" class="text-danger"></span>
                         </div>

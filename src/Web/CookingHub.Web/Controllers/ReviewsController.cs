@@ -5,7 +5,6 @@
 
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Recipes;
-    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
@@ -30,35 +29,35 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CreateReviewInputModel input)
+        public async Task<IActionResult> Create(RecipeDetailsPageViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 var recipe = await this.recipesService
-                    .GetViewModelByIdAsync<RecipeDetailsViewModel>(input.RecipeId);
+                    .GetViewModelByIdAsync<RecipeDetailsViewModel>(input.Recipe.Id);
 
                 var model = new RecipeDetailsPageViewModel
                 {
                     Recipe = recipe,
-                    CreateReviewInputModel = input,
+                    CreateReviewInputModel = input.CreateReviewInputModel,
                 };
 
                 return this.View("/Views/Recipes/Details.cshtml", model);
             }
 
             var userId = this.userManager.GetUserId(this.User);
-            input.UserId = userId;
+            input.CreateReviewInputModel.UserId = userId;
 
             try
             {
-                await this.reviewsService.CreateAsync(input);
+                await this.reviewsService.CreateAsync(input.CreateReviewInputModel);
             }
             catch (ArgumentException aex)
             {
                 return this.BadRequest(aex.Message);
             }
 
-            return this.RedirectToAction("Details", "Recipes", new { id = input.RecipeId });
+            return this.RedirectToAction("Details", "Recipes", new { id = input.CreateReviewInputModel.RecipeId });
         }
     }
 }
