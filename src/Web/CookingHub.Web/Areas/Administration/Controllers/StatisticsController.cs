@@ -1,14 +1,13 @@
-﻿using CookingHub.Data.Common.Repositories;
-using CookingHub.Data.Models;
-using CookingHub.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CookingHub.Web.Areas.Administration.Controllers
+﻿namespace CookingHub.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+
+    using CookingHub.Data.Common.Repositories;
+    using CookingHub.Data.Models;
+    using CookingHub.Models.ViewModels;
+
+    using Microsoft.AspNetCore.Mvc;
+
     [ApiController]
     [Route("api/[controller]")]
     public class StatisticsController : ControllerBase
@@ -19,14 +18,18 @@ namespace CookingHub.Web.Areas.Administration.Controllers
         private readonly IDeletableEntityRepository<Review> reviewsRepository;
         private readonly IDeletableEntityRepository<ArticleComment> commentsRepository;
 
-        public StatisticsController(IDeletableEntityRepository<CookingHubUser> usersRepository, IDeletableEntityRepository<Recipe> recipesRepository, IDeletableEntityRepository<Article> articlesRepository, IDeletableEntityRepository<Review> reviewsRepository, IDeletableEntityRepository<ArticleComment> commentsRepository)
+        public StatisticsController(
+            IDeletableEntityRepository<CookingHubUser> usersRepository,
+            IDeletableEntityRepository<Recipe> recipesRepository,
+            IDeletableEntityRepository<Article> articlesRepository,
+            IDeletableEntityRepository<Review> reviewsRepository,
+            IDeletableEntityRepository<ArticleComment> commentsRepository)
         {
             this.usersRepository = usersRepository;
             this.recipesRepository = recipesRepository;
             this.articlesRepository = articlesRepository;
             this.reviewsRepository = reviewsRepository;
             this.commentsRepository = commentsRepository;
-
         }
 
         [HttpGet]

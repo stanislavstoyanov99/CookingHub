@@ -84,6 +84,7 @@
             services.AddTransient<IArticleCommentsService, ArticleCommentsService>();
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<ICookingHubUsersService, CookingHubUsersService>();
+
             // External login providers
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>

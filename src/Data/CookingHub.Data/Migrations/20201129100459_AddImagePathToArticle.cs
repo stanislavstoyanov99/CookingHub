@@ -11,7 +11,7 @@
                 table: "Articles",
                 maxLength: 1000,
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

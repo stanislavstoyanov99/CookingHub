@@ -53,8 +53,17 @@
                     RoleId = role.Id,
                     RoleName = role.Name,
                 };
-                if (role.Name == "Administrator" && admin == true) { cookingHubUserEditViewModel.IsSelected = true; }
-                if (role.Name == "User" && userrole == true) { cookingHubUserEditViewModel.IsSelected = true; }
+
+                if (role.Name == "Administrator" && admin == true)
+                {
+                    cookingHubUserEditViewModel.IsSelected = true;
+                }
+
+                if (role.Name == "User" && userrole == true)
+                {
+                    cookingHubUserEditViewModel.IsSelected = true;
+                }
+
                 model.Add(cookingHubUserEditViewModel);
             }
 
@@ -105,4 +114,3 @@
         }
     }
 }
-
