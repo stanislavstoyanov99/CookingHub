@@ -24,8 +24,8 @@
             get
             {
                 var shortDescription = this.Description;
-                return shortDescription.Length > 200
-                        ? shortDescription.Substring(0, 200) + " ..."
+                return shortDescription.Length > 100
+                        ? shortDescription.Substring(0, 100) + " ..."
                         : shortDescription;
             }
         }

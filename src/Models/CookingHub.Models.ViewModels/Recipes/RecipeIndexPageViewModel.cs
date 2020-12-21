@@ -5,7 +5,7 @@
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Models.ViewModels.Reviews;
 
-    public class RecipePageViewModel
+    public class RecipeIndexPageViewModel
     {
         public PaginatedList<RecipeListingViewModel> RecipesPaginated { get; set; }
 

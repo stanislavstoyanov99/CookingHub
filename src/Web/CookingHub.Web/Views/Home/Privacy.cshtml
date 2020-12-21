@@ -4,15 +4,18 @@
     this.ViewData["Title"] = "Privacy Policy";
 }
 
-<div class="container">
-    <p>@Html.Raw(Model.SanitizedPageContent)</p>
-</div>
+<div class="privacy-box">
+    <div class="container">
+        <p>@Html.Raw(Model.SanitizedPageContent)</p>
+    </div>
 
-<partial name="_ContactsInfoPartial" />
+    <partial name="_ContactsInfoPartial" />
+</div>
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
 </a>
+
 <a asp-controller="Home" asp-action="Chat" id="chat-btn" title="Chat" style="display: none;">
     <i class="fas fa-comment" aria-hidden="true"></i>
 </a>

@@ -1,5 +1,5 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
-@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsViewModel
+@model CookingHub.Models.ViewModels.Recipes.RecipeDetailsPageViewModel
 @{
     this.ViewData["Title"] = "Recipes";
 }
@@ -10,61 +10,61 @@
             <div class="col-12 col-lg-6 centered">
                 <div class="conteiner d-flex flex-column h-100" id="recipeBody">
                     <div class="conteiner" id="recipeHeading">
-                        <h1 class="recipeTitle"><span>@Model.Name</span></h1>
+                        <h1 class="recipeTitle"><span>@Model.Recipe.Name</span></h1>
                         <p id="recipeSubTitle">
-                            Author: @Model.UserUsername | Category: @Model.Category.Name | Rating:
-                            @for (int i = 0; i < Model.Rate; i++)
+                            Author: @Model.Recipe.UserUsername | Category: @Model.Recipe.Category.Name | Rating:
+                            @for (int i = 0; i < Model.Recipe.Rate; i++)
                             {
                                 <i class="fas fa-star star"></i>
                             }
                         </p>
                     </div>
                     <div class="flex-grow-1 recipeText">
-                        @Html.Raw(Model.SanitizedDescription)
+                        @Html.Raw(Model.Recipe.SanitizedDescription)
                     </div>
                     <div class="row" id="recipeProps">
                         <div class="col-auto recipeProperty">
                             Difficulty:<br>
-                            @if (Model.Difficulty == Difficulty.Easy)
+                            @if (Model.Recipe.Difficulty == Difficulty.Easy)
                             {
-                                <strong style="color:green">@Model.Difficulty</strong>
+                                <strong style="color:green">@Model.Recipe.Difficulty</strong>
                             }
-                            else if (Model.Difficulty == Difficulty.Medium)
+                            else if (Model.Recipe.Difficulty == Difficulty.Medium)
                             {
-                                <strong style="color:orange">@Model.Difficulty</strong>
+                                <strong style="color:orange">@Model.Recipe.Difficulty</strong>
                             }
                             else
                             {
-                                <strong style="color:darkred">@Model.Difficulty</strong>
+                                <strong style="color:darkred">@Model.Recipe.Difficulty</strong>
                             }
                         </div>
                         <div class="col-auto recipeProperty">
-                            Preperation time:<br> @Model.PreparationTime mins
+                            Preperation time:<br> @Model.Recipe.PreparationTime mins
                         </div>
                         <div class="col-auto recipeProperty">
-                            Portions Number:<br> @Model.PortionsNumber
+                            Portions Number:<br> @Model.Recipe.PortionsNumber
                         </div>
                         <div class="col-auto recipeProperty">
-                            Cooking Time:<br> @Model.CookingTime mins
+                            Cooking Time:<br> @Model.Recipe.CookingTime mins
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12  col-lg-6 ing-img">
                 <div class="recipeImage">
-                    <img class="img-fluid recipe-img" src="@Model.ImagePath" />
+                    <img class="img-fluid recipe-img" src="@Model.Recipe.ImagePath" />
                 </div>
                 <div class="recipeIngredients">
-                    @Html.Raw(Model.SanitizedIngredients)
+                    @Html.Raw(Model.Recipe.SanitizedIngredients)
                 </div>
             </div>
         </div>
         <div class="recipeReviews">
             <h2 class="centered"><strong>Reviews:</strong></h2>
-            @if (Model.Reviews.Count() != 0)
+            @if (Model.Recipe.Reviews.Count() != 0)
             {
                 <div class="row reviewsPanel">
-                    @foreach (var review in Model.Reviews)
+                    @foreach (var review in Model.Recipe.Reviews)
                     {
                         <div class="col-12 col-lg-4 review-card ">
                             <div class="review-header">
@@ -113,10 +113,13 @@
             <form id="submit-form" asp-controller="Reviews" asp-action="Create" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <span>Review for : @Model.Name</span> <br>
+                        <span>Review for : @Model.Recipe.Name</span> <br>
                         <label for="Title">Title</label>
-                        <input type="text" id="title" name="Title" />
-                        <input type="hidden" name="RecipeId" value="@Model.Id" />
+                        <input id="title" asp-for="CreateReviewInputModel.Title" name="Title" />
+                        <div class="form-group">
+                            <span asp-validation-for="CreateReviewInputModel.Title" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" name="RecipeId" value="@Model.Recipe.Id" />
                         <div class="container">
                             <div class="starrating d-flex justify-content-center flex-row-reverse">
                                 <input type="radio" id="star5" name="Rate" value="5" /><label for="star5" title="5 star"></label>
@@ -127,39 +130,16 @@
                             </div>
                         </div>
                         <label class="col-form-label" for="reviewDescription">Description:</label><br>
-                        <textarea id="reviewDescription" name="Content" type="text"></textarea>
+                        <textarea id="reviewDescription" name="Content"></textarea>
+                        <div class="form-group">
+                            <span asp-validation-for="@Model.CreateReviewInputModel.Content" class="text-danger"></span>
+                        </div>
                     </div>
-
                 </div>
                 <div class="modal-footer flex-row-reverse justify-content-md-start w-100">
-                    <button id="submit-btn" type="button" class="btn btn-CH">Send Review</button>
+                    <button id="submit-btn" type="submit" class="btn btn-CH">Send Review</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-@section Scripts
-{
-    <script>
-        const submitBtn = document.getElementById('submit-btn');
-        const title = document.getElementById('title');
-        const description = document.getElementById('reviewDescription');
-        const footer = document.querySelector('.modal-footer');
-
-        const errorSpan = document.createElement('span');
-        errorSpan.setAttribute('style', 'display: hidden');
-
-        submitBtn.addEventListener('click', onClickEventHandler);
-
-        function onClickEventHandler() {
-            if (title.value === '' || description.value === '') {
-                errorSpan.textContent = 'You must enter title and description fields.';
-                errorSpan.setAttribute('style', 'color: red; display: block');
-                footer.appendChild(errorSpan);
-            } else {
-                $('#submit-form').submit();
-            }
-        }
-    </script>
-}

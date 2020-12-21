@@ -1,7 +1,7 @@
 ﻿@using System.Web
 @using CookingHub.Models.ViewModels.Recipes
 @using System.Text.RegularExpressions;
-@model RecipePageViewModel
+@model RecipeIndexPageViewModel
 @{
     this.ViewData["Title"] = "Recipes";
 }
@@ -188,7 +188,9 @@
                                     <img class="d-block w-100 rounded-circle" src="~/images/quotations-button .png" alt="Review image">
                                 </div>
                                 <h5 class="mt-4 mb-0">
-                                    <strong class="text-warning text-uppercase">@Model.Reviews.ElementAt(i).UserUsername</strong>
+                                    <a asp-area="" asp-controller="Recipes" asp-action="Details" asp-route-id="@Model.Reviews.ElementAt(i).RecipeId">
+                                        <strong class="text-warning text-uppercase">@Model.Reviews.ElementAt(i).UserUsername</strong>
+                                    </a>
                                 </h5>
                                 <h6 class="text-dark m-0">
                                     <span>
@@ -215,10 +217,10 @@
             </div>
         </div>
     </div>
+
+    <partial name="_ContactsInfoPartial" />
 </div>
 <!-- End Customer Reviews -->
-
-<partial name="_ContactsInfoPartial" />
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>

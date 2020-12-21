@@ -149,11 +149,6 @@ button:focus {
 }
 
 /*------------------------------------------------------------------
-    LOADER 
--------------------------------------------------------------------*/
-
-
-/*------------------------------------------------------------------
     HEADER
 -------------------------------------------------------------------*/
 .top-navbar {
@@ -509,8 +504,7 @@ button:focus {
 
 .gallery-box {
     max-width:100%;
-    height:auto;
-    
+    height:auto;   
 }
 
 .tz-gallery {
@@ -539,7 +533,7 @@ button:focus {
 -------------------------------------------------------------------*/
 
 .recipes-reviews-box {
-    padding: 70px 0px;
+    padding: 20px;
 }
 
 .carousel-inner .carousel-item .img-box {
@@ -1070,7 +1064,7 @@ button:focus {
     }
 
 .blog-box {
-    padding: 70px 0px;
+    padding: 20px;
 }
 
 .blog-box-inner {
@@ -1574,4 +1568,12 @@ blockquote {
     background-repeat: no-repeat;
     background-color: #FFF;
     background-position: center;
+}
+
+.privacy-box {
+    padding: 20px;
+}
+
+.faq-box {
+    padding: 20px;
 }

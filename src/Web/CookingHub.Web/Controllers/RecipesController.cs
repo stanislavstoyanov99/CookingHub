@@ -50,7 +50,7 @@
             var reviews = await this.reviewsService
                 .GetTopReviews<ReviewListingViewModel>();
 
-            var model = new RecipePageViewModel
+            var model = new RecipeIndexPageViewModel
             {
                 RecipesPaginated = recipesPaginated,
                 Categories = categories,
@@ -63,11 +63,14 @@
         public async Task<IActionResult> Details(int id)
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
-            var reviews = await this.reviewsService.GetAll<ReviewDetailsViewModel>(recipe.Id);
 
-            recipe.Reviews = reviews;
+            var model = new RecipeDetailsPageViewModel
+            {
+                Recipe = recipe,
+                CreateReviewInputModel = new CreateReviewInputModel(),
+            };
 
-            return this.View(recipe);
+            return this.View(model);
         }
 
         public async Task<IActionResult> RecipeList()

@@ -239,8 +239,6 @@
     background-size: cover;
     color:white;
     padding:20px;
-
-
 }
 .gallery-bg h2{
     color:white;
@@ -338,8 +336,8 @@
     padding-left:30px;
     padding-right:30px;
 }
-#reviewDescription{
-    width:100%;
+#reviewDescription {
+    width: 100%;
 }
 .starrating > input {
     display: none;

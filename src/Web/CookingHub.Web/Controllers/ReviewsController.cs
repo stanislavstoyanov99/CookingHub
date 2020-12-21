@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using CookingHub.Data.Models;
+    using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
@@ -14,13 +15,16 @@
     public class ReviewsController : Controller
     {
         private readonly IReviewsService reviewsService;
+        private readonly IRecipesService recipesService;
         private readonly UserManager<CookingHubUser> userManager;
 
         public ReviewsController(
             IReviewsService reviewsService,
-            UserManager<CookingHubUser> userManager)
+            UserManager<CookingHubUser> userManager,
+            IRecipesService recipesService)
         {
             this.reviewsService = reviewsService;
+            this.recipesService = recipesService;
             this.userManager = userManager;
         }
 
@@ -28,6 +32,20 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateReviewInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                var recipe = await this.recipesService
+                    .GetViewModelByIdAsync<RecipeDetailsViewModel>(input.RecipeId);
+
+                var model = new RecipeDetailsPageViewModel
+                {
+                    Recipe = recipe,
+                    CreateReviewInputModel = input,
+                };
+
+                return this.View("/Views/Recipes/Details.cshtml", model);
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             input.UserId = userId;
 
