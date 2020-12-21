@@ -49,9 +49,9 @@
             var reviewsCount = reviews.Count;
             var oldrecipeRate = 0;
 
-            foreach (var n in reviews)
+            foreach (var currReview in reviews)
             {
-                oldrecipeRate += n.Rate;
+                oldrecipeRate += currReview.Rate;
             }
 
             var newrating = oldrecipeRate / reviewsCount;
@@ -100,7 +100,8 @@
                 .Where(r => r.RecipeId == recipeId)
                 .To<TViewModel>()
                 .ToListAsync();
-            if (reviews == null)
+
+            if (reviews.Count == 0)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.ReviewsNotFound));
             }
