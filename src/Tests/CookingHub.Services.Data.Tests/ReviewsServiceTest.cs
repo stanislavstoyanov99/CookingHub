@@ -25,6 +25,7 @@
     public class ReviewsServiceTest : IAsyncDisposable
     {
         private readonly IReviewsService reviewService;
+
         private EfDeletableEntityRepository<Review> reviewsRepository;
         private EfDeletableEntityRepository<Recipe> recipesRepository;
         private EfDeletableEntityRepository<Category> categoriesRepository;
@@ -35,6 +36,7 @@
         private Recipe firstRecipe;
         private Category firstCategory;
         private CookingHubUser cookingHubUser;
+        private CookingHubUser cookingHubUserTwo;
 
         public ReviewsServiceTest()
         {
@@ -85,21 +87,23 @@
         [Fact]
         public async Task CheckIfReviwesCreateAsyncWorks()
         {
-            //TODO
+
             this.SeedDatabase();
+
             var review = new CreateReviewInputModel()
             {
                Title = this.firstReview.Title,
                Rate = this.firstReview.Rate,
                Content = this.firstReview.Description,
-               RecipeId = this.firstReview.RecipeId,
-               UserId = this.firstReview.UserId,
+               RecipeId = 1,
+               UserId = "2",
             };
-            //await this.reviewService.CreateAsync(review);
 
-            var result = await this.reviewsRepository.All().AnyAsync();
+            await this.reviewService.CreateAsync(review);
 
-            Assert.True(result);
+            var result = await this.reviewsRepository.All().CountAsync();
+
+            Assert.Equal(2,result);
         }
 
         [Fact]
@@ -121,6 +125,7 @@
 
             Assert.NotNull(exception);
         }
+
         [Fact]
         public async Task CheckIfReviewsServiceDeletByIdDeleteInvalidReviewId()
         {
@@ -131,6 +136,7 @@
 
             Assert.NotNull(exception);
         }
+
         [Fact]
         public async Task CheckIfReviewsServiceDeletByIdWorks()
         {
@@ -138,6 +144,16 @@
             await this.reviewService.DeleteByIdAsync(1);
             var any = this.reviewsRepository.All().Any();
             Assert.False(any);
+        }
+
+        [Fact]
+        public async Task CheckIfReviewsServiceTopThreeReviewsWork()
+        {
+            this.SeedDatabase();
+            var result = await this.reviewService.GetTopReviews<ReviewDetailsViewModel>();
+            var expected = 1;
+
+            Assert.Equal(expected, result.Count());
         }
 
         private void InitializeDatabaseAndRepositories()
@@ -165,6 +181,14 @@
                 Gender = Gender.Male,
             };
 
+            this.cookingHubUserTwo = new CookingHubUser
+            {
+                Id = "2",
+                FullName = "Incho",
+                UserName = "Test user 2",
+                Gender = Gender.Male,
+            };
+
             this.firstCategory = new Category
             {
                 Id = 1,
@@ -180,6 +204,7 @@
                 RecipeId = 1,
                 UserId = "1",
             };
+
 
             this.firstRecipe = new Recipe
             {
@@ -220,6 +245,7 @@
         private async Task SeedUsers()
         {
             await this.usersRepository.AddAsync(this.cookingHubUser);
+            await this.usersRepository.AddAsync(this.cookingHubUserTwo);
             await this.usersRepository.SaveChangesAsync();
         }
 

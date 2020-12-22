@@ -47,8 +47,14 @@
             }
             else
             {
-
-                await this.reviewsRepository.AddAsync(review);
+                try
+                {
+                    await this.reviewsRepository.AddAsync(review);
+                }
+                catch
+                {
+                    throw new Exception();
+                }
                 await this.reviewsRepository.SaveChangesAsync();
 
                 var reviews = this.reviewsRepository
