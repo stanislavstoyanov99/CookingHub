@@ -22,7 +22,7 @@
             this.emailSender = emailSender;
         }
 
-        public async Task SendContactToAdmin(ContactFormEntryViewModel contactFormEntryViewModel)
+        public async Task SendContactToAdminAsync(ContactFormEntryViewModel contactFormEntryViewModel)
         {
             var contactFormEntry = new ContactFormEntry
             {

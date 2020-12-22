@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 src/Data/CookingHub.Data/appsettings.json
 src/Web/CookingHub.Web/appsettings.json
+/src/Tests/CookingHub.Services.Data.Tests/appsettings.json

@@ -35,6 +35,7 @@
             bool doesFaqExist = await this.faqEntriesRepository
                 .All()
                 .AnyAsync(x => x.Question == faqCreateInputModel.Question && x.Answer == faqCreateInputModel.Answer);
+
             if (doesFaqExist)
             {
                 throw new ArgumentException(
@@ -52,6 +53,7 @@
         public async Task DeleteByIdAsync(int id)
         {
             var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(fe => fe.Id == id);
+
             if (faq == null)
             {
                 throw new NullReferenceException(

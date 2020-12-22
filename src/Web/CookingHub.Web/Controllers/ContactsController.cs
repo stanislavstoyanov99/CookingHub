@@ -29,7 +29,7 @@
                 return this.View(contactFormViewModel);
             }
 
-            await this.contactsService.SendContactToAdmin(contactFormViewModel);
+            await this.contactsService.SendContactToAdminAsync(contactFormViewModel);
 
             return this.RedirectToAction("ThankYou");
         }

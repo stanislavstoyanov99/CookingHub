@@ -6,6 +6,6 @@
 
     public interface IContactsService
     {
-        Task SendContactToAdmin(ContactFormEntryViewModel contactFormEntryViewModel);
+        Task SendContactToAdminAsync(ContactFormEntryViewModel contactFormEntryViewModel);
     }
 }
