@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h4>CookingHubUsers List</h4>
+            <h4>Cooking Hub Users List</h4>
             <hr />
             <h5>Total Count : <span>@Model.Count()</span></h5>
             @if (Model.Count() != 0)
@@ -17,7 +17,8 @@
                     <thead>
                         <tr>
                             <th scope="col">Username</th>
-                            <th scope="col">CreatedOn</th>
+                            <th scope="col">Fullname</th>
+                            <th scope="col">Created On</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Functions</th>
                         </tr>
@@ -28,7 +29,8 @@
                             @if (!user.isDeleted)
                             {
                                 <tr>
-                                    <th scope="row">@user.Username</th>
+                                    <td>@user.Username</td>
+                                    <td>@user.Fullname</td>
                                     <td>@user.CreatedOn</td>
                                     <td>@user.Gender.ToString()</td>
                                     <td>
@@ -40,7 +42,8 @@
                             else
                             {
                                 <tr>
-                                    <th scope="row">@user.Username</th>
+                                    <td>@user.Username</td>
+                                    <td>@user.Fullname</td>
                                     <td>@user.CreatedOn</td>
                                     <td>@user.Gender.ToString()</td>
                                     <td>

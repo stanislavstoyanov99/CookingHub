@@ -7,8 +7,6 @@
 
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
-    using CookingHub.Models.InputModels.AdministratorInputModels.Articles;
-    using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
@@ -28,7 +26,7 @@
         {
             var cookingHubUser = await this.cookingHubUsersRepository
                 .All()
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (cookingHubUser == null)
             {
@@ -54,7 +52,7 @@
         {
             var cookingHubUserViewModel = await this.cookingHubUsersRepository
                 .AllWithDeleted()
-                .Where(a => a.Id == id)
+                .Where(u => u.Id == id)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
 
@@ -70,7 +68,7 @@
         {
             var cookingHubUser = await this.cookingHubUsersRepository
                 .AllWithDeleted()
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (cookingHubUser == null)
             {

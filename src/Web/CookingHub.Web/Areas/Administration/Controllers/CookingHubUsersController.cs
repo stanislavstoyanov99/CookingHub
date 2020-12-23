@@ -4,25 +4,27 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookingHub.Common;
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.CookingHubUsers;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CookingHubUsersController : AdministrationController
     {
-        private readonly UserManager<CookingHubUser> cookingHubUser;
+        private readonly UserManager<CookingHubUser> cookingHubUserManager;
         private readonly ICookingHubUsersService cookingHubUsersService;
         private readonly RoleManager<ApplicationRole> roleManager;
 
         public CookingHubUsersController(
-            UserManager<CookingHubUser> cookingHubUser,
+            UserManager<CookingHubUser> cookingHubUserManager,
             ICookingHubUsersService cookingHubUsersService,
             RoleManager<ApplicationRole> roleManager)
         {
-            this.cookingHubUser = cookingHubUser;
+            this.cookingHubUserManager = cookingHubUserManager;
             this.cookingHubUsersService = cookingHubUsersService;
             this.roleManager = roleManager;
         }
@@ -34,60 +36,91 @@
 
         public async Task<IActionResult> GetAll()
         {
-            var users = await this.cookingHubUsersService.GetAllCookingHubUsersAsync<CookingHubUserDetailsViewModel>();
+            var users = await this.cookingHubUsersService
+                .GetAllCookingHubUsersAsync<CookingHubUserDetailsViewModel>();
 
             return this.View(users);
         }
 
         public async Task<IActionResult> Edit(string id)
         {
-            var user = await this.cookingHubUser.FindByIdAsync(id);
-            var admin = await this.cookingHubUser.IsInRoleAsync(user, "Administrator");
-            var userrole = await this.cookingHubUser.IsInRoleAsync(user, "User");
-            var model = new List<CookingHubUserEditViewModel>();
+            var user = await this.cookingHubUserManager.FindByIdAsync(id);
+            var isAdmin = await this.cookingHubUserManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName);
+            var isUser = await this.cookingHubUserManager.IsInRoleAsync(user, GlobalConstants.UserRoleName);
 
-            foreach (var role in this.roleManager.Roles)
+            var currUserRole = user.Roles.FirstOrDefault(x => x.UserId == id);
+            var currUserRoleName = await this.roleManager.FindByIdAsync(currUserRole.RoleId);
+
+            var cookingHubUserEditViewModel = new CookingHubUserEditViewModel
             {
-                var cookingHubUserEditViewModel = new CookingHubUserEditViewModel
-                {
-                    RoleId = role.Id,
-                    RoleName = role.Name,
-                };
+                RoleId = currUserRole.RoleId,
+                RoleName = currUserRoleName.Name,
+            };
 
-                if (role.Name == "Administrator" && admin == true)
+            cookingHubUserEditViewModel.RolesList = this.roleManager.Roles
+                .Select(x => new SelectListItem
                 {
-                    cookingHubUserEditViewModel.IsSelected = true;
-                }
+                    Text = x.Name,
+                })
+                .ToList();
 
-                if (role.Name == "User" && userrole == true)
-                {
-                    cookingHubUserEditViewModel.IsSelected = true;
-                }
-
-                model.Add(cookingHubUserEditViewModel);
+            if (currUserRoleName.Name == GlobalConstants.AdministratorRoleName && isAdmin == true)
+            {
+                cookingHubUserEditViewModel.RolesList
+                    .Find(x => x.Text == GlobalConstants.AdministratorRoleName).Selected = true;
             }
 
-            return this.View(model);
+            if (currUserRoleName.Name == GlobalConstants.UserRoleName && isUser == true)
+            {
+                cookingHubUserEditViewModel.RolesList
+                    .Find(x => x.Text == GlobalConstants.AdministratorRoleName).Selected = true;
+            }
+
+            return this.View(cookingHubUserEditViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(List<CookingHubUserEditViewModel> model, string id)
+        public async Task<IActionResult> Edit(CookingHubUserEditViewModel model, string id)
         {
-            var user = await this.cookingHubUser.FindByIdAsync(id);
+            if (!this.ModelState.IsValid)
+            {
+                model.RolesList = this.roleManager.Roles
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                })
+                .ToList();
 
-            var roles = await this.cookingHubUser.GetRolesAsync(user);
-            var result = await this.cookingHubUser.RemoveFromRolesAsync(user, roles);
+                return this.View(model);
+            }
 
-            result = await this.cookingHubUser.AddToRolesAsync(
+            if (model.NewRole == model.RoleName)
+            {
+                model.RolesList = this.roleManager.Roles
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                })
+                .ToList();
+
+                return this.View(model);
+            }
+
+            var user = await this.cookingHubUserManager.FindByIdAsync(id);
+
+            await this.cookingHubUserManager.RemoveFromRoleAsync(user, model.RoleName);
+
+            await this.cookingHubUserManager.AddToRoleAsync(
                 user,
-                model.Where(x => x.IsSelected).Select(y => y.RoleName));
+                model.NewRole);
 
             return this.RedirectToAction("GetAll", "CookingHubUsers", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Ban(string id)
         {
-            var cookingHubUserToDelete = await this.cookingHubUsersService.GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
+            var cookingHubUserToDelete = await this.cookingHubUsersService
+                .GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
 
             return this.View(cookingHubUserToDelete);
         }
@@ -96,12 +129,14 @@
         public async Task<IActionResult> Ban(CookingHubUserDetailsViewModel cookingHubUserDetailsViewModel)
         {
             await this.cookingHubUsersService.BanByIdAsync(cookingHubUserDetailsViewModel.Id);
+
             return this.RedirectToAction("GetAll", "CookingHubUsers", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Unban(string id)
         {
-            var cookingHubUserToDelete = await this.cookingHubUsersService.GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
+            var cookingHubUserToDelete = await this.cookingHubUsersService
+                .GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
 
             return this.View(cookingHubUserToDelete);
         }
@@ -110,6 +145,7 @@
         public async Task<IActionResult> Unban(CookingHubUserDetailsViewModel cookingHubUserDetailsViewModel)
         {
             await this.cookingHubUsersService.UnbanByIdAsync(cookingHubUserDetailsViewModel.Id);
+
             return this.RedirectToAction("GetAll", "CookingHubUsers", new { area = "Administration" });
         }
     }

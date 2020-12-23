@@ -105,5 +105,10 @@
             public const string FirstNameDisplayName = "First Name";
             public const string LastNameDispalyName = "Last Name";
         }
+
+        public static class CookingHubUserValidation
+        {
+            public const string RoleSelectedError = "Please select role.";
+        }
     }
 }

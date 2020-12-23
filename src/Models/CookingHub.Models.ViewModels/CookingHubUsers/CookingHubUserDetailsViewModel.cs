@@ -1,17 +1,14 @@
 ﻿namespace CookingHub.Models.ViewModels.CookingHubUsers
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CookingHub.Services.Mapping;
     using CookingHub.Data.Models;
-
-    
+    using CookingHub.Data.Models.Enumerations;
 
     using static CookingHub.Models.Common.ModelValidation;
-    using System;
-    using System.Collections.Generic;
-    using Microsoft.AspNetCore.Identity;
-    using CookingHub.Data.Models.Enumerations;
 
     public class CookingHubUserDetailsViewModel : IMapFrom<CookingHubUser>
     {
@@ -19,6 +16,8 @@
         public string Id { get; set; }
 
         public string Username { get; set; }
+
+        public string Fullname { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
