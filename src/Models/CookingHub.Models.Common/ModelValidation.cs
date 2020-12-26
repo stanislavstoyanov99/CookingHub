@@ -109,6 +109,7 @@
         public static class CookingHubUserValidation
         {
             public const string RoleSelectedError = "Please select role.";
+            public const string CreatedOnDisplayName = "Created On";
         }
     }
 }

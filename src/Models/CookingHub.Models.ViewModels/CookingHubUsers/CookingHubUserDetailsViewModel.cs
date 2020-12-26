@@ -9,6 +9,7 @@
     using CookingHub.Data.Models.Enumerations;
 
     using static CookingHub.Models.Common.ModelValidation;
+    using static CookingHub.Models.Common.ModelValidation.CookingHubUserValidation;
 
     public class CookingHubUserDetailsViewModel : IMapFrom<CookingHubUser>
     {
@@ -19,6 +20,7 @@
 
         public string Fullname { get; set; }
 
+        [Display(Name = CreatedOnDisplayName)]
         public DateTime CreatedOn { get; set; }
 
         public bool isDeleted { get; set; }

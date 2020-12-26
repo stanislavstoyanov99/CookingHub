@@ -4,6 +4,7 @@
 
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Articles;
+    using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Services.Data.Contracts;
@@ -13,6 +14,7 @@
 
     public class ArticlesController : AdministrationController
     {
+        private const int PageSize = 6;
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<CookingHubUser> userManager;
@@ -110,10 +112,15 @@
             return this.RedirectToAction("GetAll", "Articles", new { area = "Administration" });
         }
 
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int? pageNumber)
         {
-            var articles = await this.articlesService.GetAllArticlesAsync<ArticleDetailsViewModel>();
-            return this.View(articles);
+            var articles = this.articlesService
+                .GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
+
+            var articlesPaginated = await PaginatedList<ArticleDetailsViewModel>
+                .CreateAsync(articles, pageNumber ?? 1, PageSize);
+
+            return this.View(articlesPaginated);
         }
     }
 }

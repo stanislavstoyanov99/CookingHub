@@ -7,17 +7,21 @@
 <div class="row">
     <div class="col-md-9">
         <form asp-area="Administration" asp-controller="CookingHubUsers" asp-action="Ban" method="post">
-            <h5 class="text-danger">Are you sure you want to ban user <b>@Model.Username</b></h5>
+            <h5 class="text-danger">Are you sure you want to ban user <strong>@Model.Username ?</strong></h5>
             <hr />
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled="" />
             </div>
             <div class="form-group">
+                <label asp-for="Gender"></label>
+                <input asp-for="Gender" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
                 <label asp-for="CreatedOn"></label>
                 <textarea asp-for="CreatedOn" class="form-control" disabled=""></textarea>
             </div>
-            <button type="submit" class="btn btn-danger">Ban CookingHubUser</button>
+            <button type="submit" class="btn btn-danger">Ban user @Model.Username</button>
             <button asp-area="Administration" asp-controller="CookingHubUsers" asp-action="GetAll" class="btn btn-primary">Back to all users</button>
         </form>
     </div>

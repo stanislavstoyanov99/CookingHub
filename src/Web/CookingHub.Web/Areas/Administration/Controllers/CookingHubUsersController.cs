@@ -1,6 +1,5 @@
 ﻿namespace CookingHub.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -73,7 +72,7 @@
             if (currUserRoleName.Name == GlobalConstants.UserRoleName && isUser == true)
             {
                 cookingHubUserEditViewModel.RolesList
-                    .Find(x => x.Text == GlobalConstants.AdministratorRoleName).Selected = true;
+                    .Find(x => x.Text == GlobalConstants.UserRoleName).Selected = true;
             }
 
             return this.View(cookingHubUserEditViewModel);
@@ -119,10 +118,10 @@
 
         public async Task<IActionResult> Ban(string id)
         {
-            var cookingHubUserToDelete = await this.cookingHubUsersService
+            var cookingHubUserToBan = await this.cookingHubUsersService
                 .GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
 
-            return this.View(cookingHubUserToDelete);
+            return this.View(cookingHubUserToBan);
         }
 
         [HttpPost]
@@ -135,10 +134,10 @@
 
         public async Task<IActionResult> Unban(string id)
         {
-            var cookingHubUserToDelete = await this.cookingHubUsersService
+            var cookingHubUserToUnban = await this.cookingHubUsersService
                 .GetViewModelByIdAsync<CookingHubUserDetailsViewModel>(id);
 
-            return this.View(cookingHubUserToDelete);
+            return this.View(cookingHubUserToUnban);
         }
 
         [HttpPost]
