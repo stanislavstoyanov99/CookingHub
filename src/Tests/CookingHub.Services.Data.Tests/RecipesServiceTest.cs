@@ -2,11 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
     using CookingHub.Data;
     using CookingHub.Data.Models;
     using CookingHub.Data.Models.Enumerations;
@@ -17,16 +18,18 @@
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
-
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
 
     using Xunit;
 
-    public class RecipesServiceTest : IAsyncDisposable
+    public class RecipesServiceTest : IAsyncDisposable , IClassFixture<Configuration>
     {
         private readonly IRecipesService recipesService;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly Cloudinary cloudinary;
         private EfDeletableEntityRepository<Recipe> recipesRepository;
         private EfDeletableEntityRepository<Category> categoriesRepository;
         private EfDeletableEntityRepository<CookingHubUser> usersRepository;
@@ -36,13 +39,22 @@
         private Category firstCategory;
         private CookingHubUser cookingHubUser;
 
-        public RecipesServiceTest()
+        public RecipesServiceTest(Configuration configuration)
         {
             this.InitializeMapper();
             this.InitializeDatabaseAndRepositories();
             this.InitializeFields();
 
+            Account account = new Account(
+              configuration.ConfigurationRoot["Cloudinary:AppName"],
+              configuration.ConfigurationRoot["Cloudinary:AppKey"],
+              configuration.ConfigurationRoot["Cloudinary:AppSecret"]);
+
+            this.cloudinary = new Cloudinary(account);
+            this.cloudinaryService = new CloudinaryService(this.cloudinary);
             this.recipesService = new RecipesService(this.recipesRepository, this.categoriesRepository, this.cloudinaryService);
+
+
         }
 
         public async ValueTask DisposeAsync()
@@ -54,24 +66,136 @@
         [Fact]
         public async Task TestAddingRecipe()
         {
+            await this.SeedUsers();
             await this.SeedCategories();
-            var model = new RecipeCreateInputModel
+            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+            RecipeDetailsViewModel recipeDetailsViewModel;
+            using (var img = File.OpenRead(path))
             {
-                Name = this.firstRecipe.Name,
-                Description = this.firstRecipe.Description,
-                Ingredients = this.firstRecipe.Ingredients,
-                PreparationTime = this.firstRecipe.PreparationTime,
-                CookingTime = this.firstRecipe.CookingTime,
-                PortionsNumber = this.firstRecipe.PortionsNumber,
-                Difficulty = "Easy",
-                ImagePath = this.firstRecipe.ImagePath,
-                CategoryId = 1,
-            };
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
 
-           // await this.recipesService.CreateAsync(model, "1");
-           // var count = await this.categoriesRepository.All().CountAsync();
+                var model = new RecipeCreateInputModel
+                {
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Easy",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+                
+                recipeDetailsViewModel = await this.recipesService.CreateAsync(model, "1");
+            }
 
-           // Assert.Equal(1, count);
+            await this.cloudinaryService.DeleteImage(this.cloudinary, recipeDetailsViewModel.Name + Suffixes.RecipeSuffix);
+            var count = await this.categoriesRepository.All().CountAsync();
+
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task TestRecipeDeleteById()
+        {
+            this.SeedDatabase();
+            await this.recipesService.DeleteByIdAsync(1);
+            var result = this.recipesRepository.All().Count();
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public async Task TestRecipeDeleteByIdThrowsException()
+        {
+            this.SeedDatabase();
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(
+                  async () => await this.recipesService.DeleteByIdAsync(3));
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, 3), exception.Message);
+        }
+        
+        [Fact]
+        public async Task TestIdRecipeEditAsyncWorks()
+        {
+            this.SeedDatabase();
+            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                var model = new RecipeEditViewModel
+                {
+                    Id = 1,
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Medium",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+
+                await this.recipesService.EditAsync(model);
+            }
+
+            var count = await this.recipesRepository.All().CountAsync();
+            var result = this.recipesRepository.All().Where(x => x.Id == 1).Select(o => o.Difficulty.ToString()).FirstOrDefault();
+            Assert.Equal(1, count);
+            Assert.Equal("Medium", result);
+
+        }
+
+        [Fact]
+        public async Task TestIfRecipeServiceGetAllWorks()
+        {
+            this.SeedDatabase();
+            var model = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
+
+            Assert.Single(model);
+        }
+
+        [Fact]
+        public void TestIfGetAllRecipesByFilterAsQueryeableWorks()
+        {
+            this.SeedDatabase();
+            var model = this.recipesService.GetAllRecipesByFilterAsQueryeable<RecipeDetailsViewModel>("Vegetables");
+            Assert.NotNull(model);
+        }
+
+        [Fact]
+        public async Task TestIfGetRecipeAsyncWorks()
+        {
+            this.SeedDatabase();
+            var model = await this.recipesService.GetTopRecipesAsync<RecipeDetailsViewModel>(3);
+
+            Assert.Equal(1, model.Count());
+        }
+
+        [Fact]
+        public async Task TestIfGetRecipeByIdThrowsExeption()
+        {
+            this.SeedDatabase();
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(
+                  async () => await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(3));
+            Assert.NotNull(exception);
+        }
+
+        [Fact]
+        public async Task TestIfGetAllRecipesByUserIdWorks()
+        {
+            this.SeedDatabase();
+            var model = this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(this.cookingHubUser);
+            Assert.NotNull(model);
         }
 
         private void InitializeDatabaseAndRepositories()
@@ -117,7 +241,7 @@
                 Difficulty = Difficulty.Easy,
                 ImagePath = "Test image path",
                 CategoryId = 1,
-                
+                UserId = "1",
             };
         }
 
