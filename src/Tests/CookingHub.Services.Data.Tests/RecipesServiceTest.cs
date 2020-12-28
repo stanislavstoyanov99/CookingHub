@@ -7,7 +7,9 @@
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
+
     using CookingHub.Data;
     using CookingHub.Data.Models;
     using CookingHub.Data.Models.Enumerations;
@@ -25,7 +27,7 @@
 
     using Xunit;
 
-    public class RecipesServiceTest : IAsyncDisposable , IClassFixture<Configuration>
+    public class RecipesServiceTest : IAsyncDisposable, IClassFixture<Configuration>
     {
         private readonly IRecipesService recipesService;
         private readonly ICloudinaryService cloudinaryService;
@@ -53,8 +55,6 @@
             this.cloudinary = new Cloudinary(account);
             this.cloudinaryService = new CloudinaryService(this.cloudinary);
             this.recipesService = new RecipesService(this.recipesRepository, this.categoriesRepository, this.cloudinaryService);
-
-
         }
 
         public async ValueTask DisposeAsync()
@@ -90,7 +90,6 @@
                     Image = testImage,
                     CategoryId = 1,
                 };
-                
                 recipeDetailsViewModel = await this.recipesService.CreateAsync(model, "1");
             }
 
@@ -117,9 +116,9 @@
                   async () => await this.recipesService.DeleteByIdAsync(3));
             Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, 3), exception.Message);
         }
-        
+
         [Fact]
-        public async Task TestIdRecipeEditAsyncWorks()
+        public async Task TestIfRecipeEditAsyncWorks()
         {
             this.SeedDatabase();
             var path = Path.GetFullPath(@"..\..\..\Test.jpg");
@@ -152,7 +151,6 @@
             var result = this.recipesRepository.All().Where(x => x.Id == 1).Select(o => o.Difficulty.ToString()).FirstOrDefault();
             Assert.Equal(1, count);
             Assert.Equal("Medium", result);
-
         }
 
         [Fact]
@@ -173,12 +171,12 @@
         }
 
         [Fact]
-        public async Task TestIfGetRecipeAsyncWorks()
+        public async Task TestIfGetTopRecipesAsyncWorks()
         {
             this.SeedDatabase();
             var model = await this.recipesService.GetTopRecipesAsync<RecipeDetailsViewModel>(3);
 
-            Assert.Equal(1, model.Count());
+            Assert.Single(model);
         }
 
         [Fact]
@@ -188,13 +186,40 @@
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(3));
             Assert.NotNull(exception);
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound,3), exception.Message);
         }
 
         [Fact]
         public async Task TestIfGetAllRecipesByUserIdWorks()
         {
             this.SeedDatabase();
-            var model = this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(this.cookingHubUser);
+            var model = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(this.cookingHubUser);
+            Assert.NotNull(model);
+        }
+
+        [Fact]
+        public async Task TestIfGetRecipeAsyncWorks()
+        {
+            this.SeedDatabase();
+            var model = await this.recipesService.GetRecipeAsync<RecipeDetailsViewModel>(this.firstRecipe.Name);
+            Assert.NotNull(model);
+        }
+
+        [Fact]
+        public async Task TestIfGetRecipeAsyncThrowsExceptionForInvalidInput()
+        {
+            this.SeedDatabase();
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(
+                  async () => await this.recipesService.GetRecipeAsync<RecipeDetailsViewModel>("Vino"));
+            Assert.NotNull(exception);
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNameNotFound, "Vino"),exception.Message);
+        }
+
+        [Fact]
+        public void TestIfGetAllRecipesAsQueryeableWorks()
+        {
+            this.SeedDatabase();
+            var model = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
             Assert.NotNull(model);
         }
 

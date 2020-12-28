@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CookingHub.Services.Data.Tests
+﻿namespace CookingHub.Services.Data.Tests
 {
     using System;
     using System.Linq;

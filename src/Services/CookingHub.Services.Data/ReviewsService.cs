@@ -40,10 +40,9 @@
                 Rate = createReviewInputModel.Rate,
             };
 
-            if (this.reviewsRepository.All().Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId==createReviewInputModel.RecipeId).Any())
+            if (this.reviewsRepository.All().Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId == createReviewInputModel.RecipeId).Any())
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.ReviewAlreadyExists, review.Id));
-
             }
             else
             {
@@ -55,6 +54,7 @@
                 {
                     throw new Exception();
                 }
+
                 await this.reviewsRepository.SaveChangesAsync();
 
                 var reviews = this.reviewsRepository

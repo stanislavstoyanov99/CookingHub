@@ -13,7 +13,6 @@
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
-
     using Microsoft.EntityFrameworkCore;
 
     public class RecipesService : IRecipesService
@@ -195,7 +194,10 @@
                 .Where(r => r.Name == name)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
-
+            if(recipe == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.RecipeNameNotFound, name));
+            }
             return recipe;
         }
 

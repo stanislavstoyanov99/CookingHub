@@ -81,13 +81,12 @@
         {
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                 async () => await this.reviewService.GetViewModelByIdAsync<ReviewDetailsViewModel>(3));
-            Assert.Equal(string.Format(ExceptionMessages.ReviewNotFound,3), exception.Message);
+            Assert.Equal(string.Format(ExceptionMessages.ReviewNotFound, 3), exception.Message);
         }
 
         [Fact]
         public async Task CheckIfReviwesCreateAsyncWorks()
         {
-
             this.SeedDatabase();
 
             var review = new CreateReviewInputModel()
@@ -103,7 +102,7 @@
 
             var result = await this.reviewsRepository.All().CountAsync();
 
-            Assert.Equal(2,result);
+            Assert.Equal(2, result);
         }
 
         [Fact]
@@ -204,7 +203,6 @@
                 RecipeId = 1,
                 UserId = "1",
             };
-
 
             this.firstRecipe = new Recipe
             {
