@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using CookingHub.Data.Common.Repositories;
@@ -40,21 +39,18 @@
                 Rate = createReviewInputModel.Rate,
             };
 
-            if (this.reviewsRepository.All().Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId == createReviewInputModel.RecipeId).Any())
+            var doesExist = await this.reviewsRepository
+                .All()
+                .Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId == createReviewInputModel.RecipeId)
+                .AnyAsync();
+
+            if (doesExist)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.ReviewAlreadyExists, review.Id));
             }
             else
             {
-                try
-                {
-                    await this.reviewsRepository.AddAsync(review);
-                }
-                catch
-                {
-                    throw new Exception();
-                }
-
+                await this.reviewsRepository.AddAsync(review);
                 await this.reviewsRepository.SaveChangesAsync();
 
                 var reviews = this.reviewsRepository
@@ -71,9 +67,9 @@
 
                 var newrating = oldrecipeRate / reviewsCount;
 
-                var newrecipe = this.recipesRepository
+                var newrecipe = await this.recipesRepository
                     .All()
-                    .FirstOrDefault(x => x.Id == createReviewInputModel.RecipeId);
+                    .FirstOrDefaultAsync(x => x.Id == createReviewInputModel.RecipeId);
                 newrecipe.Rate = newrating;
 
                 this.recipesRepository.Update(newrecipe);

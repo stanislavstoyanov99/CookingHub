@@ -30,7 +30,7 @@
 
         public const string ArticleCommentAlreadyExists = "Article comment with article id {0} and content {1} already exists";
 
-        public const string ReviewAlreadyExists = "Recipe with id {0} already exists.";
+        public const string ReviewAlreadyExists = "Review with id {0} already exists.";
 
         public const string ReviewsNotFound = "No Reviews yet!";
 

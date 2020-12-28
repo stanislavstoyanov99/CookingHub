@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Serialization;
     using System.Threading.Tasks;
 
     using CookingHub.Data;
@@ -14,8 +13,10 @@
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
+
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
+
     using Newtonsoft.Json;
     using Xunit;
 
@@ -81,6 +82,7 @@
 
             var exception = await Assert
                 .ThrowsAsync<ArgumentException>(async () => await this.categoriesService.CreateAsync(category));
+
             Assert.Equal(string.Format(ExceptionMessages.CategoryAlreadyExists, category.Name), exception.Message);
         }
 
@@ -120,6 +122,7 @@
 
             var exception = await Assert
                 .ThrowsAsync<NullReferenceException>(async () => await this.categoriesService.DeleteByIdAsync(3));
+
             Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, 3), exception.Message);
         }
 
@@ -155,6 +158,7 @@
 
             var exception = await Assert
                 .ThrowsAsync<NullReferenceException>(async () => await this.categoriesService.EditAsync(categoryEditViewModel));
+
             Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, categoryEditViewModel.Id), exception.Message);
         }
 
@@ -166,6 +170,7 @@
             var result = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
 
             var count = result.Count();
+
             Assert.Equal(1, count);
         }
 
@@ -206,14 +211,16 @@
             this.SeedDatabase();
 
             var exception = await Assert
-                .ThrowsAsync<NullReferenceException>(async () => await this.categoriesService.GetViewModelByIdAsync<CategoryDetailsViewModel>(3));
+                .ThrowsAsync<NullReferenceException>(
+                async () => await this.categoriesService.GetViewModelByIdAsync<CategoryDetailsViewModel>(3));
+
             Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, 3), exception.Message);
         }
 
         public async ValueTask DisposeAsync()
         {
-          await this.connection.CloseAsync();
-          await this.connection.DisposeAsync();
+            await this.connection.CloseAsync();
+            await this.connection.DisposeAsync();
         }
 
         private void InitializeDatabaseAndRepositories()

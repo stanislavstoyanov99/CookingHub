@@ -1,17 +1,14 @@
 ﻿namespace CookingHub.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
 
     using CookingHub.Data;
     using CookingHub.Data.Models;
     using CookingHub.Data.Models.Enumerations;
     using CookingHub.Data.Repositories;
-    using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
@@ -20,6 +17,7 @@
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
 
+    using Newtonsoft.Json;
     using Xunit;
 
     public class ReviewsServiceTest : IAsyncDisposable
@@ -35,8 +33,8 @@
         private Review firstReview;
         private Recipe firstRecipe;
         private Category firstCategory;
-        private CookingHubUser cookingHubUser;
-        private CookingHubUser cookingHubUserTwo;
+        private CookingHubUser firstCookingHubUser;
+        private CookingHubUser secondCookingHubUser;
 
         public ReviewsServiceTest()
         {
@@ -64,8 +62,9 @@
                 .CountAsync();
 
             var result = await this.reviewService.GetAll<ReviewDetailsViewModel>(this.firstRecipe.Id);
+            var actualCount = result.Count();
 
-            Assert.Equal(expectedCount, result.Count());
+            Assert.Equal(expectedCount, actualCount);
         }
 
         [Fact]
@@ -73,6 +72,7 @@
         {
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                 async () => await this.reviewService.GetAll<ReviewDetailsViewModel>(3));
+
             Assert.Equal(ExceptionMessages.ReviewsNotFound, exception.Message);
         }
 
@@ -81,11 +81,35 @@
         {
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                 async () => await this.reviewService.GetViewModelByIdAsync<ReviewDetailsViewModel>(3));
+
             Assert.Equal(string.Format(ExceptionMessages.ReviewNotFound, 3), exception.Message);
         }
 
         [Fact]
-        public async Task CheckIfReviwesCreateAsyncWorks()
+        public async Task CheckIfGetReviewByIdWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var expectedModel = new ReviewListingViewModel
+            {
+                Id = this.firstReview.Id,
+                RecipeId = this.firstRecipe.Id,
+                Title = this.firstReview.Title,
+                Description = this.firstReview.Description,
+                Rate = this.firstReview.Rate,
+                UserUsername = this.firstCookingHubUser.UserName,
+            };
+
+            var viewModel = await this.reviewService.GetViewModelByIdAsync<ReviewListingViewModel>(this.firstReview.Id);
+
+            var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            var actualResultObj = JsonConvert.SerializeObject(viewModel);
+
+            Assert.Equal(expectedObj, actualResultObj);
+        }
+
+        [Fact]
+        public async Task CheckIfCreateAsyncWorksCorrectly()
         {
             this.SeedDatabase();
 
@@ -106,7 +130,7 @@
         }
 
         [Fact]
-        public async Task CheckIfReviewsCreateAsyncThrowsExceptionforDuplicate()
+        public async Task CheckIfCreateAsyncThrowsExceptionForDuplicate()
         {
             this.SeedDatabase();
 
@@ -126,29 +150,33 @@
         }
 
         [Fact]
-        public async Task CheckIfReviewsServiceDeletByIdDeleteInvalidReviewId()
+        public async Task CheckIfDeleteByIdAsyncThrowsNullReferenceException()
         {
             this.SeedDatabase();
 
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                async () => await this.reviewService.DeleteByIdAsync(0));
 
-            Assert.NotNull(exception);
+            Assert.Equal(string.Format(ExceptionMessages.ReviewNotFound, 0), exception.Message);
         }
 
         [Fact]
-        public async Task CheckIfReviewsServiceDeletByIdWorks()
+        public async Task CheckIfDeleteByIdAsyncWorksCorrectly()
         {
             this.SeedDatabase();
+
             await this.reviewService.DeleteByIdAsync(1);
-            var any = this.reviewsRepository.All().Any();
+
+            var any = await this.reviewsRepository.All().AnyAsync();
+
             Assert.False(any);
         }
 
         [Fact]
-        public async Task CheckIfReviewsServiceTopThreeReviewsWork()
+        public async Task CheckIfGetTopReviewsWorksCorrectly()
         {
             this.SeedDatabase();
+
             var result = await this.reviewService.GetTopReviews<ReviewDetailsViewModel>();
             var expected = 1;
 
@@ -172,7 +200,7 @@
 
         private void InitializeFields()
         {
-            this.cookingHubUser = new CookingHubUser
+            this.firstCookingHubUser = new CookingHubUser
             {
                 Id = "1",
                 FullName = "Peter Petrov",
@@ -180,7 +208,7 @@
                 Gender = Gender.Male,
             };
 
-            this.cookingHubUserTwo = new CookingHubUser
+            this.secondCookingHubUser = new CookingHubUser
             {
                 Id = "2",
                 FullName = "Incho",
@@ -242,8 +270,8 @@
 
         private async Task SeedUsers()
         {
-            await this.usersRepository.AddAsync(this.cookingHubUser);
-            await this.usersRepository.AddAsync(this.cookingHubUserTwo);
+            await this.usersRepository.AddAsync(this.firstCookingHubUser);
+            await this.usersRepository.AddAsync(this.secondCookingHubUser);
             await this.usersRepository.SaveChangesAsync();
         }
 
