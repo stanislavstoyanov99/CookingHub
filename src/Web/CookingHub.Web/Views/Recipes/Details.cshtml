@@ -1,9 +1,18 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
+@using CookingHub.Data.Models;
+@using Microsoft.AspNetCore.Identity;
 @model CookingHub.Models.ViewModels.Recipes.RecipeDetailsPageViewModel
 @{
-    this.ViewData["Title"] = "Recipes";
+    string userId = "Unassigned";
+    var userName = User.Identity.Name;
+    if (userName != null)
+    {
+        var user = await UserManager.FindByNameAsync(userName);
+        userId = user.Id;
+    }
+    var userReview = Model.Recipe.Reviews.Where(x => x.UserId == userId).FirstOrDefault();
 }
-
+@inject UserManager<CookingHubUser> UserManager
 <div class="main-body conteiner-fluid">
     <div class="recipeDetailsPage">
         <div class="row" style="background-color:#540404; margin: 0px 10px 0px 10px; height:100%;">
@@ -93,9 +102,25 @@
                 </div>
             }
             <div class="row" style="padding: 0 50px 0 50px;">
-                <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
-                    Create Review
-                </button>
+                @if (userId == "Unassigned")
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-CH ml-auto">Sign in to create a review</a>
+
+                }
+                else if (!Model.Recipe.Reviews.Where(x => x.UserId == userId).Any())
+                {
+
+                    <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
+                        Create Review
+                    </button>
+
+                }
+                else
+                {
+                    <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#existingReviewModal">
+                        You have already created review!
+                    </button>
+                }
             </div>
         </div>
     </div>
@@ -145,6 +170,41 @@
                     <button id="submit-btn" type="submit" class="btn btn-CH">Send Review</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="existingReviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header CH-color">
+                <h5 class="modal-title CH-color">Your review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (userReview != null)
+                {
+                    <div>
+                        <b>@userReview.Title</b>
+                    </div>
+                    <div>
+                        @userReview.Description
+                    </div>
+                    <div>
+                        <span>
+                            @for (int j = 0; j < userReview.Rate; j++)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                        </span>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer flex-row-reverse justify-content-md-start w-100">
+                <button id="submit-btn" class="btn btn-CH">Delete Review</button>
+            </div>
+
         </div>
     </div>
 </div>

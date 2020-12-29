@@ -464,7 +464,8 @@ button:focus {
     bottom: -100%;
     right: 0;
     height: 100%;
-    background: rgba(207, 166, 113, 0.9);
+    background-color: darkgrey;
+    opacity: 0.9;
     padding: 12px 12px;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
