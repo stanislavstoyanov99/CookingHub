@@ -5,7 +5,6 @@
 
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Recipes;
-    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;

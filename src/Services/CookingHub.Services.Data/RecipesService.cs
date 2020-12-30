@@ -194,6 +194,7 @@
                 .Where(r => r.Name == name)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
+
             if (recipe == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.RecipeNameNotFound, name));
@@ -218,11 +219,11 @@
             return recipeViewModel;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(CookingHubUser user)
+        public async Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(string userId)
         {
             var recipe = await this.recipesRepository
                 .All()
-                .Where(r => r.UserId == user.Id)
+                .Where(r => r.UserId == userId)
                 .To<TViewModel>()
                 .ToListAsync();
 

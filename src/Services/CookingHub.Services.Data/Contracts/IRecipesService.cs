@@ -22,7 +22,7 @@
 
         Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0);
 
-        Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(CookingHubUser userId);
+        Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(string userId);
 
         Task<TViewModel> GetRecipeAsync<TViewModel>(string name);
     }

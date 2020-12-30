@@ -1,11 +1,9 @@
 ﻿namespace CookingHub.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
@@ -16,10 +14,10 @@
     using CookingHub.Data.Repositories;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels.Recipes;
-    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
@@ -193,7 +191,10 @@
         public async Task TestIfGetAllRecipesByUserIdWorks()
         {
             this.SeedDatabase();
-            var model = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(this.cookingHubUser);
+
+            var model = await this.recipesService
+                .GetAllRecipesByUserId<RecipeDetailsViewModel>(this.cookingHubUser.Id);
+
             Assert.NotNull(model);
         }
 

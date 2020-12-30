@@ -76,7 +76,7 @@
         public async Task<IActionResult> RecipeList()
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var recipeList = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user);
+            var recipeList = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
 
             return this.View(recipeList);
         }

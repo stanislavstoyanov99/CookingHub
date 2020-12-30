@@ -2,17 +2,13 @@
 @using CookingHub.Data.Models;
 @using Microsoft.AspNetCore.Identity;
 @model CookingHub.Models.ViewModels.Recipes.RecipeDetailsPageViewModel
-@{
-    string userId = "Unassigned";
-    var userName = User.Identity.Name;
-    if (userName != null)
-    {
-        var user = await UserManager.FindByNameAsync(userName);
-        userId = user.Id;
-    }
-    var userReview = Model.Recipe.Reviews.Where(x => x.UserId == userId).FirstOrDefault();
-}
 @inject UserManager<CookingHubUser> UserManager
+
+@{
+    this.ViewData["Title"] = $"{Model.Recipe.Name}";
+    var userReview = Model.Recipe.Reviews.FirstOrDefault(x => x.UserId == Model.Recipe.UserId);
+}
+
 <div class="main-body conteiner-fluid">
     <div class="recipeDetailsPage">
         <div class="row" style="background-color:#540404; margin: 0px 10px 0px 10px; height:100%;">
@@ -102,12 +98,11 @@
                 </div>
             }
             <div class="row" style="padding: 0 50px 0 50px;">
-                @if (userId == "Unassigned")
+                @if (!this.User.Identity.IsAuthenticated)
                 {
                     <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-CH ml-auto">Sign in to create a review</a>
-
                 }
-                else if (!Model.Recipe.Reviews.Where(x => x.UserId == userId).Any())
+                else if (!Model.Recipe.Reviews.Where(x => x.UserId == Model.Recipe.UserId).Any())
                 {
                     <button type="button" class="btn btn-CH ml-auto" data-toggle="modal" data-target="#reviewsModal">
                         Create Review
@@ -201,12 +196,11 @@
                 }
             </div>
             <div class="modal-footer flex-row-reverse justify-content-md-start w-100">
-                @if (userReview != null) { 
-                <a asp-route-reviewId="@userReview.id" asp-route-recipeId="@userReview.RecipeId"  asp-controller="Reviews" asp-action="Remove" type="button" class="btn btn-CH">Delete Review</a>
+                @if (userReview != null)
+                {
+                    <a asp-route-reviewId="@userReview.Id" asp-route-recipeId="@userReview.RecipeId" asp-controller="Reviews" asp-action="Remove" type="button" class="btn btn-CH">Delete Review</a>
                 }
             </div>
-            
-
         </div>
     </div>
 </div>
