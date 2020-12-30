@@ -18,7 +18,7 @@
 
         public string Username { get; set; }
 
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
         public DateTime CreatedOn { get; set; }

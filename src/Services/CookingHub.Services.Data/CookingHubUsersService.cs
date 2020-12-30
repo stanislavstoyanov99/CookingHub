@@ -38,6 +38,22 @@
             await this.cookingHubUsersRepository.SaveChangesAsync();
         }
 
+        public async Task UnbanByIdAsync(string id)
+        {
+            var cookingHubUser = await this.cookingHubUsersRepository
+                .AllWithDeleted()
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (cookingHubUser == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CookingHubUserNotFound, id));
+            }
+
+            this.cookingHubUsersRepository.Undelete(cookingHubUser);
+            await this.cookingHubUsersRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllCookingHubUsersAsync<TViewModel>()
         {
             var users = await this.cookingHubUsersRepository
@@ -62,22 +78,6 @@
             }
 
             return cookingHubUserViewModel;
-        }
-
-        public async Task UnbanByIdAsync(string id)
-        {
-            var cookingHubUser = await this.cookingHubUsersRepository
-                .AllWithDeleted()
-                .FirstOrDefaultAsync(u => u.Id == id);
-
-            if (cookingHubUser == null)
-            {
-                throw new NullReferenceException(
-                    string.Format(ExceptionMessages.CookingHubUserNotFound, id));
-            }
-
-            this.cookingHubUsersRepository.Undelete(cookingHubUser);
-            await this.cookingHubUsersRepository.SaveChangesAsync();
         }
     }
 }

@@ -5,12 +5,12 @@
 
     public interface ICookingHubUsersService
     {
-        Task<IEnumerable<TViewModel>> GetAllCookingHubUsersAsync<TViewModel>();
-
-        Task<TViewModel> GetViewModelByIdAsync<TViewModel>(string id);
-
         Task BanByIdAsync(string id);
 
         Task UnbanByIdAsync(string id);
+
+        Task<IEnumerable<TViewModel>> GetAllCookingHubUsersAsync<TViewModel>();
+
+        Task<TViewModel> GetViewModelByIdAsync<TViewModel>(string id);
     }
 }
