@@ -8,6 +8,8 @@
 
     public class ReviewDetailsViewModel : IMapFrom<Review>
     {
+        public int id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

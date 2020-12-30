@@ -186,7 +186,7 @@
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(3));
             Assert.NotNull(exception);
-            Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound,3), exception.Message);
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, 3), exception.Message);
         }
 
         [Fact]
@@ -212,7 +212,7 @@
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.GetRecipeAsync<RecipeDetailsViewModel>("Vino"));
             Assert.NotNull(exception);
-            Assert.Equal(string.Format(ExceptionMessages.RecipeNameNotFound, "Vino"),exception.Message);
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNameNotFound, "Vino"), exception.Message);
         }
 
         [Fact]

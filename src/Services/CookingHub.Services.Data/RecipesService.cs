@@ -194,10 +194,11 @@
                 .Where(r => r.Name == name)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
-            if(recipe == null)
+            if (recipe == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.RecipeNameNotFound, name));
             }
+
             return recipe;
         }
 

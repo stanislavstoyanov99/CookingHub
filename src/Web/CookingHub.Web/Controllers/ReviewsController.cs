@@ -5,6 +5,7 @@
 
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Recipes;
+    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
@@ -58,6 +59,13 @@
             }
 
             return this.RedirectToAction("Details", "Recipes", new { id = input.CreateReviewInputModel.RecipeId });
+        }
+
+        public async Task<IActionResult> Remove(int reviewId, int recipeId)
+        {
+            await this.reviewsService.DeleteByIdAsync(reviewId);
+
+            return this.RedirectToAction("Details", "Recipes", new { id = recipeId });
         }
     }
 }

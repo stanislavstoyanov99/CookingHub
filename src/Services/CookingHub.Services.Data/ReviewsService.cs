@@ -77,15 +77,15 @@
             }
         }
 
-        public async Task DeleteByIdAsync(int userid)
+        public async Task DeleteByIdAsync(int id)
         {
             var review = await this.reviewsRepository
                 .All()
-                .FirstOrDefaultAsync(r => r.Id == userid);
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.ReviewNotFound, userid));
+                throw new NullReferenceException(string.Format(ExceptionMessages.ReviewNotFound, id));
             }
 
             this.reviewsRepository.Delete(review);
