@@ -22,10 +22,9 @@
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Xunit;
 
-    public class ArticlesServiceTests : IAsyncDisposable , IClassFixture<Configuration>
+    public class ArticlesServiceTests : IAsyncDisposable, IClassFixture<Configuration>
     {
         private readonly IArticlesService articlesService;
         private readonly ICloudinaryService cloudinaryService;
@@ -66,7 +65,8 @@
         {
             await this.SeedUsers();
             await this.SeedCategories();
-            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+
+            var path = "Test.jpg";
             ArticleDetailsViewModel articleDetailsViewModel;
 
             using (var img = File.OpenRead(path))
@@ -94,11 +94,76 @@
         }
 
         [Fact]
+        public async Task TestAddingRecipeWithMissingCategory()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+            ArticleCreateInputModel model;
+
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new ArticleCreateInputModel
+                {
+                    Title = this.firstArticle.Title,
+                    Description = this.firstArticle.Description,
+                    Image = testImage,
+                    CategoryId = 2,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.articlesService.CreateAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, model.CategoryId), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestAddingAlreadyExistingArticle()
+        {
+            await this.SeedDatabase();
+
+            var path = "Test.jpg";
+            ArticleCreateInputModel model;
+
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new ArticleCreateInputModel
+                {
+                    Title = this.firstArticle.Title,
+                    Description = this.firstArticle.Description,
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.articlesService.CreateAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.ArticleAlreadyExists, model.Title), exception.Message);
+        }
+
+        [Fact]
         public async Task TestGettingAllArticles()
         {
             await this.SeedDatabase();
+
             await this.articlesService.DeleteByIdAsync(1);
-            var result = this.articleRepisitory.All().Count();
+            var result = await this.articleRepisitory.All().CountAsync();
+
             Assert.Equal(0, result);
         }
 
@@ -106,20 +171,24 @@
         public async Task TestArticleDeleteByIdWorks()
         {
             await this.SeedDatabase();
+
             await this.articlesService.DeleteByIdAsync(1);
-            var result1 = this.articleRepisitory.All().Count();
-            var result2 = this.articleRepisitory.All().Where(x => x.Id == 1).Any();
+
+            var result1 = await this.articleRepisitory.All().CountAsync();
+            var result2 = await this.articleRepisitory.All().Where(x => x.Id == 1).AnyAsync();
+
             Assert.Equal(0, result1);
             Assert.False(result2);
-
         }
 
         [Fact]
         public async Task TestArticleDeleteByIdThrowsException()
         {
             await this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.articlesService.DeleteByIdAsync(3));
+
             Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, 3), exception.Message);
         }
 
@@ -127,7 +196,8 @@
         public async Task TestIfArticleEditAsyncWorks()
         {
             await this.SeedDatabase();
-            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+
+            var path = "Test.jpg";
             using (var img = File.OpenRead(path))
             {
                 var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
@@ -149,16 +219,56 @@
             }
 
             var count = await this.articleRepisitory.All().CountAsync();
-            var result = this.articleRepisitory.All().Where(x => x.Id == 1).Select(o => o.Title.ToString()).FirstOrDefault();
+            var result = await this.articleRepisitory
+                .All()
+                .Where(x => x.Id == 1)
+                .Select(a => a.Title.ToString())
+                .FirstOrDefaultAsync();
+
             Assert.Equal(1, count);
             Assert.Equal("TestEditTitle", result);
+        }
+
+        [Fact]
+        public async Task TestEditingArticleWithMissingArticle()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+
+            ArticleEditViewModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new ArticleEditViewModel
+                {
+                    Id = 1,
+                    Title = "TestEditTitle",
+                    Description = this.firstArticle.Description,
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.articlesService.EditAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, model.Id), exception.Message);
         }
 
         [Fact]
         public async Task TestIfArticlesServiceGetAllWorks()
         {
             await this.SeedDatabase();
+
             var model = await this.articlesService.GetAllArticlesAsync<ArticleDetailsViewModel>();
+
             Assert.Single(model);
         }
 
@@ -166,14 +276,30 @@
         public async void TestIfGetAllArticlesByFilterAsQueryeableWorks()
         {
             await this.SeedDatabase();
-            var model = this.articlesService.GetAllArticlesByCategoryNameAsQueryeable<ArticleDetailsViewModel>("Vegetables");
+
+            var model = this.articlesService
+                .GetAllArticlesByCategoryNameAsQueryeable<ArticleDetailsViewModel>("Vegetables");
+
             Assert.NotNull(model);
+        }
+
+        [Fact]
+        public async void TestIfGetAllArticlesAsQueryeableWorks()
+        {
+            await this.SeedDatabase();
+
+            var articles = this.articlesService.GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
+            var result = await articles.FirstOrDefaultAsync();
+
+            Assert.Equal(1, await articles.CountAsync());
+            Assert.Equal(this.firstArticle.Title, result.Title);
         }
 
         [Fact]
         public async Task TestIfGetRecentArticlesAsyncWorks()
         {
             await this.SeedDatabase();
+
             var model = await this.articlesService.GetRecentArticlesAsync<ArticleDetailsViewModel>(3);
 
             Assert.Single(model);
@@ -183,17 +309,21 @@
         public async Task TestIfGetArticleByIdThrowsExeption()
         {
             await this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.articlesService.GetViewModelByIdAsync<ArticleDetailsViewModel>(3));
+
             Assert.NotNull(exception);
             Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, 3), exception.Message);
         }
 
         [Fact]
-        public async Task TestIfGetArtilceAsyncWorks()
+        public async Task TestIfGetArticleAsyncWorks()
         {
             await this.SeedDatabase();
+
             var model = await this.articlesService.GetViewModelByIdAsync<ArticleDetailsViewModel>(1);
+
             Assert.NotNull(model);
         }
 
@@ -201,8 +331,10 @@
         public async Task TestIfGetArticleAsyncThrowsExceptionForInvalidInput()
         {
             await this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.articlesService.GetViewModelByIdAsync<ArticleDetailsViewModel>(2));
+
             Assert.NotNull(exception);
             Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, 2), exception.Message);
         }

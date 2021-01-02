@@ -42,14 +42,10 @@
                     string.Format(ExceptionMessages.CategoryNotFound, articleCreateInputModel.CategoryId));
             }
 
-            var imageUrl = await this.cloudinaryService
-                .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
-
             var article = new Article
             {
                 Title = articleCreateInputModel.Title,
                 Description = articleCreateInputModel.Description,
-                ImagePath = imageUrl,
                 Category = category,
                 UserId = userId,
             };
@@ -62,6 +58,10 @@
                 throw new ArgumentException(
                     string.Format(ExceptionMessages.ArticleAlreadyExists, article.Title));
             }
+
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
+            article.ImagePath = imageUrl;
 
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();

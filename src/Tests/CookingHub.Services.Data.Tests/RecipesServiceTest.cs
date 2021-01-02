@@ -66,7 +66,9 @@
         {
             await this.SeedUsers();
             await this.SeedCategories();
-            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+
+            var path = "Test.jpg";
+
             RecipeDetailsViewModel recipeDetailsViewModel;
             using (var img = File.OpenRead(path))
             {
@@ -98,11 +100,122 @@
         }
 
         [Fact]
+        public async Task TestAddingRecipeWithInvalidDifficulty()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+
+            RecipeCreateInputModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new RecipeCreateInputModel
+                {
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Invalid difficulty",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.recipesService.CreateAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.DifficultyInvalidType, model.Difficulty), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestAddingAlreadyExistingRecipe()
+        {
+            this.SeedDatabase();
+
+            var path = "Test.jpg";
+
+            RecipeCreateInputModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new RecipeCreateInputModel
+                {
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Easy",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.recipesService.CreateAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.RecipeAlreadyExists, model.Name), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestAddingRecipeWithMissingCategory()
+        {
+            await this.SeedUsers();
+
+            var path = "Test.jpg";
+
+            RecipeCreateInputModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new RecipeCreateInputModel
+                {
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Easy",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.recipesService.CreateAsync(model, this.cookingHubUser.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, model.CategoryId), exception.Message);
+        }
+
+        [Fact]
         public async Task TestRecipeDeleteById()
         {
             this.SeedDatabase();
+
             await this.recipesService.DeleteByIdAsync(1);
-            var result = this.recipesRepository.All().Count();
+            var result = await this.recipesRepository.All().CountAsync();
+
             Assert.Equal(0, result);
         }
 
@@ -110,8 +223,10 @@
         public async Task TestRecipeDeleteByIdThrowsException()
         {
             this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.DeleteByIdAsync(3));
+
             Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, 3), exception.Message);
         }
 
@@ -119,7 +234,8 @@
         public async Task TestIfRecipeEditAsyncWorks()
         {
             this.SeedDatabase();
-            var path = Path.GetFullPath(@"..\..\..\Test.jpg");
+
+            var path = "Test.jpg";
             using (var img = File.OpenRead(path))
             {
                 var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
@@ -146,15 +262,96 @@
             }
 
             var count = await this.recipesRepository.All().CountAsync();
-            var result = this.recipesRepository.All().Where(x => x.Id == 1).Select(o => o.Difficulty.ToString()).FirstOrDefault();
+            var result = await this.recipesRepository
+                .All()
+                .Where(x => x.Id == 1)
+                .Select(o => o.Difficulty.ToString())
+                .FirstOrDefaultAsync();
+
             Assert.Equal(1, count);
             Assert.Equal("Medium", result);
+        }
+
+        [Fact]
+        public async Task TestEditingRecipeWithInvalidDifficulty()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+
+            RecipeEditViewModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new RecipeEditViewModel
+                {
+                    Name = "Changed name",
+                    Description = "Changed description",
+                    Ingredients = "Changed ingredients",
+                    PreparationTime = 20,
+                    CookingTime = 10,
+                    PortionsNumber = 3,
+                    Difficulty = "Invalid difficulty",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.recipesService.EditAsync(model));
+
+            Assert.Equal(string.Format(ExceptionMessages.DifficultyInvalidType, model.Difficulty), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestEditingRecipeWithMissingRecipe()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+
+            RecipeEditViewModel model;
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new RecipeEditViewModel
+                {
+                    Id = 1,
+                    Name = this.firstRecipe.Name,
+                    Description = this.firstRecipe.Description,
+                    Ingredients = this.firstRecipe.Ingredients,
+                    PreparationTime = this.firstRecipe.PreparationTime,
+                    CookingTime = this.firstRecipe.CookingTime,
+                    PortionsNumber = this.firstRecipe.PortionsNumber,
+                    Difficulty = "Easy",
+                    Image = testImage,
+                    CategoryId = 1,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.recipesService.EditAsync(model));
+
+            Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, model.Id), exception.Message);
         }
 
         [Fact]
         public async Task TestIfRecipeServiceGetAllWorks()
         {
             this.SeedDatabase();
+
             var model = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
 
             Assert.Single(model);
@@ -164,14 +361,31 @@
         public void TestIfGetAllRecipesByFilterAsQueryeableWorks()
         {
             this.SeedDatabase();
+
             var model = this.recipesService.GetAllRecipesByFilterAsQueryeable<RecipeDetailsViewModel>("Vegetables");
+
             Assert.NotNull(model);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllRecipesByFilterAsQueryeableWorksCorrectlyWithoutCategoryName()
+        {
+            this.SeedDatabase();
+
+            var result = this.recipesService.GetAllRecipesByFilterAsQueryeable<RecipeDetailsViewModel>();
+            var recipe = await result.FirstAsync();
+
+            var count = await result.CountAsync();
+
+            Assert.Equal(1, count);
+            Assert.Equal(this.firstRecipe.Name, recipe.Name);
         }
 
         [Fact]
         public async Task TestIfGetTopRecipesAsyncWorks()
         {
             this.SeedDatabase();
+
             var model = await this.recipesService.GetTopRecipesAsync<RecipeDetailsViewModel>(3);
 
             Assert.Single(model);
@@ -181,8 +395,10 @@
         public async Task TestIfGetRecipeByIdThrowsExeption()
         {
             this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(3));
+
             Assert.NotNull(exception);
             Assert.Equal(string.Format(ExceptionMessages.RecipeNotFound, 3), exception.Message);
         }
@@ -202,7 +418,9 @@
         public async Task TestIfGetRecipeAsyncWorks()
         {
             this.SeedDatabase();
+
             var model = await this.recipesService.GetRecipeAsync<RecipeDetailsViewModel>(this.firstRecipe.Name);
+
             Assert.NotNull(model);
         }
 
@@ -210,8 +428,10 @@
         public async Task TestIfGetRecipeAsyncThrowsExceptionForInvalidInput()
         {
             this.SeedDatabase();
+
             var exception = await Assert.ThrowsAsync<NullReferenceException>(
                   async () => await this.recipesService.GetRecipeAsync<RecipeDetailsViewModel>("Vino"));
+
             Assert.NotNull(exception);
             Assert.Equal(string.Format(ExceptionMessages.RecipeNameNotFound, "Vino"), exception.Message);
         }
@@ -220,7 +440,9 @@
         public void TestIfGetAllRecipesAsQueryeableWorks()
         {
             this.SeedDatabase();
+
             var model = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
+
             Assert.NotNull(model);
         }
 

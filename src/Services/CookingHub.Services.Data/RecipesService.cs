@@ -50,9 +50,6 @@
                     string.Format(ExceptionMessages.CategoryNotFound, recipeCreateInputModel.CategoryId));
             }
 
-            var imageUrl = await this.cloudinaryService
-                .UploadAsync(recipeCreateInputModel.Image, recipeCreateInputModel.Name + Suffixes.ArticleSuffix);
-
             var recipe = new Recipe
             {
                 Name = recipeCreateInputModel.Name,
@@ -62,7 +59,6 @@
                 Ingredients = recipeCreateInputModel.Ingredients,
                 PreparationTime = recipeCreateInputModel.PreparationTime,
                 CookingTime = recipeCreateInputModel.CookingTime,
-                ImagePath = imageUrl,
                 Difficulty = difficulty,
             };
 
@@ -75,6 +71,10 @@
                 throw new ArgumentException(
                     string.Format(ExceptionMessages.RecipeAlreadyExists, recipe.Name));
             }
+
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(recipeCreateInputModel.Image, recipeCreateInputModel.Name + Suffixes.ArticleSuffix);
+            recipe.ImagePath = imageUrl;
 
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();
