@@ -1,6 +1,7 @@
 # ASP.NET Core Cooking Hub
 
 [![Build Status](https://dev.azure.com/DyNaMiXx7/Cooking%20Hub/_apis/build/status/stanislavstoyanov99.CookingHub?branchName=main)](https://dev.azure.com/DyNaMiXx7/Cooking%20Hub/_build/latest?definitionId=2&branchName=main)
+[![Build Status](https://travis-ci.org/stanislavstoyanov99/CookingHub.svg?branch=main)](https://travis-ci.org/stanislavstoyanov99/CookingHub)
 [![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CookingHub?color=brightgreen)](https://github.com/stanislavstoyanov99/CookingHub/blob/master/LICENSE)
 
 ## :point_right: Project Introduction :point_left:
