@@ -20,4 +20,10 @@
     <ProjectReference Include="..\..\Web\CookingHub.Web\CookingHub.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="testsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

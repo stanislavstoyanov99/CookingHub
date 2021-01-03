@@ -351,3 +351,4 @@ MigrationBackup/
 src/Data/CookingHub.Data/appsettings.json
 src/Web/CookingHub.Web/appsettings.json
 /src/Tests/CookingHub.Services.Data.Tests/appsettings.json
+/src/Tests/CookingHub.Web.Tests/testsettings.json

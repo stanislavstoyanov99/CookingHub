@@ -1,9 +1,11 @@
 ﻿namespace CookingHub.Web.Tests
 {
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    // TODO: add configuration for custom services
+    using MyTested.AspNetCore.Mvc;
+
     public class TestStartup : Startup
     {
         public TestStartup(IConfiguration configuration) : base(configuration)
@@ -14,9 +16,7 @@
         {
             base.ConfigureServices(services);
 
-            // Replace only your own custom services. The ASP.NET Core ones 
-            // are already replaced by MyTested.AspNetCore.Mvc. 
-            // services.Replace<IService, MockedService>();
+            services.ReplaceSingleton<IActionDescriptorChangeProvider, TestActionDescriptorChangeProvider>();
         }
     }
 }
