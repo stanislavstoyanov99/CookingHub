@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using CookingHub.Data.Models;
-    using CookingHub.Models.ViewModels.ArticleComments;
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Categories;
     using CookingHub.Services.Data.Contracts;
@@ -34,12 +33,12 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CreateArticleCommentInputModel input)
+        public async Task<IActionResult> Create(DetailsListingViewModel viewModel)
         {
             if (!this.ModelState.IsValid)
             {
                 var article = await this.articlesService
-                    .GetViewModelByIdAsync<ArticleListingViewModel>(input.ArticleId);
+                    .GetViewModelByIdAsync<ArticleListingViewModel>(viewModel.ArticleListingViewModel.Id);
 
                 var categories = await this.categoriesService
                     .GetAllCategoriesAsync<CategoryListingViewModel>();
@@ -52,17 +51,18 @@
                     ArticleListingViewModel = article,
                     Categories = categories,
                     RecentArticles = recentArticles,
-                    CreateArticleCommentInputModel = input,
+                    CreateArticleCommentInputModel = viewModel.CreateArticleCommentInputModel,
                 };
 
                 return this.View("/Views/Articles/Details.cshtml", model);
             }
 
-            var parentId = input.ParentId == 0 ? (int?)null : input.ParentId;
+            var parentId = viewModel.CreateArticleCommentInputModel.ParentId == 0 ?
+                    (int?)null : viewModel.CreateArticleCommentInputModel.ParentId;
 
             if (parentId.HasValue)
             {
-                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, input.ArticleId))
+                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, viewModel.CreateArticleCommentInputModel.ArticleId))
                 {
                     return this.BadRequest();
                 }
@@ -72,14 +72,18 @@
 
             try
             {
-                await this.articleCommentsService.CreateAsync(input.ArticleId, userId, input.Content, parentId);
+                await this.articleCommentsService.CreateAsync(
+                    viewModel.CreateArticleCommentInputModel.ArticleId,
+                    userId,
+                    viewModel.CreateArticleCommentInputModel.Content,
+                    parentId);
             }
             catch (ArgumentException aex)
             {
                 return this.BadRequest(aex.Message);
             }
 
-            return this.RedirectToAction("Details", "Articles", new { id = input.ArticleId });
+            return this.RedirectToAction("Details", "Articles", new { id = viewModel.CreateArticleCommentInputModel.ArticleId });
         }
     }
 }

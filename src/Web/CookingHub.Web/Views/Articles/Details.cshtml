@@ -99,12 +99,14 @@
                                 <div class="comment-respond-form">
                                     <form id="AddCommentForm" class="comment-form-respond row" asp-controller="ArticleComments" asp-action="Create" method="post">
 
-                                        <input type="hidden" name="ArticleId" value="@Model.ArticleListingViewModel.Id" />
-                                        <input type="hidden" name="ParentId" value="0" />
+                                        <input type="hidden" asp-for="@Model.CreateArticleCommentInputModel.ArticleId" value="@Model.ArticleListingViewModel.Id" />
+                                        <input type="hidden" asp-for="@Model.CreateArticleCommentInputModel.ParentId" value="0" />
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <textarea id="content-textarea" name="Content" class="form-control" placeholder="Your Comment" required></textarea>
+                                                <textarea id="content-textarea" asp-for="@Model.CreateArticleCommentInputModel.Content" class="form-control" placeholder="Your Comment"></textarea>
+                                            </div>
+                                            <div class="form-group">
                                                 <span asp-validation-for="@Model.CreateArticleCommentInputModel.Content" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -193,7 +195,7 @@
 
     <script>
         function showAddCommentForm(parentId) {
-            $("#AddCommentForm input[name='ParentId']").val(parentId);
+            $("#AddCommentForm input[name='CreateArticleCommentInputModel.ParentId']").val(parentId);
             $("#AddCommentForm").show();
             $([document.documentElement, document.body]).animate({
                 scrollTop: $("#AddCommentForm").offset().top
