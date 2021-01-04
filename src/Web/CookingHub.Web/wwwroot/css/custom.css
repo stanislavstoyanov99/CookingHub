@@ -458,3 +458,7 @@
     border-radius: 25px;
     border-color: #540404;
 }
+.inactive {
+    color: black !important;
+    background-color: white !important;
+}

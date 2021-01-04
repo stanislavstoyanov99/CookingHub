@@ -49,13 +49,13 @@
                 {
                     <ul class="pagination justify-content-center pb-2">
                         <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="GetAll" asp-route-pageNumber="@prevPage">
+                            <a class="page-link inactive" asp-action="GetAll" asp-route-pageNumber="@prevPage">
                                 Previous
                             </a>
                         </li>
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
-                            var active = i == Model.PageIndex ? "active" : string.Empty;
+                            var active = i == Model.PageIndex ? "active CH-color" : "inactive";
                             <li class="page-item @active">
                                 <a class="page-link CH-color"
                                    asp-action="GetAll"
@@ -65,7 +65,7 @@
                             </li>
                         }
                         <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="GetAll" asp-route-pageNumber="@nextPage">
+                            <a class="page-link inactive" asp-action="GetAll" asp-route-pageNumber="@nextPage">
                                 Next
                             </a>
                         </li>

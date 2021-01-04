@@ -123,15 +123,15 @@
                         <nav id="PaginationNav" aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item @prevDisabled">
-                                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@prevPage">
+                                    <a class="page-link inactive" asp-action="Index" asp-route-pageNumber="@prevPage">
                                         Previous
                                     </a>
                                 </li>
                                 @for (int i = 1; i <= Model.RecipesPaginated.TotalPages; i++)
                                 {
-                                    var active = i == Model.RecipesPaginated.PageIndex ? "active" : string.Empty;
-                                    <li class="page-item @active">
-                                        <a class="page-link CH-color"
+                                    var active = i == Model.RecipesPaginated.PageIndex ? "active CH-color" : "inactive";
+                                    <li class="page-item  @active">
+                                        <a class="page-link  @active"
                                            asp-action="Index"
                                            asp-route-pageNumber="@i"
                                            asp-route-categoryName="@this.TempData["CategoryName"]">
@@ -140,7 +140,7 @@
                                     </li>
                                 }
                                 <li class="page-item @nextDisabled">
-                                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@nextPage">
+                                    <a class="page-link inactive" asp-action="Index" asp-route-pageNumber="@nextPage">
                                         Next
                                     </a>
                                 </li>
