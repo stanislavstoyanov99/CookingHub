@@ -462,3 +462,43 @@
     color: black !important;
     background-color: white !important;
 }
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 100px;
+    border: 5px solid #540404;
+    z-index: 9;
+}
+.chat-container {
+    min-width: 300px;
+    height: 500px;
+    overflow: hidden;
+    padding: 10px;
+    background-color: white;
+}
+.chat-head{
+    margin-top: -5px;
+    background-color: #540404;
+    color : white;
+    margin-right: 0px ;
+    padding-left: 20px;
+    margin-left: 0px ;
+}
+.close-btn{
+    color: white;
+    right: 0;
+    
+    font-size:32px;
+}
+#messagesList{
+    font-size: 18px;
+}
+.chat-input {
+    
+}
+.chat-output {
+    height: 410px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
