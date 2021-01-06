@@ -26,6 +26,9 @@
 .mt-50 {
     margin-top: 40px;
 }
+.mt-80 {
+    margin-top: 75px;
+}
 .nav-bug{
     margin-top:130px !important;
 }
@@ -228,7 +231,7 @@
     }
 }
 .mx-h{
-    height:300px;
+    height:300px !important;
 }
 .br-12{
     border-radius:12px;
@@ -472,7 +475,7 @@
 }
 .chat-container {
     min-width: 300px;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     padding: 10px;
     background-color: white;
@@ -494,11 +497,18 @@
 #messagesList{
     font-size: 18px;
 }
-.chat-input {
-    
-}
 .chat-output {
-    height: 410px;
+    height: 310px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+.chat-blank{
+    width: 340px;
+    height: 50px;
+}
+
+@media (min-width: 1200px) and (max-width: 1380px){
+    #logo{
+        width: 200px !important;
+    }
 }

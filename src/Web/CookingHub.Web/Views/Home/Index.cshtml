@@ -13,7 +13,7 @@
 }
 
 <!-- Start slides -->
-<div class="conteiner-fluid">
+<div class="conteiner-fluid ">
     <div class="container homeinfo">
         <h1 class="m-b-20"><strong>Welcome to <br> Cooking Hub!</strong></h1>
         <p class="m-b-40">
@@ -144,7 +144,7 @@
         <div class="row d-flex h-100  ml-auto mr-auto">
             @foreach (var article in Model.RecentArticles)
             {
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 ">
                     <div class="blog-box-inner">
                         <div class="blog-img-box">
                             <img class="img-fluid home-pic" src="@article.ImagePath" alt="image_@article.Id">
@@ -195,12 +195,12 @@
                     {
                         @if (active == false)
                         {
-                            <div class="carousel-item mx-h active gallery-box">
+                            <div class="carousel-item active gallery-box">
                                 <div class="row h-100">
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-12 col-sm-4" style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
-                                            <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image-@n.ElementAt(i).Id" />
+                                        <a class="col-12 col-md-4 mx-h " style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                            <img class="img  w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image-@n.ElementAt(i).Id" />
                                         </a>
                                     }
                                 </div>
@@ -208,11 +208,11 @@
                         }
                         else
                         {
-                            <div class="carousel-item mx-h gallery-box">
+                            <div class="carousel-item gallery-box">
                                 <div class="row h-100">
                                     @for (int i = 0; i < n.Count(); i++)
                                     {
-                                        <a class="col-12 col-sm-4" style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
+                                        <a class="col-12 col-md-4 mx-h " style="height:100%; z-index:3" href="@n.ElementAt(i).ImagePath" data-lightbox="@n.ElementAt(i).Id">
                                             <img class="img w-100 h-100 br-12" src="@n.ElementAt(i).ImagePath" alt="Image-@n.ElementAt(i).Id" />
                                         </a>
                                     }
@@ -244,26 +244,36 @@
     <i class="fas fa-comment" aria-hidden="true"></i>
 </button>
 <div class="chat-popup" id="myChat">
-    <div class="chat-head d-flex justify-content-between">
-        <strong class="pt-4">Cooking Hub Chat</strong>
-        <button class="btn close-btn" onclick="closeForm()" aria-label="Close" type="button"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="chat-container">
-        <div class="container d-flex flex-column-reverse">
-            <div class="chat-input">
-                <div id="message-holder" class="mt-3 d-flex justify-content-start">
+    @if (this.User.Identity.IsAuthenticated == true)
+    {
+        <div class="chat-head d-flex justify-content-between">
+            <strong class="pt-4">Cooking Hub Chat</strong>
+            <button class="btn close-btn" onclick="closeForm()" aria-label="Close" type="button"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="chat-container">
+            <div class="container d-flex flex-column-reverse">
+                <div class="chat-input">
+                    <div id="message-holder" class="mt-3 d-flex justify-content-start">
 
-                    <input class="pl-3" type="text" id="messageInput" placeholder="Message..." />
-                    <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
+                        <input class="pl-3" type="text" id="messageInput" placeholder="Message..." />
+                        <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="chat-output d-flex flex-column-reverse">
-                <div id="messagesList">
+                <div class="chat-output d-flex flex-column-reverse">
+                    <div id="messagesList">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="chat-blank CH-color">
+            <strong>If you want to join the chat</strong>
+            <a class="btn btn-light" asp-area="Identity" asp-page="/Account/Login">Sign up</a>
+        </div>
+    }
 </div>
 @section Scripts{
     <script>

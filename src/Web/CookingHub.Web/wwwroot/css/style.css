@@ -158,10 +158,10 @@ button:focus {
 }
 
     .top-navbar .navbar {
-        padding: 15px 0px;
+        padding: 30px 0px;
         position: fixed;
         width: 100%;
-        border-radius: 0px 0px 80px 80px;
+        border-radius: 0px 0px 30px 30px;
         transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
@@ -169,6 +169,7 @@ button:focus {
         box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
         z-index: 100;
         top: 0;
+
     }
 
     .top-navbar .navbar-light .navbar-nav .nav-link {
