@@ -5,7 +5,7 @@
     ViewData["Title"] = "RecipeList";
 }
 
-<div class="conteiner-fluid d-flex flex-column bg-userList h-100" style="min-height:500px;">
+<div class="conteiner-fluid mt-80 d-flex flex-column bg-userList h-100" style="min-height:500px;">
     <div class="row h-100 justify-content-center">
         <div class="col-12 col-md-9">
             <div id="accordion">
@@ -20,14 +20,10 @@
                         <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
                             <div class="card-body ">
                                 <div class="row">
-                                    <div class="col-6 col-lg-3 br-black listpic">
+                                    <div class="col-6 col-xl-3 br-black listpic">
                                         <img class="img-fluid listpic" src="@recipe.ImagePath" alt="Recipe Image @recipe.Id" />
                                     </div>
-                                    <div class="col-6 col-lg-3 bg-dark text-light">
-                                        Description:<br>
-                                        @Html.Raw(recipe.Description)
-                                    </div>
-                                    <div class="col-6 col-lg-3 br-black">
+                                    <div class="col-6 col-xl-3 br-black">
                                         <div class="row w-100">
                                             <div class="col-12">Difficulty: @recipe.Difficulty</div>
                                             <div class="col-12">Portions Number: @recipe.PortionsNumber</div>
@@ -35,7 +31,11 @@
                                             <div class="col-12">Cooking Time: @recipe.CookingTime</div>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-3 bg-dark text-light">
+                                    <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
+                                        Description:<br>
+                                        @Html.Raw(recipe.Description)
+                                    </div>
+                                    <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
                                         Ingredients:<br>
                                         @Html.Raw(recipe.Ingredients)
                                     </div>

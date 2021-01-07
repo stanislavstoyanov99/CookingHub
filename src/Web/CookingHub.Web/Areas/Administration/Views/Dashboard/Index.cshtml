@@ -7,16 +7,16 @@
 
 <div class="container pl-3 centered">
     <div class="row">
-        <div class="col-md-3 centered">
+        <div class="col-md-3 centered ">
             <h1 style="text-align:center;">Cooking Hub Dashboard</h1>
         </div>
     </div>
-    <div class="row statistic-card shadow p-3 bg-white rounded">
-        <div class="col" name="SystemUsers">
+    <div class="row statistic-card bg-white shadow p-3  rounded">
+        <div class="col-12 col-lg-8 pr-3 bg-white" style="min-height:120px; min-width:300px;" name="SystemUsers">
             <canvas id="lineChart"></canvas>
         </div>
-        <div class="col">
-            <h3 class="centered">CookingHub System Users</h3>
+        <div class="col bg-white">
+            <h3 class="centered mt-5">CookingHub System Users</h3>
             <ul id="UsersNow" class="centered">
                 <li>Daily Users</li>
                 <li></li>
@@ -28,6 +28,21 @@
         </div>
     </div>
     <div class="row">
+
+        <div class="col-12 col-md-7 statistic-card shadow p-3  mb-5 mt-3 bg-white rounded ">
+            <h3>CookingHub Top 3</h3>
+            <div class="row">
+                <div class="col" name="TopCategories">
+                    
+                </div>
+                <div class="col" name="TopUsers">
+
+                </div>
+                <div class="col" name="TopRecipes">
+
+                </div>
+            </div>
+        </div>
         <div class="col-12 col-md-5 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded" style="padding-right:10px;">
             <h3 class="centered">CookingHub Main Content</h3>
             <div class="container">
@@ -35,22 +50,6 @@
             </div>
             <div class="conteiner chart-card" name="RecipesStatistic">
                 <canvas class="centered" id="RecipesnArticlesChar"></canvas>
-            </div>
-        </div>
-        <div class="col-12 col-md-7 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded ">
-            <h3>CookingHub Additional Data</h3>
-            <div class="row">
-                <div class="col-12 ml-auto mr-auto" style="max-width:70% ; max-height:300px;" name="AdditionalStatistics">
-                    <canvas class="ml-auto mr-auto" id="additional"></canvas>
-                </div>
-                <div class="col-12">
-                    <ul class="text-left ml-auto mr-auto" style="width:300px;" >
-                        <li>Reviews: @Model.ReviewsCount</li>
-                        <li>Comments: @Model.ArticleCommentsCount</li>
-                        <li>Categories: @Model.CategoriesCount</li>
-                        <li>Most popular category:</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

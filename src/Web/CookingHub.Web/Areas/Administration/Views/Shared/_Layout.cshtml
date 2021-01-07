@@ -2,16 +2,19 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid mt-80 mb-3" >
-    <h2>Admin dashboard</h2>
+<div class="container-fluid pb-3 mt-80 admin-conteiner" >
+    <hr />
+    <h2 class="justify-content-center text-center">Admin Panel</h2>
+    <hr />
     <div id="DashboardCon">
-        <h4>Change your admin settings</h4>
-        <hr />
-        <div class="row">
-            <div class="col-md-3">
+        
+        <div class="row " style="border-top:3px solid white;">
+            <div class="col-md-3  pt-3" style="border-right: 3px solid white;">
+                <h4>Change your admin settings</h4>
+                <hr />
                 <partial name="_AdminNav" />
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 pt-3">
                 @RenderBody()
             </div>
         </div>

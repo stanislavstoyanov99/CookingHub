@@ -23,7 +23,9 @@
 
         public int CategoriesCount { get; set; }
 
-        public int BestCategory { get; set; }
+        public List<Category> TopCategories { get; set; }
+
+        public List<CookingHubUser> TopUsers { get; set; }
 
     }
 }

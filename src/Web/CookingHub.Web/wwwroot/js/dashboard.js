@@ -1,6 +1,5 @@
 ﻿let ctxL = document.getElementById("lineChart").getContext('2d');
 let ctxt = document.getElementById("RecipesnArticlesChar").getContext('2d');
-let ctxq = document.getElementById("additional").getContext('2d');
 
 $(document).ready(function () {
     $.ajax({
@@ -9,11 +8,12 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             myLineChart.data.datasets[1].data = data.registeredUsers;
-            myDoughnutChart.data.datasets[0].data = [data.recipesCount, data.articlesCount];
-            mypolarareaChart.data.datasets[0].data = [data.reviewsCount, data.commentsCount];
+            myDoughnutChart.data.datasets[0].data = [data.articlesCount, data.recipesCount, 0, 0];
+            myDoughnutChart.data.datasets[1].data = [0, 0, data.commentsCount, data.reviewsCount];
+           
             myLineChart.update();
             myDoughnutChart.update();
-            mypolarareaChart.update();
+            
         }
     })
 });
@@ -48,34 +48,22 @@ let myLineChart = new Chart(ctxL, {
 let myDoughnutChart = new Chart(ctxt, {
     type: 'pie',
     data: {
-        labels: ["Recipes", "Articles"],
+        labels: ["Articles", "Recipes","Article Comments", "Reviews"],
         datasets: [{
 
-            data: [0, 0],
-            backgroundColor: ["#3e95cd", "#c45850"],
+            data: [0, 0, 0, 0],
+            backgroundColor: ["#3e95cd", "#c45850", "#52BE80", "#F7DC6F"],
+        }, {
+            data: [0, 0, 0, 0],
+            backgroundColor: ["#3e95cd", "#c45850", "#52BE80", "#F7DC6F"],
         }]
+
     },
     options: {
-        responsive: false
-    }
-});
-
-let mypolarareaChart = new Chart(ctxq, {
-    type: 'bar',
-    data: {
-        labels: ["Reviews", "Article Comments"],
-        datasets: [{
-            label: "Reviews",
-            data: [0, 0],
-            backgroundColor: ["#52BE80", "#F7DC6F"],
+        responsive: false,
+        legend: {
+            position: "right",
+            align: "middle"
         },
-        {
-            label: "Article Comments",
-            data: [0, 0],
-            backgroundColor: ["#F7DC6F", "#F7DC6F"],
-        }]
-    },
-    options: {
-        responsive: true
     }
 });

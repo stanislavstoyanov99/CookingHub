@@ -4,129 +4,176 @@
     border-color: green;
     border-style: solid;
     border-width: medium;
-    border-radius : 12px;
+    border-radius: 12px;
 }
-#RecipesnArticlesChar{
-    height:200px;
+
+#RecipesnArticlesChar {
+    height: 200px;
 }
+
 .CH-color {
     background-color: #540404 !important;
     color: white;
     border-color: darkgrey !important;
 }
+
 .ch-border {
     border-left: 8px solid #540404;
     border-right: 8px solid #540404;
 }
+
 .main-body {
-    
     padding-left: 50px;
     padding-right: 50px;
 }
+
 .mt-50 {
     margin-top: 40px;
 }
+
 .mt-80 {
     margin-top: 75px;
 }
-.nav-bug{
-    margin-top:130px !important;
+
+.nav-bug {
+    margin-top: 130px !important;
 }
-.no-ovfl{
-    overflow-x:hidden !important;
+
+.no-ovfl {
+    overflow-x: hidden !important;
 }
+
+.ovfl-s {
+    overflow-y: scroll !important;
+}
+
+.recipelist-height {
+    max-height: 200px;
+}
+
 .home-recipe-img {
     width: 300px;
     height: 200px;
 }
+
 .home-gallery-img {
     width: 300px !important;
     height: 200px;
 }
+
 .btn-CH {
     background-color: #540404;
     color: white;
     margin-top: 12px;
 }
+
 #admin-btn {
     background-color: #540404;
     color: white;
 }
 
-.btn-CH:hover{
+.btn-CH:hover {
     background-color: grey;
-    color:white;
+    color: white;
 }
+
 .statistic-card {
     padding: 5px 10px;
     border-color: grey;
     border-style: solid;
     border-width: 3px;
 }
+
 #article-size {
     height: 80px;
     width: 80px;
 }
+
 .recipe-sec {
     color: #3e95cd;
 }
+
 .article-sec {
     color: #c45850;
 }
-.centered{
-    align-content:center;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
+
+.centered {
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
-#UsersNow{
-    padding-left:12px;
+
+#UsersNow {
+    padding-left: 12px;
 }
-.dig{
-    max-width:45%;
+
+.dig {
+    max-width: 45%;
 }
-.br-black{
+
+.br-black {
     border: 3px solid #222222;
 }
-.no-padding{
+
+.no-padding {
     padding: 0px 0px 0px 0px;
     overflow-y: hidden;
 }
-#DashboardCon {
-    background-image: url("../images/dashboard-background.jpg");
+
+.admin-conteiner {
+    background-image: url("../images/dashboard-background2.jpg");
     background-size: cover;
 }
-.pow{
-    position:absolute;
-   right:0;
+
+    .admin-conteiner h1,
+    .admin-conteiner h2,
+    .admin-conteiner h4,
+    .admin-conteiner h5,
+    .admin-conteiner ul li a {
+        color: white;
+    }
+
+.pow {
+    position: absolute;
+    right: 0;
 }
+
 .homeinfo {
     position: absolute;
     z-index: 0;
     margin: 250px 50px;
     font-size: 28px;
-    color:white;
+    color: white;
 }
-.homeinfo h1{
-    font-size: 42px;
-    color: lightgray;
-}
-.home-pic{
-    width:100%;
+
+    .homeinfo h1 {
+        font-size: 42px;
+        color: lightgray;
+    }
+
+.home-pic {
+    width: 100%;
     height: 100%;
 }
-.listpic{
-    width:300px;
-    height:200px;
+
+.listpic {
+    width: 100%;
+    max-height: 200px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
-.bg-userList{
+
+.bg-userList {
     background-image: url('../images/about-bg.jpg');
     background-size: cover;
 }
+
 .carousel-inner img {
     width: 100%;
     height: 100%;
 }
+
 .article-box {
     background-color: #540404;
     align-content: center;
@@ -135,23 +182,26 @@
     color: white;
     padding-bottom: 30px;
 }
+
 .toArticle-box {
     background-color: white;
     color: black;
     font-size: 30px;
     position: relative;
-    margin-bottom:30px;
+    margin-bottom: 30px;
     min-height: 120px;
 }
+
 #toArticleBtn {
     position: absolute;
     text-align: center;
     font-size: 18px;
-    width:100%;
-    height:100%;
-    margin-left:-15px;
+    width: 100%;
+    height: 100%;
+    margin-left: -15px;
     margin-bottom: 30px;
 }
+
 .button {
     border: solid;
     border-width: 6px;
@@ -165,15 +215,17 @@
     transition: all 0.5s;
     cursor: pointer;
 }
-.button:hover{
-    background-color:dimgrey;
-}
+
+    .button:hover {
+        background-color: dimgrey;
+    }
+
     .button span {
         cursor: pointer;
         display: inline-block;
         position: relative;
         transition: 0.5s;
-        top:40%;
+        top: 40%;
     }
 
         .button span:after {
@@ -187,40 +239,45 @@
 
     .button:hover span {
         padding-right: 25px;
-        color:white;
+        color: white;
     }
 
         .button:hover span:after {
             opacity: 1;
             right: 0;
         }
+
 .recipe-card {
     width: 300px;
     height: 209px;
 }
+
     .recipe-card img {
         width: 300px;
         height: 209px;
     }
-#PaginationNav{
-    position:absolute;
+
+#PaginationNav {
+    position: absolute;
     margin-top: 30px;
-    left:40%;
+    left: 40%;
 }
+
 @media screen and (min-width: 1280px) {
-    
 }
+
 @media(max-width: 1280px) {
-    
-    .main-body{
+
+    .main-body {
         margin: 0px 0px 0px 0px;
         padding-left: 0px;
         padding-right: 0px;
     }
 }
-@media(max-width: 975px){
+
+@media(max-width: 975px) {
     .ing-img {
-        border-top: 12px dashed  white;
+        border-top: 12px dashed white;
         border-left: none;
     }
 }
@@ -230,66 +287,72 @@
         border-left: 12px dashed white;
     }
 }
-.mx-h{
-    height:300px !important;
+
+.mx-h {
+    height: 300px !important;
 }
-.br-12{
-    border-radius:12px;
+
+.br-12 {
+    border-radius: 12px;
 }
+
 .recipeTitle {
 }
-.gallery-bg{
+
+.gallery-bg {
     background-image: url('../images/body-bg.jpg');
     background-size: cover;
-    color:white;
-    padding:20px;
+    color: white;
+    padding: 20px;
 }
-.gallery-bg h2{
-    color:white;
-}
+
+    .gallery-bg h2 {
+        color: white;
+    }
+
 #recipeHeading {
     background-color: #540404;
     color: white;
     padding: 4px;
     margin-top: 10px;
 }
-#recipeHeading h1{
-    color:white;
-    margin: 3px 3px;
 
-}
-#recipeBody{
-    padding:4px;
+    #recipeHeading h1 {
+        color: white;
+        margin: 3px 3px;
+    }
+
+#recipeBody {
+    padding: 4px;
     border: 4px solid #540404;
-    
-   
 }
-.recipeText{
-    min-height:400px;
-    height:100%;
-    background-color:white;
-    font-size:20px;
+
+.recipeText {
+    min-height: 400px;
+    height: 100%;
+    background-color: white;
+    font-size: 20px;
     border-radius: 12px;
-    text-align:left;
+    text-align: left;
     padding: 10px;
 }
+
 #recipeProps {
-    
     margin-left: -6px;
     margin-right: -6px;
     margin-bottom: 10px;
     background-color: #540404;
     overflow: visible;
 }
+
 .recipeDetailsPage {
-    
     border: 4px dashed #540404;
     padding: 12px;
     background-image: url('../images/about-bg.jpg');
-    background-size:cover;
+    background-size: cover;
 }
+
 .recipeProperty {
-    
     text-align: center;
     border: 3px solid grey;
     border-radius: 12px;
@@ -302,9 +365,11 @@
     background-color: white;
     color: black;
 }
-.recipeReviews{
-    margin-top:30px;
+
+.recipeReviews {
+    margin-top: 30px;
 }
+
 .recipeIngredients {
     margin: 10px auto 10px auto;
     background-color: white;
@@ -313,6 +378,7 @@
     width: 80%;
     font-size: 20px;
 }
+
 .recipe-img {
     border-radius: 12px;
     height: 100%;
@@ -320,29 +386,32 @@
     margin-top: 3px;
     max-height: 400px;
 }
+
 .recipeImage {
     min-height: 330px;
     width: 80%;
     max-width: 80%;
-    padding-top:30px;
+    padding-top: 30px;
     margin-left: auto;
-    margin-right:auto;  
-    
+    margin-right: auto;
 }
+
 .recipeReviews {
     border-top: 4px dashed #540404;
     padding: 26px;
 }
+
 .reviewsPanel {
     min-height: 100px;
-    
     overflow: visible;
-    padding-left:30px;
-    padding-right:30px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
+
 #reviewDescription {
     width: 100%;
 }
+
 .starrating > input {
     display: none;
 }
@@ -356,7 +425,7 @@
 }
 
 .starrating > label {
-    color: #222222; 
+    color: #222222;
 }
 
 .starrating > input:checked ~ label {
@@ -370,20 +439,21 @@
 .review-card {
     padding-left: 0px !important;
     padding-right: 10px !important;
-    margin-top:10px;
-    
-    min-width:300px;
+    margin-top: 10px;
+    min-width: 300px;
 }
+
 .star {
-    color:yellow;
+    color: yellow;
 }
-.review-header{
-    
-    background-color:#540404;
-    color:white;
-    border:3px solid #540404;
+
+.review-header {
+    background-color: #540404;
+    color: white;
+    border: 3px solid #540404;
     padding: 3px 3px;
 }
+
 .review-body {
     border: 3px dashed #540404;
     border-top: none !important;
@@ -402,13 +472,13 @@
     background-position: center;
 }
 
-.category-breadcrumb h1 {
-    font-size: 35px;
-    color: #ffffff;
-    font-family: 'Rubik', sans-serif;
-    padding: 8px 0;
-    font-weight: 600;
-}
+    .category-breadcrumb h1 {
+        font-size: 35px;
+        color: #ffffff;
+        font-family: 'Rubik', sans-serif;
+        padding: 8px 0;
+        font-weight: 600;
+    }
 
 .card-deck {
     display: grid;
@@ -433,11 +503,11 @@
     border-color: #540404;
 }
 
-.btn-primary:hover {
-    background: #540404;
-    color: #fff !important;
-    border-color: #540404;
-}
+    .btn-primary:hover {
+        background: #540404;
+        color: #fff !important;
+        border-color: #540404;
+    }
 
 .btn-fb {
     color: #0069d9;
@@ -445,11 +515,11 @@
     border-color: #204d74;
 }
 
-.btn-fb:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #204d74;
-}
+    .btn-fb:hover {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #204d74;
+    }
 
 #avatar-img {
     max-width: 65px;
@@ -461,10 +531,12 @@
     border-radius: 25px;
     border-color: #540404;
 }
+
 .inactive {
     color: black !important;
     background-color: white !important;
 }
+
 .chat-popup {
     display: none;
     position: fixed;
@@ -473,6 +545,7 @@
     border: 5px solid #540404;
     z-index: 9;
 }
+
 .chat-container {
     min-width: 300px;
     height: 400px;
@@ -480,35 +553,43 @@
     padding: 10px;
     background-color: white;
 }
-.chat-head{
+
+.chat-head {
     margin-top: -5px;
     background-color: #540404;
-    color : white;
-    margin-right: 0px ;
+    color: white;
+    margin-right: 0px;
     padding-left: 20px;
-    margin-left: 0px ;
+    margin-left: 0px;
 }
-.close-btn{
+
+.close-btn {
     color: white;
     right: 0;
-    
-    font-size:32px;
+    font-size: 32px;
 }
-#messagesList{
+
+#messagesList {
     font-size: 18px;
 }
+
 .chat-output {
     height: 310px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.chat-blank{
+
+.chat-blank {
     width: 340px;
     height: 50px;
 }
 
-@media (min-width: 1200px) and (max-width: 1380px){
-    #logo{
+#navbar {
+    transition: 0.7s;
+}
+
+@media (min-width: 1200px) and (max-width: 1380px) {
+    #logo {
         width: 200px !important;
     }
 }
