@@ -15,7 +15,7 @@
 
     public class HomeController : Controller
     {
-        private const int TopRecipesCounter = 9;
+        private const int TopRecipesCounter = 6;
         private const int RecentArticlesCounter = 2;
         private readonly IPrivacyService privacyService;
         private readonly IArticlesService articlesService;
