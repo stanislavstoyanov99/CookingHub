@@ -37,5 +37,7 @@
         public const string ReviewNotFound = "Review with id {0} is not found.";
 
         public const string CookingHubUserNotFound = "User with id {0} is not found.";
+
+        public const string MessageNotFound = "Message with id {0} is not found.";
     }
 }

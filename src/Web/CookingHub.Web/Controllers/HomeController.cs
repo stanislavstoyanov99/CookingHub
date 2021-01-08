@@ -1,10 +1,12 @@
 ﻿namespace CookingHub.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
 
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
+    using CookingHub.Models.ViewModels.Chat;
     using CookingHub.Models.ViewModels.Home;
     using CookingHub.Models.ViewModels.Privacy;
     using CookingHub.Models.ViewModels.Recipes;
@@ -55,12 +57,6 @@
         public IActionResult ThankYouSubscription(string email)
         {
             return this.View("SuccessfullySubscribed", email);
-        }
-
-        [Authorize]
-        public IActionResult Chat()
-        {
-            return this.View();
         }
 
         public async Task<IActionResult> Privacy()

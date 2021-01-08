@@ -43,7 +43,7 @@
 		$(window).on('scroll', function () {
 			if ($(this).scrollTop() > 100) { 
 				$('#back-to-top').fadeIn();
-				if (document.getElementById("myChat").style.display != "block") {
+				if (document.getElementById("chat").style.display != "block") {
 					$('#chat-btn').fadeIn();
 				}
 			} else { 

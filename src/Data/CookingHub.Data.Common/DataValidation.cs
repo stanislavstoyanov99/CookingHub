@@ -58,5 +58,10 @@
         {
             public const int ContentMaxLength = 300;
         }
+
+        public static class MessageValidation
+        {
+            public const int ContentMaxLength = 1000;
+        }
     }
 }

@@ -84,6 +84,7 @@
             services.AddTransient<IArticleCommentsService, ArticleCommentsService>();
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<ICookingHubUsersService, CookingHubUsersService>();
+            services.AddTransient<IChatService, ChatService>();
 
             // External login providers
             services.AddAuthentication()
