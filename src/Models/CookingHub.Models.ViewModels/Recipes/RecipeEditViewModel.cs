@@ -29,9 +29,11 @@
         public string Ingredients { get; set; }
 
         [Display(Name = PreparationTimeDisplayName)]
+        [Range(PreparationTimeMinLength, PreparationTimeMaxLength)]
         public double PreparationTime { get; set; }
 
         [Display(Name = CookingTimeDisplayName)]
+        [Range(CookingTimeMinLength, CookingTimeMaxLength)]
         public double CookingTime { get; set; }
 
         [Display(Name = PortionsNumberDisplayName)]

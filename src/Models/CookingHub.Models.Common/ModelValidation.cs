@@ -59,6 +59,12 @@
             public const int PortionsMinLength = 0;
             public const int PortionsMaxLength = 12;
 
+            public const int PreparationTimeMinLength = 0;
+            public const int PreparationTimeMaxLength = 180;
+
+            public const int CookingTimeMinLength = 0;
+            public const int CookingTimeMaxLength = 180;
+
             public const string PreparationTimeDisplayName = "Preparation Time";
             public const string CookingTimeDisplayName = "Cooking Time";
             public const string PortionsNumberDisplayName = "Portions Number";

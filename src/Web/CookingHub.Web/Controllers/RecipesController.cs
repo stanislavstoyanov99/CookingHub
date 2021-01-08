@@ -127,6 +127,7 @@
             return this.View(recipeToEdit);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(RecipeEditViewModel recipeEditViewModel)
         {
