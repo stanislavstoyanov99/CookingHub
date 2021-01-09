@@ -1,8 +1,9 @@
-﻿@using CookingHub.Models.ViewModels.Recipes 
+﻿@using CookingHub.Models.ViewModels.Recipes
 @model IEnumerable<RecipeDetailsViewModel>
 
 @{
     ViewData["Title"] = "RecipeList";
+
 }
 
 <div class="conteiner-fluid mt-80 d-flex flex-column bg-userList h-100" style="min-height:500px;">
@@ -16,6 +17,8 @@
                             <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
                                 @recipe.Name
                             </a>
+                            <button class="btn" type="button" onclick="showModal(@recipe.Id)"><i class="fas fa-edit"></i>Edit Recipe</button>
+                            <button class="btn" type="button" onclick="removeRecipe(@recipe.Id)"><i class="fas fa-trash-alt"></i>Delete Recipe</button>
                         </div>
                         <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
                             <div class="card-body ">
@@ -49,3 +52,129 @@
 
     </div>
 </div>
+<div class="modal fade" id="editrecipeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header CH-color">
+                <h5 class="modal-title CH-color">Edit your Recipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="edit">
+                <form asp-controller="Recipes" asp-action="Edit" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input id="Name" name="Name" class="form-control" />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea name="Description" id="Description" class="form-control"></textarea>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="Ingredients">Ingredients</label>
+                        <textarea name="Ingredients" id="Ingredients" class="form-control"></textarea>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="PreparationTime">PreparationTime</label>
+                        <input name="PreparationTime" id="PreparationTime" class="form-control" />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="CookingTime">CookingTime</label>
+                        <input name="CookingTime" id="CookingTime" class="form-control" />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="PortionsNumber">PortionsNumber</label>
+                        <input name="PortionsNumber" id="PortionsNumber" class="form-control" />
+                       
+                    </div>
+                    <div class="form-group">
+                        <label>Old Image</label>
+                        <div class="form-group">
+                            <img class="img-fluid img-thumbnail" src="" alt="Image" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Image"></label>
+                        <input type="file" name="Image" id="Image" />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="Difficulty"></label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" name="Difficulty" class="form-check-input" value="Easy">Easy
+                                
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" name="Difficulty" class="form-check-input" value="Medium">Medium
+                                
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" name="Difficulty" class="form-check-input" value="Hard">Hard
+                                
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryId"></label>
+                        <div class="container">
+                            <select name="CategoryId">
+                                <option selected="" disabled="">
+                                    Select Category
+                                </option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer flex-row-reverse justify-content-md-start w-100">
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        function showModal(id) {
+            $.ajax({
+                url: "/Recipes/GetRecipe",
+                type: "GET",
+                data: { 'id': id },
+                success: function (res) {
+                    $('#Name').val(res.name);
+                    $('#Description').val(res.description);
+                    $('#Ingredients').val(res.ingredients);
+                    $('#PreparationTime').val(res.preparationTime);
+                    $('#CookingTime').val(res.cookingTime);
+                    $('#PortionsNumber').val(res.portionsNumber);
+                    alert("TODO//");
+                }
+            });
+
+            $('#editrecipeModal').modal('show');
+        }
+        function removeRecipe(id) {
+            $.ajax({
+                url: "/Recipes/Remove",
+                type: "POST",
+                data: { 'id': id },
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}

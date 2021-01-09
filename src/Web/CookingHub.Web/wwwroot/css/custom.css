@@ -32,7 +32,7 @@
 }
 
 .mt-80 {
-    margin-top: 75px;
+    padding-top: 75px;
 }
 
 .nav-bug {
@@ -547,7 +547,8 @@
 }
 
 .chat-container {
-    min-width: 300px;
+    max-width: 600px;
+    min-width: 400px;
     height: 400px;
     overflow: hidden;
     padding: 10px;

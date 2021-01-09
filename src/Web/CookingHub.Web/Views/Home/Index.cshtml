@@ -257,6 +257,7 @@
                 <div class="chat-input">
                     <div id="message-holder" class="mt-3 d-flex justify-content-start">
                         <input class="pl-3" id="messageInput" placeholder="Message..." />
+                        <input type="hidden" id="userUsername" value="@this.User.Identity.Name" />
                         <span id="error-message" class="text-danger" style="display: none;"></span>
                         <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
                     </div>
