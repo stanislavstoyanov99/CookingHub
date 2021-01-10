@@ -76,9 +76,17 @@
         public async Task<IActionResult> RecipeList()
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var recipeList = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
 
-            return this.View(recipeList);
+            var recipes = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
+            var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
+            var model = new MyRecipeDetailsViewModel
+            {
+                Recipes = recipes,
+                RecipeEditViewModel = new RecipeEditViewModel { Categories = categories, },
+            };
+
+            return this.View(model);
         }
 
         public async Task<IActionResult> Submit()
@@ -129,15 +137,22 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(RecipeEditViewModel recipeEditViewModel)
+        public async Task<IActionResult> Edit(MyRecipeDetailsViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(recipeEditViewModel);
+                return this.View(model.RecipeEditViewModel);
             }
 
-            await this.recipesService.EditAsync(recipeEditViewModel);
+            await this.recipesService.EditAsync(model.RecipeEditViewModel);
             return this.RedirectToAction("RecipeList", "Recipes");
+        }
+
+        [HttpGet]
+        public async Task<RecipeDetailsViewModel> GetRecipe(int id)
+        {
+            var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
+            return recipe;
         }
     }
 }

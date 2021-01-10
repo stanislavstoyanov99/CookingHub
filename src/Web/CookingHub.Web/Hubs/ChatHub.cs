@@ -35,7 +35,7 @@
             }
             catch (Exception ex)
             {
-                await this.Clients.Caller.SendAsync("onError", "OnConnected:" + ex.Message);
+                await this.Clients.Caller.SendAsync("onError", "Error:" + ex.Message);
             }
         }
 

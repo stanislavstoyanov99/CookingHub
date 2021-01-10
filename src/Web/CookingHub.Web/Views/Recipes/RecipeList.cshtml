@@ -1,16 +1,16 @@
 ﻿@using CookingHub.Models.ViewModels.Recipes
-@model IEnumerable<RecipeDetailsViewModel>
+@model MyRecipeDetailsViewModel
 
 @{
     ViewData["Title"] = "RecipeList";
-
+    var categories = Model.RecipeEditViewModel.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
 <div class="conteiner-fluid mt-80 d-flex flex-column bg-userList h-100" style="min-height:500px;">
     <div class="row h-100 justify-content-center">
         <div class="col-12 col-md-9">
             <div id="accordion">
-                @foreach (var recipe in Model)
+                @foreach (var recipe in Model.Recipes)
                 {
                     <div class="card br-black" id="@recipe.Id">
                         <div class="card-header text-center ">
@@ -36,11 +36,11 @@
                                     </div>
                                     <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
                                         Description:<br>
-                                        @Html.Raw(recipe.Description)
+                                        @Html.Raw(recipe.SanitizedDescription)
                                     </div>
                                     <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
                                         Ingredients:<br>
-                                        @Html.Raw(recipe.Ingredients)
+                                        @Html.Raw(recipe.SanitizedIngredients)
                                     </div>
                                 </div>
                             </div>
@@ -64,78 +64,82 @@
             <div class="modal-body" id="edit">
                 <form asp-controller="Recipes" asp-action="Edit" enctype="multipart/form-data" method="post">
                     <div class="form-group">
-                        <label for="Name">Name</label>
-                        <input id="Name" name="Name" class="form-control" />
-                        
+                        <label asp-for="RecipeEditViewModel.Name"></label>
+                        <input id="Name" asp-for="RecipeEditViewModel.Name" class="form-control" />
+                        <span asp-validation-for="RecipeEditViewModel.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Description">Description</label>
-                        <textarea name="Description" id="Description" class="form-control"></textarea>
-                        
+                        <label asp-for="RecipeEditViewModel.Description"></label>
+                        <textarea id="Description" asp-for="RecipeEditViewModel.Description" class="form-control"></textarea>
+                        <span asp-validation-for="RecipeEditViewModel.Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Ingredients">Ingredients</label>
-                        <textarea name="Ingredients" id="Ingredients" class="form-control"></textarea>
-                        
+                        <label asp-for="RecipeEditViewModel.Ingredients"></label>
+                        <textarea id="Ingredients" asp-for="RecipeEditViewModel.Ingredients" class="form-control"></textarea>
+                        <span asp-validation-for="RecipeEditViewModel.Ingredients" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="PreparationTime">PreparationTime</label>
-                        <input name="PreparationTime" id="PreparationTime" class="form-control" />
-                        
+                        <label asp-for="RecipeEditViewModel.PreparationTime"></label>
+                        <input id="PreparationTime" asp-for="RecipeEditViewModel.PreparationTime" class="form-control" />
+                        <span asp-validation-for="RecipeEditViewModel.PreparationTime" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="CookingTime">CookingTime</label>
-                        <input name="CookingTime" id="CookingTime" class="form-control" />
-                        
+                        <label asp-for="RecipeEditViewModel.CookingTime"></label>
+                        <input id="CookingTime" asp-for="RecipeEditViewModel.CookingTime" class="form-control" />
+                        <span asp-validation-for="RecipeEditViewModel.CookingTime" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="PortionsNumber">PortionsNumber</label>
-                        <input name="PortionsNumber" id="PortionsNumber" class="form-control" />
-                       
+                        <label asp-for="RecipeEditViewModel.PortionsNumber"></label>
+                        <input id="PortionsNumber" asp-for="RecipeEditViewModel.PortionsNumber" class="form-control" />
+                        <span asp-validation-for="RecipeEditViewModel.PortionsNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label>Old Image</label>
                         <div class="form-group">
-                            <img class="img-fluid img-thumbnail" src="" alt="Image" />
+                            <input id="OldImagePath" asp-for="RecipeEditViewModel.ImagePath" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <img id="ImagePath" class="img-fluid img-thumbnail" alt="Image" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Image"></label>
-                        <input type="file" name="Image" id="Image" />
-                        
+                        <label asp-for="RecipeEditViewModel.Image"></label>
+                        <input type="file" asp-for="RecipeEditViewModel.Image" name="Image" />
+                        <span asp-validation-for="RecipeEditViewModel.Image" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Difficulty"></label>
+                        <label asp-for="RecipeEditViewModel.Difficulty"></label>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" name="Difficulty" class="form-check-input" value="Easy">Easy
-                                
+                                <input id="Easy" type="radio" asp-for="RecipeEditViewModel.Difficulty" class="form-check-input" value="Easy">Easy
+                                <span asp-validation-for="RecipeEditViewModel.Difficulty" class="text-danger"></span>
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" name="Difficulty" class="form-check-input" value="Medium">Medium
-                                
+                                <input id="Medium" type="radio" asp-for="RecipeEditViewModel.Difficulty" class="form-check-input" value="Medium">Medium
+                                <span asp-validation-for="RecipeEditViewModel.Difficulty" class="text-danger"></span>
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" name="Difficulty" class="form-check-input" value="Hard">Hard
-                                
+                                <input id="Hard" type="radio" asp-for="RecipeEditViewModel.Difficulty" class="form-check-input" value="Hard">Hard
+                                <span asp-validation-for="RecipeEditViewModel.Difficulty" class="text-danger"></span>
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="CategoryId"></label>
+                        <label asp-for="RecipeEditViewModel.CategoryId"></label>
                         <div class="container">
-                            <select name="CategoryId">
+                            <select id="Categories" asp-for="RecipeEditViewModel.CategoryId" asp-items="categories">
                                 <option selected="" disabled="">
                                     Select Category
                                 </option>
                             </select>
                         </div>
-                        
+                        <span asp-validation-for="RecipeEditViewModel.CategoryId" class="text-danger"></span>
                     </div>
+                    <input id="RecipeId" type="hidden" asp-for="RecipeEditViewModel.Id" />
                     <button type="submit" class="btn btn-success">Save changes</button>
                 </form>
             </div>
@@ -147,6 +151,16 @@
 </div>
 @section Scripts
 {
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+
     <script>
         function showModal(id) {
             $.ajax({
@@ -155,17 +169,33 @@
                 data: { 'id': id },
                 success: function (res) {
                     $('#Name').val(res.name);
-                    $('#Description').val(res.description);
-                    $('#Ingredients').val(res.ingredients);
+                    tinyMCE.get('Description').setContent(res.sanitizedDescription);
+                    tinyMCE.get('Ingredients').setContent(res.sanitizedIngredients);
                     $('#PreparationTime').val(res.preparationTime);
                     $('#CookingTime').val(res.cookingTime);
                     $('#PortionsNumber').val(res.portionsNumber);
-                    alert("TODO//");
+                    $('#OldImagePath').val(res.imagePath);
+                    $('#ImagePath').attr('src', res.imagePath);
+                    $('#Categories').val(res.categoryId);
+                    $('#RecipeId').val(id);
+
+                    switch (res.difficulty) {
+                        case 0:
+                            $('#Hard').prop('checked', true);
+                            break;
+                        case 1:
+                            $('#Medium').prop('checked', true);
+                            break;
+                        case 2:
+                            $('#Easy').prop('checked', true);
+                            break;
+                    }
                 }
             });
 
             $('#editrecipeModal').modal('show');
         }
+
         function removeRecipe(id) {
             $.ajax({
                 url: "/Recipes/Remove",

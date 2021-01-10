@@ -3,7 +3,8 @@
         .withUrl("/chat")
         .withAutomaticReconnect()
         .build();
-let currentUser = "";
+let currentUserName = "";
+
 document.getElementById("sendButton").disabled = true;
 
 connection.on("receiveMessage", addMessageToChat);
@@ -22,7 +23,7 @@ function addMessageToChat(message) {
             <div class="ml-auto text-right">
                  <div class="msg">
                      <i class="fas fa-trash" style="font-size:11px;" type="button" onclick="deleteMessage(${message.id})"></i>
-                     ${message.content}</br>
+                     ${sanitizedContent}</br>
                      <small class="text-muted ml-auto text-right" style="font-size:9px">${createdOn.toLocaleString()}</small>
                  </div>
             </div>
@@ -42,32 +43,32 @@ function showMessages(messages) {
 
     messages.forEach(message => {
         const createdOn = convertUTCDateToLocalDate(new Date(message.createdOn));
+
         let chatInfo;
-        if (message.userUsername === currentUser) {
+        if (message.userUsername === currentUserName) {
             chatInfo =
                 `
                 <div class="ml-auto text-right">
                      <div class="msg w-100">
-                     <i class="fas fa-trash trash" style="font-size:11px;" type="button" onclick="deleteMessage(${message.id})"></i>
-                     ${message.content}</br>
-                     <small class="text-muted ml-auto text-right" style="font-size:9px">${createdOn.toLocaleString()}</small>
+                        <i class="fas fa-trash trash" style="font-size:11px;" type="button" onclick="deleteMessage(${message.id})"></i>
+                        ${message.content}</br>
+                        <small class="text-muted ml-auto text-right" style="font-size:9px">${createdOn.toLocaleString()}</small>
                      </div>
-                </div>
-                
-            `;
+                </div>           
+                `;
         }
         else {
             chatInfo =
                 `
                 <div>
                     <div class="msg w-100">
-                    [${message.userUsername}]: ${message.content}<br/>
-                    <small class="text-muted" style="font-size:9px">${createdOn.toLocaleString()}</small>
+                        [${message.userUsername}]: ${message.content}<br/>
+                        <small class="text-muted" style="font-size:9px">${createdOn.toLocaleString()}</small>
                     </div>
-                </div>
-                
-            `;
+                </div>         
+                `;
         }
+
         $("#messagesList").append(chatInfo);
     })
 }
@@ -80,8 +81,8 @@ connection.start().then(function () {
 
 $("#chat-btn").click(function () {
     connection.invoke("GetMessages");
-    var user = $("#userUsername").val();
-    setCurrentUser(user);
+    const username = $("#userUsername").val();
+    setCurrentUser(username);
 });
 
 $("#sendButton").click(function () {
@@ -112,6 +113,7 @@ function convertUTCDateToLocalDate(date) {
 
     return newDate;
 }
+
 function setCurrentUser(username) {
-    currentUser = username;
+    currentUserName = username;
 }

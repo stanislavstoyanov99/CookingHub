@@ -7,7 +7,5 @@
         public RecipeDetailsViewModel Recipe { get; set; }
 
         public CreateReviewInputModel CreateReviewInputModel { get; set; }
-
-        public RecipeEditViewModel EditViewModel { get; set; }
     }
 }
