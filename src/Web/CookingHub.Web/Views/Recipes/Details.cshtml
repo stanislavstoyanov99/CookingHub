@@ -1,9 +1,5 @@
 ﻿@using CookingHub.Data.Models.Enumerations;
-@using CookingHub.Data.Models;
-@using Microsoft.AspNetCore.Identity;
 @model CookingHub.Models.ViewModels.Recipes.RecipeDetailsPageViewModel
-@inject UserManager<CookingHubUser> UserManager
-
 @{
     this.ViewData["Title"] = $"{Model.Recipe.Name}";
     var userReview = Model.Recipe.Reviews.FirstOrDefault(x => x.UserId == Model.Recipe.UserId);

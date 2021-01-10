@@ -38,7 +38,7 @@
             if (!this.ModelState.IsValid)
             {
                 var article = await this.articlesService
-                    .GetViewModelByIdAsync<ArticleListingViewModel>(viewModel.ArticleListingViewModel.Id);
+                    .GetViewModelByIdAsync<ArticleListingViewModel>(viewModel.CreateArticleCommentInputModel.ArticleId);
 
                 var categories = await this.categoriesService
                     .GetAllCategoriesAsync<CategoryListingViewModel>();
@@ -75,7 +75,7 @@
                 await this.articleCommentsService.CreateAsync(
                     viewModel.CreateArticleCommentInputModel.ArticleId,
                     userId,
-                    viewModel.CreateArticleCommentInputModel.Content,
+                    viewModel.CreateArticleCommentInputModel.Content.Trim(),
                     parentId);
             }
             catch (ArgumentException aex)

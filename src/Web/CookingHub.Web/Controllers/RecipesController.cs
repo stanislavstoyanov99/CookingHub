@@ -122,17 +122,12 @@
             return this.RedirectToAction("Index", "Recipes");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        [Authorize]
+        public async Task<IActionResult> Remove(int id)
         {
-            var recipeToEdit = await this.recipesService
-                .GetViewModelByIdAsync<RecipeEditViewModel>(id);
+            await this.recipesService.DeleteByIdAsync(id);
 
-            var categories = await this.categoriesService
-                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
-
-            recipeToEdit.Categories = categories;
-
-            return this.View(recipeToEdit);
+            return this.RedirectToAction("RecipeList", "Recipes");
         }
 
         [Authorize]

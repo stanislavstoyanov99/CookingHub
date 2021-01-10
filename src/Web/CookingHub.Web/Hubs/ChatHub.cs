@@ -68,10 +68,11 @@
                     UserName = user.UserName,
                 };
 
-                var messageViewModel = await this.chatService.CreateAsync(messageInputModel);
+                await this.chatService.CreateAsync(messageInputModel);
+                var messages = await this.chatService.GetAllMessagesAsync<MessageViewModel>();
 
-                // Broadcast the message
-                await this.Clients.All.SendAsync("receiveMessage", messageViewModel);
+                // Broadcast the messages
+                await this.Clients.All.SendAsync("receiveMessages", messages);
             }
             catch (Exception ex)
             {

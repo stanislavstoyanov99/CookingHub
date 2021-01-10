@@ -7,7 +7,11 @@
 @{
     this.ViewData["Title"] = "Home Page";
     var gallery = Model.Gallery;
-    var subgalleries = gallery.Select((x, i) => new { Index = i, Value = x }).GroupBy(x => x.Index / 3).Select(x => x.Select(v => v.Value).ToList()).ToList();
+    var subgalleries = gallery
+        .Select((x, i) => new { Index = i, Value = x })
+        .GroupBy(x => x.Index / 3)
+        .Select(x => x.Select(v => v.Value).ToList())
+        .ToList();
 
     var active = false;
 }
@@ -31,15 +35,12 @@
     </div>
     <div id="slides" class="conteiner-fluid cover-slides" style="z-index:-1;">
         <ul class="slides-container">
-            <li class="text-left">
-                <img src="~/images/slider-01.jpg" alt="">
-            </li>
-            <li class="text-left">
-                <img src="~/images/slider-02.jpg" alt="">
-            </li>
-            <li class="text-left">
-                <img src="~/images/slider-03.jpg" alt="">
-            </li>
+            @for (int i = 1; i <= 9; i++)
+            {
+                <li class="text-left">
+                    <img src="~/images/slider-0@{@i}.jpg" alt="Slider image_@i">
+                </li>
+            }
         </ul>
     </div>
 </div>
@@ -221,13 +222,14 @@
                         }
                         @if (active == false) active = true;
                     }
+                    <!-- Start Left and right controls-->
                     <a class="carousel-control-prev" style="z-index:4;background-color:grey;font-size: 30px;" href="#GalleryCarusel" data-slide="prev">
                         <span class="ml-auto" style="margin-right:30px;"> <i class="fas fa-chevron-left d-block"></i></span>
                     </a>
                     <a class="carousel-control-next" style="z-index:4 ; background-color:grey;font-size: 30px;" href="#GalleryCarusel" data-slide="next">
                         <span class="mr-auto" style="margin-left:30px;"><i class="fas fa-chevron-right"></i></span>
                     </a>
-                    <!-- Left and right controls-->
+                    <!-- End Left and right controls-->
                 </div>
             </div>
         </div>

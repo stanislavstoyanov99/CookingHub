@@ -3,7 +3,6 @@
     using System.Collections.Generic;
 
     using CookingHub.Models.ViewModels.Articles;
-    using CookingHub.Models.ViewModels.Chat;
     using CookingHub.Models.ViewModels.Recipes;
 
     public class HomePageViewModel

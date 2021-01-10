@@ -17,8 +17,12 @@
                             <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
                                 @recipe.Name
                             </a>
-                            <button class="btn" type="button" onclick="showModal(@recipe.Id)"><i class="fas fa-edit"></i>Edit Recipe</button>
-                            <button class="btn" type="button" onclick="removeRecipe(@recipe.Id)"><i class="fas fa-trash-alt"></i>Delete Recipe</button>
+                            <button class="btn" type="button" onclick="showModal(@recipe.Id)">
+                                <i class="fas fa-edit"></i>Edit Recipe
+                            </button>
+                            <a class="btn" asp-controller="Recipes" asp-action="Remove" asp-route-id="@recipe.Id">
+                                <i class="fas fa-trash-alt"></i>Delete Recipe
+                            </a>
                         </div>
                         <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
                             <div class="card-body ">
@@ -49,7 +53,6 @@
                 }
             </div>
         </div>
-
     </div>
 </div>
 <div class="modal fade" id="editrecipeModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -104,7 +107,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="RecipeEditViewModel.Image"></label>
-                        <input type="file" asp-for="RecipeEditViewModel.Image" name="Image" />
+                        <input type="file" asp-for="RecipeEditViewModel.Image" name="RecipeEditViewModel.Image" />
                         <span asp-validation-for="RecipeEditViewModel.Image" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -142,9 +145,6 @@
                     <input id="RecipeId" type="hidden" asp-for="RecipeEditViewModel.Id" />
                     <button type="submit" class="btn btn-success">Save changes</button>
                 </form>
-            </div>
-            <div class="modal-footer flex-row-reverse justify-content-md-start w-100">
-
             </div>
         </div>
     </div>
@@ -194,17 +194,6 @@
             });
 
             $('#editrecipeModal').modal('show');
-        }
-
-        function removeRecipe(id) {
-            $.ajax({
-                url: "/Recipes/Remove",
-                type: "POST",
-                data: { 'id': id },
-                success: function () {
-                    location.reload();
-                }
-            });
         }
     </script>
 }
