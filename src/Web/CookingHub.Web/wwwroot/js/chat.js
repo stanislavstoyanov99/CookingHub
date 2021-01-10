@@ -1,4 +1,14 @@
-﻿var connection =
+﻿$(window).on('scroll', function () {
+    if ($(this).scrollTop() > 100) {
+        if (document.getElementById("chat").style.display != "block") {
+            $('#chat-btn').fadeIn();
+        }
+    } else {
+        $('#chat-btn').fadeOut();
+    }
+});
+
+var connection =
     new signalR.HubConnectionBuilder()
         .withUrl("/chat")
         .withAutomaticReconnect()
@@ -7,30 +17,13 @@ let currentUserName = "";
 
 document.getElementById("sendButton").disabled = true;
 
-connection.on("receiveMessage", addMessageToChat);
+connection.on("receiveMessages", showMessages);
 
 connection.on("deleteMessage", showMessages);
 
 connection.on("onError", errorHandler);
 
 connection.on("showMessages", showMessages);
-
-function addMessageToChat(message) {
-    const sanitizedContent = message.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const createdOn = convertUTCDateToLocalDate(new Date(message.createdOn));
-    const chatInfo =
-        `
-            <div class="ml-auto text-right">
-                 <div class="msg">
-                     <i class="fas fa-trash" style="font-size:11px;" type="button" onclick="deleteMessage(${message.id})"></i>
-                     ${sanitizedContent}</br>
-                     <small class="text-muted ml-auto text-right" style="font-size:9px">${createdOn.toLocaleString()}</small>
-                 </div>
-            </div>
-        `;
-
-    $("#messagesList").append(chatInfo);
-}
 
 function errorHandler(message) {
     const errorMessage = document.getElementById('error-message');
