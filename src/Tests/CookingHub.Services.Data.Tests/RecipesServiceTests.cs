@@ -25,7 +25,7 @@
 
     using Xunit;
 
-    public class RecipesServiceTest : IAsyncDisposable, IClassFixture<Configuration>
+    public class RecipesServiceTests : IAsyncDisposable, IClassFixture<Configuration>
     {
         private readonly IRecipesService recipesService;
         private readonly ICloudinaryService cloudinaryService;
@@ -39,7 +39,7 @@
         private Category firstCategory;
         private CookingHubUser cookingHubUser;
 
-        public RecipesServiceTest(Configuration configuration)
+        public RecipesServiceTests(Configuration configuration)
         {
             this.InitializeMapper();
             this.InitializeDatabaseAndRepositories();

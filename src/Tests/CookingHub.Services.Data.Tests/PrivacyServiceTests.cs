@@ -24,7 +24,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class PrivacyServiceTest : IAsyncDisposable
+    public class PrivacyServiceTests : IAsyncDisposable
     {
         private readonly IPrivacyService privacyService;
         private EfDeletableEntityRepository<Privacy> privaciesRepository;
@@ -32,7 +32,7 @@
 
         private Privacy firstPrivacy;
 
-        public PrivacyServiceTest()
+        public PrivacyServiceTests()
         {
             this.InitializeMapper();
             this.InitializeDatabaseAndRepositories();

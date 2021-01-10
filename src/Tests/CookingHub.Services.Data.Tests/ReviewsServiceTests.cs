@@ -20,7 +20,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class ReviewsServiceTest : IAsyncDisposable
+    public class ReviewsServiceTests : IAsyncDisposable
     {
         private readonly IReviewsService reviewService;
 
@@ -36,7 +36,7 @@
         private CookingHubUser firstCookingHubUser;
         private CookingHubUser secondCookingHubUser;
 
-        public ReviewsServiceTest()
+        public ReviewsServiceTests()
         {
             this.InitializeMapper();
             this.InitializeDatabaseAndRepositories();
