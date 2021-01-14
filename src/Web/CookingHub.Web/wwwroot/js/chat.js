@@ -32,6 +32,8 @@ function errorHandler(message) {
 }
 
 function showMessages(messages) {
+    document.getElementById('error-message').style = 'display: none';
+
     $("#messagesList").empty();
 
     messages.forEach(message => {

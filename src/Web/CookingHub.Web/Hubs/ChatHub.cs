@@ -5,8 +5,9 @@
 
     using CookingHub.Data.Models;
     using CookingHub.Models.ViewModels.Chat;
+    using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
-
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
@@ -63,10 +64,15 @@
                 // Create and save message in database
                 var messageInputModel = new MessageInputModel
                 {
-                    Content = message,
+                    Content = new HtmlSanitizer().Sanitize(message),
                     UserId = user.Id,
                     UserName = user.UserName,
                 };
+
+                if (string.IsNullOrEmpty(messageInputModel.Content))
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidMessageError);
+                }
 
                 await this.chatService.CreateAsync(messageInputModel);
                 var messages = await this.chatService.GetAllMessagesAsync<MessageViewModel>();
