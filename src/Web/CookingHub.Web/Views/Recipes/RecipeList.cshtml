@@ -17,6 +17,9 @@
                             <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
                                 @recipe.Name
                             </a>
+                            <a class="btn" asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id">
+                                <i class="fas fa-window-maximize"></i>View Recipe
+                            </a>
                             <button class="btn" type="button" onclick="showModal(@recipe.Id)">
                                 <i class="fas fa-edit"></i>Edit Recipe
                             </button>

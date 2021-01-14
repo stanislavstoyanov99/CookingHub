@@ -130,6 +130,7 @@
     .admin-conteiner h2,
     .admin-conteiner h4,
     .admin-conteiner h5,
+    .admin-conteiner label,
     .admin-conteiner ul li a {
         color: white;
     }
@@ -277,14 +278,14 @@
 
 @media(max-width: 975px) {
     .ing-img {
-        border-top: 12px dashed white;
+        border-top: 12px groove  white;
         border-left: none;
     }
 }
 
 @media(min-width: 975px) {
     .ing-img {
-        border-left: 12px dashed white;
+        border-left: 12px double white;
     }
 }
 
@@ -346,10 +347,11 @@
 }
 
 .recipeDetailsPage {
-    border: 4px dashed #540404;
+    border: 8px outset #540404;
     padding: 12px;
     background-image: url('../images/about-bg.jpg');
     background-size: cover;
+    margin-bottom : 3px;
 }
 
 .recipeProperty {
@@ -441,6 +443,7 @@
     padding-right: 10px !important;
     margin-top: 10px;
     min-width: 300px;
+    
 }
 
 .star {
@@ -452,6 +455,8 @@
     color: white;
     border: 3px solid #540404;
     padding: 3px 3px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 .review-body {
@@ -588,7 +593,61 @@
 #navbar {
     transition: 0.7s;
 }
-
+.nav-panel {
+    display: none;
+    background-color: transparent;
+    overflow: hidden;
+    padding-left: 23px;
+    transition: 0.4s;
+}
+    .nav-panel div {
+        margin-top: 18px;
+        margin-bottom: 18px;
+        transition: 0.4s;
+    }
+    .nav-panel div:hover {
+        background-color: #222222;
+    }
+.admin-nav {
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    padding-left: 18px;
+    color: white;
+    margin-top:6px;
+}
+.admin-nav:hover{
+    background-color: #222222;
+    
+}
+    .admin-nav .active ::after {
+        background-color: #222222;
+    }
+.admin-nav-item{
+    width:100%;
+}
+.admin-nav-item a {
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    padding-left: 18px;
+    color: white;
+    margin-top: 6px;
+}
+    .admin-nav-item a:hover {
+        background-color: #222222;
+    }
 @media (min-width: 1200px) and (max-width: 1380px) {
     #logo {
         width: 200px !important;
