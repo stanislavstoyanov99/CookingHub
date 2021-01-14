@@ -96,7 +96,10 @@
             <div class="row" style="padding: 0 50px 0 50px;">
                 @if (!this.User.Identity.IsAuthenticated)
                 {
-                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-CH ml-auto">Sign in to create a review</a>
+                    <a asp-area="Identity"
+                       asp-page="/Account/Login"
+                       asp-route-returnUrl="/Recipes/Details/@Model.Recipe.Id"
+                       class="btn btn-CH ml-auto">Sign in to create a review</a>
                 }
                 else if (!Model.Recipe.Reviews.Where(x => x.UserId == Model.Recipe.UserId).Any())
                 {

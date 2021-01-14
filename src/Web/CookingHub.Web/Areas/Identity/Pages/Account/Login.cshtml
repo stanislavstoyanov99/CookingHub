@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-3"></div>
-    <div class="col-md-6 ch-border bg-dark">
+    <div class="col-md-6 mt-80 ch-border bg-dark">
         <h1 class="text-light">@ViewData["Title"]</h1>
         <section>
             <form id="account" method="post"></form>
@@ -40,7 +40,6 @@
                     @{
                         if ((Model.ExternalLogins?.Count ?? 0) != 0)
                         {
-
                             @foreach (var provider in Model.ExternalLogins)
                             {
                                 <button type="submit" class="btn btn-fb" form="external-account" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-facebook"></i> Login with @provider.DisplayName</button>

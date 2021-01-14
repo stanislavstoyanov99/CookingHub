@@ -118,8 +118,8 @@
                 return this.View(recipeCreateInputModel);
             }
 
-            await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
-            return this.RedirectToAction("Index", "Recipes");
+            var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
+            return this.RedirectToAction("Details", "Recipes", new { id = recipe.Id });
         }
 
         [Authorize]

@@ -88,8 +88,7 @@
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return this.Page();
+                    this.ModelState.AddModelError("Input.Username", "The username or password supplied are incorrect. Please check your spelling and try again.");
                 }
             }
 
