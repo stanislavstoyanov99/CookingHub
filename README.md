@@ -100,7 +100,7 @@ Cooking Hub е потребителски уеб-базиран софтуер, 
 * [xUnit](https://github.com/xunit/xunit)
 
 ## :floppy_disk: Database Diagram
-![Database Diagram](https://github.com/stanislavstoyanov99/CookingHub/blob/main/db-diagram.png)
+![Database Diagram](https://github.com/stanislavstoyanov99/CookingHub/blob/main/db-diagram.jpg)
 
 # Link
 https://cookinghub.azurewebsites.net/
