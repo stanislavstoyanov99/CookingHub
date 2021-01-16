@@ -5,13 +5,11 @@
 <ul class="nav nav-pills flex-column">
     
     <li class="@AdminNavPages.RecipesNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="Recipes" asp-action="Index">Recipes</a>-->
         <button class="admin-nav">Recipes</button>
         <div class="nav-panel">
             <div class="@RecipesNavPages.CreateRecipeNavClass(ViewContext)">
                 <a asp-controller="Recipes" asp-action="Create">Create recipe</a>
             </div>
-
             <div class="@RecipesNavPages.GetAllNavClass(ViewContext)">
                 <a asp-controller="Recipes" asp-action="GetAll">List recipes</a>
             </div>
@@ -19,7 +17,6 @@
     </li>
 
     <li class="@AdminNavPages.ArticlesNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="Articles" asp-action="Index">Articles</a>-->
         <button class="admin-nav">Articles</button>
         <div class="nav-panel">
             <div class="@ArticleNavPages.CreateArticleNavClass(ViewContext)">
@@ -32,7 +29,6 @@
     </li>
 
     <li class="@AdminNavPages.CategoriesNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a>-->
         <button class="admin-nav">Categories</button>
         <div class="nav-panel">
             <div class="@CategoryNavPages.CreateCategoryNavClass(ViewContext)">
@@ -44,7 +40,6 @@
         </div>
     </li>
     <li class="@AdminNavPages.CookingHubUsersNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="CookingHubUsers" asp-action="Index">Cooking Hub Users</a>-->
         <button class="admin-nav">Cooking Hub Users</button>
         <div class="nav-panel">
             <div class="@CookingHubUserNavPages.GetAllNavClass(ViewContext)">
@@ -57,7 +52,6 @@
 <h5>App's administration</h5>
 <ul class="nav nav-pills nav-stacked flex-column">
     <li class="@AdminNavPages.AboutNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="Faq" asp-action="Index">FAQ page</a>-->
         <button class="admin-nav">FAQ page</button>
         <div class="nav-panel">
             <div class="@FaqNavPages.CreateFaqNavClass(ViewContext)"><a asp-controller="Faq" asp-action="Create">Create faq</a></div>
@@ -65,7 +59,6 @@
         </div>
     </li>
     <li class="@AdminNavPages.PrivacyNavClass(ViewContext)">
-        <!--<a asp-area="Administration" asp-controller="Privacy" asp-action="Index">Privacy</a>-->
         <button class="admin-nav">Privacy</button>
         <div class="nav-panel">
             <div class="@PrivacyNavPages.CreatePrivacyNavClass(ViewContext)">
