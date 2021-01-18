@@ -88,6 +88,7 @@ Cooking Hub е потребителски уеб-базиран софтуер, 
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 * [SendGrid](https://github.com/sendgrid)
 * [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
+* [SignalR](https://github.com/SignalR/SignalR)
 * [Cloudinary](https://github.com/cloudinary/CloudinaryDotNet)
 * [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer)
 * [TinyMCE](https://github.com/tinymce/)
