@@ -9,6 +9,7 @@
     using CookingHub.Models.ViewModels.Privacy;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
+    using CookingHub.Web.Filters;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,7 @@
             return this.View(model);
         }
 
+        [NoDirectAccessAttribute]
         public IActionResult ThankYouSubscription(string email)
         {
             return this.View("SuccessfullySubscribed", email);

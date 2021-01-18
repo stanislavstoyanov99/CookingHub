@@ -5,53 +5,62 @@
     ViewData["Title"] = "RecipeList";
     var categories = Model.RecipeEditViewModel.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
- 
+
 <div class="conteiner-fluid mt-80 d-flex flex-column bg-userList h-100" style="min-height:500px;">
     <div class="row h-100 justify-content-center">
         <div class="col-12 col-md-9">
             <div id="accordion">
-                @foreach (var recipe in Model.Recipes)
+                @if (Model.Recipes.Count() != 0)
                 {
-                    <div class="card br-black" id="@recipe.Id">
-                        <div class="card-header text-center ">
-                            <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
-                                @recipe.Name
-                            </a>
-                            <a class="btn" asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id">
-                                <i class="fas fa-window-maximize"></i>View Recipe
-                            </a>
-                            <button class="btn" type="button" onclick="showModal(@recipe.Id)">
-                                <i class="fas fa-edit"></i>Edit Recipe
-                            </button>
-                            <a class="btn" asp-controller="Recipes" asp-action="Remove" asp-route-id="@recipe.Id">
-                                <i class="fas fa-trash-alt"></i>Delete Recipe
-                            </a>
-                        </div>
-                        <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-6 col-xl-3 br-black listpic">
-                                        <img class="img-fluid listpic" src="@recipe.ImagePath" alt="Recipe Image @recipe.Id" />
-                                    </div>
-                                    <div class="col-6 col-xl-3 br-black">
-                                        <div class="row w-100">
-                                            <div class="col-12">Difficulty: @recipe.Difficulty</div>
-                                            <div class="col-12">Portions Number: @recipe.PortionsNumber</div>
-                                            <div class="col-12">Preparation Time: @recipe.PreparationTime</div>
-                                            <div class="col-12">Cooking Time: @recipe.CookingTime</div>
+                    @foreach (var recipe in Model.Recipes)
+                    {
+                        <div class="card br-black" id="@recipe.Id">
+                            <div class="card-header text-center ">
+                                <a class="collapsed card-link" data-toggle="collapse" data-target="#collapse_@recipe.Id" href="#@recipe.Name">
+                                    @recipe.Name
+                                </a>
+                                <a class="btn" asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id">
+                                    <i class="fas fa-window-maximize"></i>View Recipe
+                                </a>
+                                <button class="btn" type="button" onclick="showModal(@recipe.Id)">
+                                    <i class="fas fa-edit"></i>Edit Recipe
+                                </button>
+                                <a class="btn" asp-controller="Recipes" asp-action="Remove" asp-route-id="@recipe.Id">
+                                    <i class="fas fa-trash-alt"></i>Delete Recipe
+                                </a>
+                            </div>
+                            <div id="collapse_@recipe.Id" class="collapse" data-parent="#accordion">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-6 col-xl-3 br-black listpic">
+                                            <img class="img-fluid listpic" src="@recipe.ImagePath" alt="Recipe Image @recipe.Id" />
                                         </div>
-                                    </div>
-                                    <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
-                                        Description:<br>
-                                        @Html.Raw(recipe.SanitizedDescription)
-                                    </div>
-                                    <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
-                                        Ingredients:<br>
-                                        @Html.Raw(recipe.SanitizedIngredients)
+                                        <div class="col-6 col-xl-3 br-black">
+                                            <div class="row w-100">
+                                                <div class="col-12">Difficulty: @recipe.Difficulty</div>
+                                                <div class="col-12">Portions Number: @recipe.PortionsNumber</div>
+                                                <div class="col-12">Preparation Time: @recipe.PreparationTime</div>
+                                                <div class="col-12">Cooking Time: @recipe.CookingTime</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
+                                            Description:<br>
+                                            @Html.Raw(recipe.SanitizedDescription)
+                                        </div>
+                                        <div class="col-6 col-xl-3 bg-dark text-light ovfl-s recipelist-height">
+                                            Ingredients:<br>
+                                            @Html.Raw(recipe.SanitizedIngredients)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning mt-3" role="alert">
+                        There are not any recipes submitted yet! Submit one by visiting this <a asp-controller="Recipes" asp-action="Submit">page</a>.
                     </div>
                 }
             </div>

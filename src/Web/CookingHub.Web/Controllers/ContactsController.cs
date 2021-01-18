@@ -4,7 +4,7 @@
 
     using CookingHub.Models.ViewModels.Contacts;
     using CookingHub.Services.Data.Contracts;
-
+    using CookingHub.Web.Filters;
     using Microsoft.AspNetCore.Mvc;
 
     public class ContactsController : Controller
@@ -34,6 +34,7 @@
             return this.RedirectToAction("ThankYou");
         }
 
+        [NoDirectAccessAttribute]
         public IActionResult ThankYou()
         {
             return this.View();
