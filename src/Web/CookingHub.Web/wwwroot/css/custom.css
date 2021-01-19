@@ -648,6 +648,11 @@
     .admin-nav-item a:hover {
         background-color: #222222;
     }
+.cookie-pos{
+    position: fixed;
+    bottom:0;
+    z-index:100;
+}
 @media (min-width: 1200px) and (max-width: 1380px) {
     #logo {
         width: 200px !important;
