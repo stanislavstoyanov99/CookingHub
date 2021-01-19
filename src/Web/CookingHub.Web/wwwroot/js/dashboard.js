@@ -10,10 +10,10 @@ $(document).ready(function () {
             myLineChart.data.datasets[1].data = data.registeredUsers;
             myDoughnutChart.data.datasets[0].data = [data.articlesCount, data.recipesCount, 0, 0];
             myDoughnutChart.data.datasets[1].data = [0, 0, data.commentsCount, data.reviewsCount];
-           
+
             myLineChart.update();
             myDoughnutChart.update();
-            
+
         }
     })
 });
@@ -48,7 +48,7 @@ let myLineChart = new Chart(ctxL, {
 let myDoughnutChart = new Chart(ctxt, {
     type: 'pie',
     data: {
-        labels: ["Articles", "Recipes","Article Comments", "Reviews"],
+        labels: ["Articles", "Recipes", "Article Comments", "Reviews"],
         datasets: [{
 
             data: [0, 0, 0, 0],
@@ -66,4 +66,33 @@ let myDoughnutChart = new Chart(ctxt, {
             align: "middle"
         },
     }
+});
+$(document).ready(function () {
+    $.ajax({
+        type: 'GET',
+        data: { type: "Categories" },
+        url: '/Administration/Dashboard/FetchTopFive',
+        success: function (data) {
+            $('#topCategories').append(`<div class="br-b-white p-3">Top Categories</div>`);
+            data.forEach(el => $('#topCategories').append(`<div class="pt-3 sm">` + el.key + " - " + el.count + ` Recipes</div>`));
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        data: { type: "Recipes" },
+        url: '/Administration/Dashboard/FetchTopFive',
+        success: function (data) {
+            $('#topRecipes').append(`<div class="br-b-white p-3">Top Recipes</div>`);
+            data.forEach(el => $('#topRecipes').append(`<div class="pt-3 sm">` + el.key + " - " + el.rate + ` <i class="fas fa-star star"></i></div>`));
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        data: { type: "Articles" },
+        url: '/Administration/Dashboard/FetchTopFive',
+        success: function (data) {
+            $('#topComentedArticle').append(`<div class="br-b-white p-3">Top Commented Ariticles</div>`);
+            data.forEach(el => $('#topComentedArticle').append(`<div class="pt-3 sm">` + el.key + " - " + el.count + ` Comments</div>`));
+        }
+    });
 });

@@ -3,6 +3,7 @@
 
     var recipesCount = Model.RecipesCount;
     var articleCount = Model.ArticlesCount;
+
 }
 
 <div class="container pl-3 centered">
@@ -19,7 +20,7 @@
             <h3 class="centered mt-5">CookingHub System Users</h3>
             <ul id="UsersNow" class="centered">
                 <li>Daily Users</li>
-                <li></li>
+                <li>*Functionality not implemented</li>
                 <li>Registered Users:</li>
                 <li><b>@Model.RegisteredUsers</b></li>
                 <li>Admins</li>
@@ -28,23 +29,27 @@
         </div>
     </div>
     <div class="row">
-
-        <div class="col-12 col-md-7 statistic-card shadow p-3  mb-5 mt-3 bg-white rounded ">
+        <div class="col-12 col-lg-7 statistic-card shadow p-3  mb-5 mt-3 bg-dark text-light rounded ">
             <!-- To be done-->
-            <h3>CookingHub Top 3</h3>
-            <div class="row">
-                <div class="col" name="TopCategories">
-                    
+            <h3 class="text-light">CookingHub Top 5</h3>
+            <div class="row d-flex">
+                <div class="col-12 col-lg-3 p-0 h-100 flex-grow-1 ">
+                    <div class="" id="topCategories">
+                    </div>
                 </div>
-                <div class="col" name="TopUsers">
+                <div class="col-12 col-lg-5 p-0 h-100 flex-grow-1 br-l-r-white">
+                    <div class=""  id="topRecipes">
 
+                    </div>
                 </div>
-                <div class="col" name="TopRecipes">
+                <div class="col-12 col-lg-4 p-0 h-100 flex-grow-1 " >
+                    <div class=""  id="topComentedArticle">
 
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-5 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded" style="padding-right:10px;">
+        <div class="col-12 col-lg-5 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded" style="padding-right:10px;">
             <h3 class="centered">CookingHub Main Content</h3>
             <div class="container">
                 <p style="text-align:center">Recipes Count: <strong class="recipe-sec">@recipesCount</strong> | Articles Count: <strong class="article-sec">@articleCount</strong> </p>
@@ -58,4 +63,4 @@
 
 @section Scripts{
     <script src="~/js/dashboard.js" asp-append-version="true"></script>
- }
+}

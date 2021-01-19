@@ -281,14 +281,21 @@
         border-top: 12px groove  white;
         border-left: none;
     }
+    .br-l-r-white {
+        border-left: none !important;
+        border-right: none !important;
+    }
 }
 
 @media(min-width: 975px) {
     .ing-img {
         border-left: 12px double white;
     }
+   
 }
-
+.sm{
+    font-size:12px;
+}
 .mx-h {
     height: 300px !important;
 }
@@ -652,6 +659,13 @@
     position: fixed;
     bottom:0;
     z-index:100;
+}
+.br-b-white{
+    border-bottom : 3px solid white;
+}
+.br-l-r-white{
+    border-left: 3px solid white;
+    border-right: 3px solid white;
 }
 @media (min-width: 1200px) and (max-width: 1380px) {
     #logo {

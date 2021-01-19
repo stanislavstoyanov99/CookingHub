@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
@@ -48,6 +49,33 @@
             };
 
             return this.View(statistics);
+        }
+
+        [HttpGet]
+        public JsonResult FetchTopFive(string type)
+        {
+            switch (type)
+            {
+                case "Categories":
+                    {
+                        var categories = this.recipesRepository.All().GroupBy(g => g.Category.Name).Select(s => new { Key = s.Key, Count = s.Count() }).OrderByDescending(o => o.Count).ToList();
+                        return this.Json(categories);
+                    }
+
+                case "Recipes":
+                    {
+                        var recipes = this.recipesRepository.All().OrderByDescending(o => o.Rate).Select(s => new { Key = s.Name, Rate = s.Rate }).Take(5).ToList();
+                        return this.Json(recipes);
+                    }
+
+                case "Articles":
+                    {
+                        var articles = this.articlesRepository.All().OrderByDescending(o => o.ArticleComments.Count).Select(s => new { Key = s.Title, Count = s.ArticleComments.Count }).Take(5).ToList();
+                        return this.Json(articles);
+                    }
+
+                default: return this.Json("No");
+            }
         }
     }
 }
