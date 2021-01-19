@@ -11,7 +11,8 @@
         <form id="register" asp-route-returnUrl="@Model.ReturnUrl" method="post"></form>
         <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post"></form>
         <h4 class="text-light">Create a new account.</h4>
-        <hr />
+        <hr style="background-color: white;" />
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="form-group">
             <label class="text-light" asp-for="Input.Email"></label>
             <input asp-for="Input.Email" class="form-control" form="register" />

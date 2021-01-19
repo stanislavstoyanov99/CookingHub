@@ -1,16 +1,23 @@
 ﻿namespace CookingHub.Data
 {
+    using System;
+
     using Microsoft.AspNetCore.Identity;
 
     public static class IdentityOptionsProvider
     {
         public static void GetIdentityOptions(IdentityOptions options)
         {
-            options.Password.RequireDigit = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequiredLength = 6;
+            // Password protection
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequiredLength = 8;
+
+            // Lockout protection
+            options.Lockout.MaxFailedAccessAttempts = 10;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
         }
     }
 }
