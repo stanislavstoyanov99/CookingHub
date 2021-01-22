@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookingHub.Common.Attributes;
     using CookingHub.Data.Models;
     using CookingHub.Web.Areas.Identity.Pages.Account.InputModels;
 
@@ -43,6 +44,7 @@
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [SkipPasswordExpirationCheck]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(this.ErrorMessage))

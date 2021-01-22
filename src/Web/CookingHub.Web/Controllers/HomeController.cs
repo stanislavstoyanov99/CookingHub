@@ -3,13 +3,13 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
 
+    using CookingHub.Common.Attributes;
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Home;
     using CookingHub.Models.ViewModels.Privacy;
     using CookingHub.Models.ViewModels.Recipes;
     using CookingHub.Services.Data.Contracts;
-    using CookingHub.Web.Filters;
 
     using Microsoft.AspNetCore.Mvc;
 

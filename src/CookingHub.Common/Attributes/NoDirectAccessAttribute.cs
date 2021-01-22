@@ -1,4 +1,4 @@
-﻿namespace CookingHub.Web.Filters
+﻿namespace CookingHub.Common.Attributes
 {
     using System;
 

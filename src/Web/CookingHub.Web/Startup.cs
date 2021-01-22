@@ -3,7 +3,7 @@
     using System.Reflection;
 
     using CloudinaryDotNet;
-
+    using CookingHub.Common.Attributes;
     using CookingHub.Data;
     using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
@@ -20,7 +20,9 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -60,6 +62,7 @@
                 options =>
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                        options.Filters.Add(new PasswordExpirationCheckAttribute(1));
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
