@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
 
+    using CookingHub.Common;
     using CookingHub.Common.Attributes;
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
@@ -31,6 +32,7 @@
             this.recipesService = recipesService;
         }
 
+        [SkipPasswordExpirationCheckAttribute]
         public async Task<IActionResult> Index()
         {
             var topRecipes = await this
@@ -56,6 +58,18 @@
         public IActionResult ThankYouSubscription(string email)
         {
             return this.View("SuccessfullySubscribed", email);
+        }
+
+        [SkipPasswordExpirationCheckAttribute]
+        [NoDirectAccessAttribute]
+        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return this.View(model);
+            }
+
+            return this.BadRequest();
         }
 
         public async Task<IActionResult> Privacy()

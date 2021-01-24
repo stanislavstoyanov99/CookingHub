@@ -4,12 +4,14 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http.Filters;
+
     using CookingHub.Data.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Controllers;
     using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
 
     [AttributeUsageAttribute(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class PasswordExpirationCheckAttribute : AuthorizationFilterAttribute, IAsyncAuthorizationFilter
@@ -23,34 +25,44 @@
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
-            var isDefined = false;
+            var isDefinedForControllerActions = false;
+            var isDefinedForPageActions = false;
 
-            if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
+            var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+            var pageActionDescriptor = context.ActionDescriptor as PageActionDescriptor;
+
+            if (controllerActionDescriptor != null)
             {
-                isDefined = controllerActionDescriptor
+                isDefinedForControllerActions = controllerActionDescriptor
                     .MethodInfo
                     .GetCustomAttributes(inherit: true)
                     .Any(a => a.GetType().Equals(typeof(SkipPasswordExpirationCheckAttribute)));
             }
 
-            if (!isDefined)
+            if (pageActionDescriptor != null)
             {
-                var user = context.HttpContext.User;
+                // TODO
+            }
 
-                if (user != null && user.Identity.IsAuthenticated)
-                {
-                    var userManager = (UserManager<CookingHubUser>)context.HttpContext.RequestServices
-                        .GetService(typeof(UserManager<CookingHubUser>));
-                    var currUser = await userManager.GetUserAsync(user);
-                    DateTime createdOn = currUser.CreatedOn;
-                    TimeSpan timeSpan = DateTime.Today - createdOn;
+            if (!isDefinedForControllerActions)
+            {
+                //var user = context.HttpContext.User;
 
-                    if (timeSpan.Days >= this.maxPasswordAgeInDay)
-                    {
-                        var infoMessage = $"Your account password expired and should be changed on every {this.maxPasswordAgeInDay} days";
-                        // context.Result = new RedirectToPageResult("/Account/Manage/ChangePassword", null, true, true, true);
-                    }
-                }
+                //if (user != null && user.Identity.IsAuthenticated)
+                //{
+                //    var userManager = (UserManager<CookingHubUser>)context.HttpContext.RequestServices
+                //        .GetService(typeof(UserManager<CookingHubUser>));
+                //    var currUser = await userManager.GetUserAsync(user);
+                //    var createdOn = currUser.CreatedOn;
+                //    var timeSpan = DateTime.Today - createdOn;
+
+                //    if (timeSpan.Days >= this.maxPasswordAgeInDay)
+                //    {
+                //        var infoMessage = $"Your account password expired and should be changed on every {this.maxPasswordAgeInDay} days";
+                //        context.Result = new RedirectToActionResult(
+                //            "ChangePassword", "Home", new ChangePasswordViewModel { Message = infoMessage });
+                //    }
+                //}
             }
         }
     }
