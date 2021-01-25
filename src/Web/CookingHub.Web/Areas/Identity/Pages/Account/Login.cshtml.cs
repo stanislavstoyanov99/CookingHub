@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using CookingHub.Common.Attributes;
     using CookingHub.Data.Models;
     using CookingHub.Web.Areas.Identity.Pages.Account.InputModels;
 
@@ -20,16 +19,11 @@
     public class LoginModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<CookingHubUser> userManager;
         private readonly SignInManager<CookingHubUser> signInManager;
         private readonly ILogger<LoginModel> logger;
 
-        public LoginModel(
-            SignInManager<CookingHubUser> signInManager,
-            ILogger<LoginModel> logger,
-            UserManager<CookingHubUser> userManager)
+        public LoginModel(SignInManager<CookingHubUser> signInManager, ILogger<LoginModel> logger)
         {
-            this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
         }
@@ -44,7 +38,6 @@
         [TempData]
         public string ErrorMessage { get; set; }
 
-        [SkipPasswordExpirationCheck]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(this.ErrorMessage))

@@ -1,8 +1,10 @@
 ﻿namespace CookingHub.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    using CookingHub.Common.Attributes;
+    using CookingHub.Data.Common.Repositories;
     using CookingHub.Data.Models;
     using CookingHub.Web.Areas.Identity.Pages.Account.Manage.InputModels;
 
@@ -16,15 +18,18 @@
         private readonly UserManager<CookingHubUser> userManager;
         private readonly SignInManager<CookingHubUser> signInManager;
         private readonly ILogger<ChangePasswordModel> logger;
+        private IDeletableEntityRepository<CookingHubUser> usersRepository;
 
         public ChangePasswordModel(
             UserManager<CookingHubUser> userManager,
             SignInManager<CookingHubUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            ILogger<ChangePasswordModel> logger,
+            IDeletableEntityRepository<CookingHubUser> usersRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
+            this.usersRepository = usersRepository;
         }
 
         [BindProperty]
@@ -33,7 +38,6 @@
         [TempData]
         public string StatusMessage { get; set; }
 
-        [SkipPasswordExpirationCheck]
         public async Task<IActionResult> OnGetAsync(string message)
         {
             if (message != null)
@@ -71,6 +75,7 @@
 
             var changePasswordResult = await this.userManager
                 .ChangePasswordAsync(user, this.Input.OldPassword, this.Input.NewPassword);
+
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
@@ -80,6 +85,11 @@
 
                 return this.Page();
             }
+
+            var dbUser = this.usersRepository.All().First(x => x.UserName == this.User.Identity.Name);
+            dbUser.ChangedPasswordOn = DateTime.UtcNow;
+            this.usersRepository.Update(dbUser);
+            await this.usersRepository.SaveChangesAsync();
 
             await this.signInManager.RefreshSignInAsync(user);
             this.logger.LogInformation("User changed their password successfully.");

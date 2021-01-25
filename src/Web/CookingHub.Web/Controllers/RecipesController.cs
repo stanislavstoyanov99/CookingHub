@@ -1,7 +1,7 @@
 ﻿namespace CookingHub.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using CookingHub.Common.Attributes;
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
     using CookingHub.Models.ViewModels;
@@ -34,6 +34,7 @@
             this.reviewsService = reviewsService;
         }
 
+        [ServiceFilter(typeof(PasswordExpirationCheckAttribute))]
         public async Task<IActionResult> Index(string categoryName, int? pageNumber)
         {
             this.TempData["CategoryName"] = categoryName;
@@ -60,6 +61,7 @@
             return this.View(model);
         }
 
+        [ServiceFilter(typeof(PasswordExpirationCheckAttribute))]
         public async Task<IActionResult> Details(int id)
         {
             var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);

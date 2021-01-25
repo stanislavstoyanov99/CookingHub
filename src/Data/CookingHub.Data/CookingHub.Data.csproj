@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210125135551_RemoveNullableChangedPasswordOn.cs" />
+    <Compile Remove="Migrations\20210125135551_RemoveNullableChangedPasswordOn.Designer.cs" />
+    <Compile Remove="Migrations\20210125140631_RemoveNullableChangedPasswordToUser.cs" />
+    <Compile Remove="Migrations\20210125140631_RemoveNullableChangedPasswordToUser.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 

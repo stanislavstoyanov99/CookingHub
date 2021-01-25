@@ -32,7 +32,6 @@
             this.recipesService = recipesService;
         }
 
-        [SkipPasswordExpirationCheckAttribute]
         public async Task<IActionResult> Index()
         {
             var topRecipes = await this
@@ -60,16 +59,10 @@
             return this.View("SuccessfullySubscribed", email);
         }
 
-        [SkipPasswordExpirationCheckAttribute]
         [NoDirectAccessAttribute]
-        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        public IActionResult RequestNewPassword(ChangePasswordViewModel model)
         {
-            if (this.User.Identity.IsAuthenticated)
-            {
-                return this.View(model);
-            }
-
-            return this.BadRequest();
+            return this.View(model);
         }
 
         public async Task<IActionResult> Privacy()

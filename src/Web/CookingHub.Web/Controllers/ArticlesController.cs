@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookingHub.Common.Attributes;
     using CookingHub.Models.ViewModels;
     using CookingHub.Models.ViewModels.Articles;
     using CookingHub.Models.ViewModels.Categories;
@@ -25,6 +26,7 @@
             this.categoriesService = categoriesService;
         }
 
+        [ServiceFilter(typeof(PasswordExpirationCheckAttribute))]
         public async Task<IActionResult> Index(int? pageNumber)
         {
             var allArticles = await Task.Run(() =>
@@ -33,6 +35,7 @@
             return this.View(await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize));
         }
 
+        [ServiceFilter(typeof(PasswordExpirationCheckAttribute))]
         public async Task<IActionResult> Details(int id)
         {
             var article = await this.articlesService
