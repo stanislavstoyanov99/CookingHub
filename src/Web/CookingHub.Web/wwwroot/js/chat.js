@@ -15,8 +15,6 @@ var connection =
         .build();
 let currentUserName = "";
 
-document.getElementById("sendButton").disabled = true;
-
 connection.on("receiveMessages", showMessages);
 
 connection.on("deleteMessage", showMessages);
