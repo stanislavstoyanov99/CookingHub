@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     [AllowAnonymous]
-    public class LockoutModel : PageModel
+    public class Lockout : PageModel
     {
         public void OnGet()
         {

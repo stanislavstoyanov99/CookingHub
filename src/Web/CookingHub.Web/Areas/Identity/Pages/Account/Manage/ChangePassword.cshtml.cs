@@ -13,17 +13,17 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
 
-    public class ChangePasswordModel : PageModel
+    public class ChangePassword : PageModel
     {
         private readonly UserManager<CookingHubUser> userManager;
         private readonly SignInManager<CookingHubUser> signInManager;
-        private readonly ILogger<ChangePasswordModel> logger;
+        private readonly ILogger<ChangePassword> logger;
         private IDeletableEntityRepository<CookingHubUser> usersRepository;
 
-        public ChangePasswordModel(
+        public ChangePassword(
             UserManager<CookingHubUser> userManager,
             SignInManager<CookingHubUser> signInManager,
-            ILogger<ChangePasswordModel> logger,
+            ILogger<ChangePassword> logger,
             IDeletableEntityRepository<CookingHubUser> usersRepository)
         {
             this.userManager = userManager;

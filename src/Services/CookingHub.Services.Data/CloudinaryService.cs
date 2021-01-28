@@ -39,7 +39,7 @@
 
             var result = await this.cloudinary.UploadAsync(uploadParams);
 
-            return result.Uri.AbsoluteUri;
+            return result.SecureUri.AbsoluteUri;
         }
 
         public async Task DeleteImage(Cloudinary cloudinary, string name)

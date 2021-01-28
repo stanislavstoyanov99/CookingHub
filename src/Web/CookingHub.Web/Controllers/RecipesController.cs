@@ -1,6 +1,7 @@
 ﻿namespace CookingHub.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using CookingHub.Common.Attributes;
     using CookingHub.Data.Models;
     using CookingHub.Models.InputModels.AdministratorInputModels.Recipes;
