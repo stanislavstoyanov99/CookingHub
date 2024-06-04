@@ -1,6 +1,6 @@
 ﻿namespace CookingHub.Models.ViewModels.Faq
 {
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
