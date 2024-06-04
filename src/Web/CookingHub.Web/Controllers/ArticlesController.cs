@@ -65,8 +65,8 @@
             }
 
             var articles = await Task.Run(() => this.articlesService
-            .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
-            .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower())));
+                .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
+                .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower())));
 
             if (articles.Count() == 0)
             {

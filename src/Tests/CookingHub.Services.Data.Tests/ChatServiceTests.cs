@@ -20,7 +20,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class ChatServiceTests : IAsyncDisposable
+    public class ChatServiceTests : IDisposable
     {
         private readonly IChatService chatService;
         private EfDeletableEntityRepository<Message> messagesRepository;
@@ -169,10 +169,21 @@
             Assert.Equal(string.Format(ExceptionMessages.MessageNotFound, 3), exception.Message);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.usersRepository.Dispose();
+                this.messagesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

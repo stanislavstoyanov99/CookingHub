@@ -1,20 +1,14 @@
 ﻿namespace CookingHub.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
 
     using CookingHub.Data;
     using CookingHub.Data.Models;
-    using CookingHub.Data.Models.Enumerations;
     using CookingHub.Data.Repositories;
     using CookingHub.Models.InputModels.AdministratorInputModels.Privacy;
     using CookingHub.Models.ViewModels.Privacy;
-    using CookingHub.Models.ViewModels.Recipes;
-    using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
     using CookingHub.Services.Mapping;
@@ -24,7 +18,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class PrivacyServiceTests : IAsyncDisposable
+    public class PrivacyServiceTests : IDisposable
     {
         private readonly IPrivacyService privacyService;
         private EfDeletableEntityRepository<Privacy> privaciesRepository;
@@ -211,10 +205,20 @@
             Assert.Equal(ExceptionMessages.PrivacyViewModelNotFound, exception.Message);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.privaciesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CookingHub.Models.ViewModels
+﻿namespace CookingHub.Models.ViewModels
 {
    public class StatisticsResponseModel
     {
@@ -23,6 +19,5 @@ namespace CookingHub.Models.ViewModels
         public string[] topfiverecipes { get; set; }
 
         public string[] topfivearticles { get; set; }
-
     }
 }

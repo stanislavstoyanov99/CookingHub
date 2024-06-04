@@ -24,7 +24,7 @@
 
     using Xunit;
 
-    public class RecipesServiceTests : IAsyncDisposable, IClassFixture<Configuration>
+    public class RecipesServiceTests : IDisposable, IClassFixture<Configuration>
     {
         private readonly IRecipesService recipesService;
         private readonly ICloudinaryService cloudinaryService;
@@ -443,6 +443,24 @@
             var model = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
 
             Assert.NotNull(model);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.usersRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.recipesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

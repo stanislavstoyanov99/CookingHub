@@ -52,7 +52,9 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(fe => fe.Id == id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(fe => fe.Id == id);
 
             if (faq == null)
             {
@@ -66,7 +68,9 @@
 
         public async Task EditAsync(FaqEditViewModel faqEditViewModel)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(fe => fe.Id == faqEditViewModel.Id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(fe => fe.Id == faqEditViewModel.Id);
 
             if (faq == null)
             {

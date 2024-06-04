@@ -30,7 +30,9 @@
                 PageContent = privacyCreateInputModel.PageContent,
             };
 
-            bool doesPrivacyExist = await this.privacyRepository.All().AnyAsync(x => x.PageContent == privacy.PageContent);
+            bool doesPrivacyExist = await this.privacyRepository
+                .All()
+                .AnyAsync(x => x.PageContent == privacy.PageContent);
             if (doesPrivacyExist)
             {
                 throw new ArgumentException(
@@ -47,7 +49,9 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var privacy = await this.privacyRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+            var privacy = await this.privacyRepository
+                .All()
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (privacy == null)
             {
@@ -61,7 +65,9 @@
 
         public async Task EditAsync(PrivacyEditViewModel privacyEditViewModel)
         {
-            var privacy = await this.privacyRepository.All().FirstOrDefaultAsync(p => p.Id == privacyEditViewModel.Id);
+            var privacy = await this.privacyRepository
+                .All()
+                .FirstOrDefaultAsync(p => p.Id == privacyEditViewModel.Id);
 
             if (privacy == null)
             {

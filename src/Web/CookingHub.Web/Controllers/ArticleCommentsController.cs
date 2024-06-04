@@ -62,7 +62,8 @@
 
             if (parentId.HasValue)
             {
-                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, viewModel.CreateArticleCommentInputModel.ArticleId))
+                if (!await this.articleCommentsService
+                    .IsInArticleId(parentId.Value, viewModel.CreateArticleCommentInputModel.ArticleId))
                 {
                     return this.BadRequest();
                 }
