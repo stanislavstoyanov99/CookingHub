@@ -22,6 +22,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -39,7 +40,13 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CookingHubDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+                options => options
+                    .UseSqlServer(
+                        this.configuration.GetConnectionString("DefaultConnection"),
+                        o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+                    .ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning)));
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<CookingHubUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<CookingHubDbContext>();
@@ -56,11 +63,17 @@
                 options.HeaderName = "X-CSRF-TOKEN";
             });
 
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
+
             services.AddControllersWithViews(
                 options =>
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
+
             services.AddRazorPages();
 
             services.AddScoped<PasswordExpirationCheckAttribute>();
@@ -122,12 +135,17 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+            }
+
+            if (!env.IsDevelopment())
+            {
+                app.UseResponseCompression();
             }
 
             app.UseHttpsRedirection();

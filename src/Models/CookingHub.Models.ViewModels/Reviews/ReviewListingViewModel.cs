@@ -3,7 +3,7 @@
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
 
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     public class ReviewListingViewModel : IMapFrom<Review>
     {

@@ -6,9 +6,8 @@
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;
     using CookingHub.Models.ViewModels.ArticleComments;
+    using Ganss.Xss;
 
-    using Ganss.XSS;
-    
     public class ArticleListingViewModel : IMapFrom<Article>
     {
         public int Id { get; set; }

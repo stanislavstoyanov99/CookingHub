@@ -18,7 +18,7 @@
     using Microsoft.EntityFrameworkCore;
     using Xunit;
 
-    public class ArticleCommentsServiceTests : IAsyncDisposable
+    public class ArticleCommentsServiceTests : IDisposable
     {
         private readonly IArticleCommentsService articleCommentsService;
         private EfDeletableEntityRepository<Article> articlesRepository;
@@ -130,10 +130,23 @@
             Assert.False(result);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.articlesRepository.Dispose();
+                this.usersRepository.Dispose();
+                this.articleCommentsRepository.Dispose();
+                this.categoriesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

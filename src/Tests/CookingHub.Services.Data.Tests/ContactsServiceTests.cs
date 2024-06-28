@@ -17,7 +17,7 @@
 
     using Xunit;
 
-    public class ContactsServiceTests : IAsyncDisposable, IClassFixture<Configuration>
+    public class ContactsServiceTests : IDisposable, IClassFixture<Configuration>
     {
         private readonly IEmailSender emailSender;
         private readonly IContactsService contactsService;
@@ -55,10 +55,20 @@
             Assert.Equal(1, count);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.userContactsRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

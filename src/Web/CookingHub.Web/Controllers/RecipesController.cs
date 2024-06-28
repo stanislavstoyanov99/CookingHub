@@ -149,7 +149,8 @@
         [HttpGet]
         public async Task<RecipeDetailsViewModel> GetRecipe(int id)
         {
-            var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
+            var recipe = await this.recipesService
+                .GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
             return recipe;
         }
     }

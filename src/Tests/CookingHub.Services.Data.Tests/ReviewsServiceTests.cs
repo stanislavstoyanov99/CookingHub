@@ -20,7 +20,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class ReviewsServiceTests : IAsyncDisposable
+    public class ReviewsServiceTests : IDisposable
     {
         private readonly IReviewsService reviewService;
 
@@ -181,6 +181,25 @@
             var expected = 1;
 
             Assert.Equal(expected, result.Count());
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.usersRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.reviewsRepository.Dispose();
+                this.recipesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

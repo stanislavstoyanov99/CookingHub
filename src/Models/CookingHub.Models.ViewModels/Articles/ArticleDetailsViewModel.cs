@@ -5,9 +5,8 @@
     using CookingHub.Services.Mapping;
     using CookingHub.Data.Models;
 
-    using Ganss.XSS;
-
     using static CookingHub.Models.Common.ModelValidation;
+    using Ganss.Xss;
 
     public class ArticleDetailsViewModel : IMapFrom<Article>
     {

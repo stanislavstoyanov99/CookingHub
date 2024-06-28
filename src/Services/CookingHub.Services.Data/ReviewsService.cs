@@ -58,21 +58,21 @@
                     .Where(o => o.RecipeId == createReviewInputModel.RecipeId)
                     .ToList();
                 var reviewsCount = reviews.Count;
-                var oldrecipeRate = 0;
+                var oldRecipeRate = 0;
 
                 foreach (var currReview in reviews)
                 {
-                    oldrecipeRate += currReview.Rate;
+                    oldRecipeRate += currReview.Rate;
                 }
 
-                var newrating = oldrecipeRate / reviewsCount;
+                var newRating = oldRecipeRate / reviewsCount;
 
-                var newrecipe = await this.recipesRepository
+                var newRecipe = await this.recipesRepository
                     .All()
                     .FirstOrDefaultAsync(x => x.Id == createReviewInputModel.RecipeId);
-                newrecipe.Rate = newrating;
+                newRecipe.Rate = newRating;
 
-                this.recipesRepository.Update(newrecipe);
+                this.recipesRepository.Update(newRecipe);
                 await this.reviewsRepository.SaveChangesAsync();
             }
         }

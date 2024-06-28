@@ -9,7 +9,7 @@
     using CookingHub.Models.ViewModels.Reviews;
     using CookingHub.Models.ViewModels.Categories;
 
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using static CookingHub.Models.Common.ModelValidation;
     using static CookingHub.Models.Common.ModelValidation.RecipeValidation;

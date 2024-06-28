@@ -4,7 +4,7 @@
 
     using CookingHub.Services.Mapping;
     using CookingHub.Data.Models;
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using static CookingHub.Models.Common.ModelValidation;
 

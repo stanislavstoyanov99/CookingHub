@@ -19,12 +19,11 @@
     using CookingHub.Services.Mapping;
 
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
     using Xunit;
 
-    public class ArticlesServiceTests : IAsyncDisposable, IClassFixture<Configuration>
+    public class ArticlesServiceTests : IDisposable, IClassFixture<Configuration>
     {
         private readonly IArticlesService articlesService;
         private readonly ICloudinaryService cloudinaryService;
@@ -52,12 +51,6 @@
             this.cloudinary = new Cloudinary(account);
             this.cloudinaryService = new CloudinaryService(this.cloudinary);
             this.articlesService = new ArticlesService(this.articleRepisitory, this.categoriesRepository, this.cloudinaryService);
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
         }
 
         [Fact]
@@ -273,7 +266,7 @@
         }
 
         [Fact]
-        public async void TestIfGetAllArticlesByFilterAsQueryeableWorks()
+        public async Task TestIfGetAllArticlesByFilterAsQueryeableWorks()
         {
             await this.SeedDatabase();
 
@@ -284,7 +277,7 @@
         }
 
         [Fact]
-        public async void TestIfGetAllArticlesAsQueryeableWorks()
+        public async Task TestIfGetAllArticlesAsQueryeableWorks()
         {
             await this.SeedDatabase();
 
@@ -337,6 +330,25 @@
 
             Assert.NotNull(exception);
             Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, 2), exception.Message);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.articleRepisitory.Dispose();
+                this.usersRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.usersRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

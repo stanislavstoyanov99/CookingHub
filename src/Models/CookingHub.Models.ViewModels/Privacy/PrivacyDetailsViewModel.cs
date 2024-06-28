@@ -1,7 +1,7 @@
 ﻿namespace CookingHub.Models.ViewModels.Privacy
 {
     using System.ComponentModel.DataAnnotations;
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using CookingHub.Data.Models;
     using CookingHub.Services.Mapping;

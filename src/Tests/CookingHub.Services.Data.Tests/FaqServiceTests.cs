@@ -20,7 +20,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class FaqServiceTests : IAsyncDisposable
+    public class FaqServiceTests : IDisposable
     {
         private readonly IFaqService faqService;
         private EfDeletableEntityRepository<FaqEntry> faqEntriesRepository;
@@ -207,10 +207,20 @@
             Assert.Equal(string.Format(ExceptionMessages.FaqNotFound, 3), exception.Message);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.faqEntriesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

@@ -20,7 +20,7 @@
     using Newtonsoft.Json;
     using Xunit;
 
-    public class CategoriesServiceTests : IAsyncDisposable
+    public class CategoriesServiceTests : IDisposable
     {
         private readonly ICategoriesService categoriesService;
         private EfDeletableEntityRepository<Category> categoriesRepository;
@@ -217,10 +217,20 @@
             Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, 3), exception.Message);
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await this.connection.CloseAsync();
-            await this.connection.DisposeAsync();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.categoriesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

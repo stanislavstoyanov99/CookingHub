@@ -7,7 +7,7 @@
     using CookingHub.Models.ViewModels.Chat;
     using CookingHub.Services.Data.Common;
     using CookingHub.Services.Data.Contracts;
-    using Ganss.XSS;
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
