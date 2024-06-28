@@ -82,9 +82,11 @@ Cooking Hub е потребителски уеб-базиран софтуер, 
 ![Code coverage](https://github.com/stanislavstoyanov99/CookingHub/blob/main/tests-code-coverage.png)
 
 ## :hammer: Used technologies
-* ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
+- ASP.NET [CORE 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) MVC
+    * Current main branch version
 * ASP.NET Core areas
-* Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+- Entity Framework [CORE 8](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-8.0/whatsnew "CORE 8")
+    * Current main branch version
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 * [SendGrid](https://github.com/sendgrid)
 * [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
